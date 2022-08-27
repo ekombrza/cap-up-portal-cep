@@ -1,0 +1,7 @@
+{
+  "name": "cap-up-portal-cep",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
