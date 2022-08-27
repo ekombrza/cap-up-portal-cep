@@ -18,6 +18,16 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "apexcharts",
+              "highlight.js",
+              "crypto-js/enc-utf8",
+              "crypto-js/hmac-sha256",
+              "crypto-js/enc-base64",
+              "flat",
+              "moment",
+              "quill"
+          ],
             "assets": [
               {
                 "glob": "**/*",

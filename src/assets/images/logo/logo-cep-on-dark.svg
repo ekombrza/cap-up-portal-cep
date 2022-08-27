@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 192 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(2,0,0,2,0,0)">
+        <g id="g3803" transform="matrix(0.0257881,0,0,-0.0257881,-10.7877,38.643)">
+            <path id="path3799" d="M945,1485C836,1447 795,1306 865,1214C896,1173 959,1141 1008,1140C1072,1140 1146,1184 1176,1242C1194,1277 1194,1363 1175,1399C1155,1438 1106,1477 1062,1490C1014,1503 994,1502 945,1485Z" style="fill:rgb(24,120,198);fill-rule:nonzero;"/>
+            <path id="path3801" d="M1227,1297C1214,1205 1167,1139 1067,1077C996,1032 935,1007 732,939C637,908 556,880 553,877C540,864 564,852 617,845C777,826 887,784 954,717C1032,638 1071,540 1091,368C1097,311 1107,261 1112,255C1135,231 1244,425 1304,597C1354,742 1372,838 1372,960C1371,1113 1338,1223 1266,1306L1233,1344L1227,1297Z" style="fill:rgb(24,120,198);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(0.899276,0,0,0.899276,2.40607,10.576)">
+            <text x="30.171px" y="16.319px" style="font-family:'ArialRoundedMTBold', 'Arial Rounded MT Bold', sans-serif;font-size:30px;fill:white;">CEP</text>
+        </g>
+        <g transform="matrix(0.855977,0,0,0.855977,6.05555,8.18351)">
+            <text x="82.925px" y="20.005px" style="font-family:'ArialRoundedMTBold', 'Arial Rounded MT Bold', sans-serif;font-size:10px;fill:white;">Evry</text>
+        </g>
+    </g>
+</svg>

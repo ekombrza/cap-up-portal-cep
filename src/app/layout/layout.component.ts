@@ -32,7 +32,7 @@ export class LayoutComponent implements OnInit, OnDestroy
         private _renderer2: Renderer2,
         private _router: Router,
         private _ConfigService: ConfigService,
-        private _MediaWatcherService: MediaWatcherService,
+        private _mediaWatcherService: MediaWatcherService,
         private _PlatformService: PlatformService
     )
     {
@@ -50,7 +50,7 @@ export class LayoutComponent implements OnInit, OnDestroy
         // Set the theme and scheme based on the configuration
         combineLatest([
             this._ConfigService.config$,
-            this._MediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)'])
+            this._mediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)'])
         ]).pipe(
             takeUntil(this._unsubscribeAll),
             map(([config, mql]) => {

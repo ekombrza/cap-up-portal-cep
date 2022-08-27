@@ -7,7 +7,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import {take} from 'rxjs';
-import {AvailableLangs, TranslocoService} from '@ngneat/transloco';
+//import {AvailableLangs, TranslocoService} from '@ngneat/transloco';
 import {NavigationService, VerticalNavigationComponent} from 'src/@ekbz/components/navigation';
 
 @Component({
@@ -18,7 +18,7 @@ import {NavigationService, VerticalNavigationComponent} from 'src/@ekbz/componen
     exportAs: 'languages'
 })
 export class LanguagesComponent implements OnInit, OnDestroy {
-    availableLangs: AvailableLangs;
+//    availableLangs: AvailableLangs;
     activeLang: string;
     flagCodes: any;
 
@@ -28,7 +28,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _navigationService: NavigationService,
-        private _translocoService: TranslocoService
+  //      private _translocoService: TranslocoService
     ) {
     }
 
@@ -41,17 +41,17 @@ export class LanguagesComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         // Get the available languages from transloco
-        this.availableLangs = this._translocoService.getAvailableLangs();
+//        this.availableLangs = this._translocoService.getAvailableLangs();
 
         // Subscribe to language changes
-        this._translocoService.langChanges$.subscribe((activeLang) => {
+ //       this._translocoService.langChanges$.subscribe((activeLang) => {
 
             // Get the active lang
-            this.activeLang = activeLang;
+ //           this.activeLang = activeLang;
 
             // Update the navigation
-            this._updateNavigation(activeLang);
-        });
+ //           this._updateNavigation(activeLang);
+ //       });
 
         // Set the country iso codes for languages for flags
         this.flagCodes = {
@@ -59,6 +59,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
             'en': 'us',
             'tr': 'tr'
         };
+        this.activeLang  = "fr"
     }
 
     /**
@@ -78,7 +79,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
      */
     setActiveLang(lang: string): void {
         // Set the active lang
-        this._translocoService.setActiveLang(lang);
+     //   this._translocoService.setActiveLang(lang);
     }
 
     /**
@@ -123,29 +124,29 @@ export class LanguagesComponent implements OnInit, OnDestroy {
         // Get the Project dashboard item and update its title
         const projectDashboardItem = this._navigationService.getItem('dashboards.project', navigation);
         if (projectDashboardItem) {
-            this._translocoService.selectTranslate('Project').pipe(take(1))
-                .subscribe((translation) => {
+      //      this._translocoService.selectTranslate('Project').pipe(take(1))
+      //          .subscribe((translation) => {
 
                     // Set the title
-                    projectDashboardItem.title = translation;
-
+    //                projectDashboardItem.title = translation;
+//
                     // Refresh the navigation component
                     navComponent.refresh();
-                });
+  //              });
         }
 
         // Get the Analytics dashboard item and update its title
         const analyticsDashboardItem = this._navigationService.getItem('dashboards.analytics', navigation);
         if (analyticsDashboardItem) {
-            this._translocoService.selectTranslate('Analytics').pipe(take(1))
-                .subscribe((translation) => {
+          //  this._translocoService.selectTranslate('Analytics').pipe(take(1))
+           //     .subscribe((translation) => {
 
                     // Set the title
-                    analyticsDashboardItem.title = translation;
+           //         analyticsDashboardItem.title = translation;
 
                     // Refresh the navigation component
-                    navComponent.refresh();
-                });
+          //          navComponent.refresh();
+           //    });
         }
     }
 }

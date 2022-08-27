@@ -11,7 +11,7 @@ export class MediaWatcherModule
     /**
      * Constructor
      */
-    constructor(private _MediaWatcherService: MediaWatcherService)
+    constructor(private _mediaWatcherService: MediaWatcherService)
     {
     }
 }

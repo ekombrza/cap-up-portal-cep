@@ -62,6 +62,7 @@ export class SettingsComponent implements OnInit, OnDestroy
 
                 // Store the config
                 this.config = config;
+                console.log('this.config', this.config )
             });
     }
 
