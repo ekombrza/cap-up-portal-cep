@@ -27,7 +27,8 @@
     "@ionic/angular": "^6.1.9",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.0",
@@ -48,9 +49,13 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "@types/chroma-js": "2.1.4",
+    "@types/lodash": "4.14.184",
+    "@types/lodash-es": "4.17.6",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
     "autoprefixer": "^10.4.7",
+    "chroma-js": "2.4.2",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -64,6 +69,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "ngx-tailwind": "^4.0.0",
+    "lodash": "4.17.21",
     "postcss": "^8.4.14",
     "protractor": "~7.0.0",
     "tailwindcss": "^3.1.6",
