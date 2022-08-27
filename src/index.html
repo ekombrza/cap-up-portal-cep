@@ -3,7 +3,14 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>Portail de l'église CEP-Evry</title>
+  <meta
+        content="Application gérant les différentes applications de l'église du CEP"
+        name="description">
+    <meta
+        content="CEP,Evry,Courcouronnes,Eglise,Evangélique,Jésus,Dieu"
+        name="keywords">
+
 
   <base href="/" />
 
@@ -14,12 +21,45 @@
 
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
 
+  <!-- Fonts -->
+  <link
+  href="assets/fonts/inter/inter.css"
+  rel="stylesheet">
+
+  <link
+    href="https://fonts.gstatic.com"
+    rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Icon fonts -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+
+  <!-- Splash screen styles -->
+  <link
+    href="assets/styles/splash-screen.css"
+    rel="stylesheet">
+
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 </head>
 
 <body>
+  <!-- Splash screen -->
+<splash-screen>
+  <img
+      alt="logo"
+      src="assets/images/logo/CEP-LOGO-BLANC.png">
+  <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+  </div>
+</fuse-splash-screen>
   <app-root></app-root>
 </body>
 
