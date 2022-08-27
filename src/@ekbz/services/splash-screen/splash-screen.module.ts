@@ -11,7 +11,7 @@ export class SplashScreenModule
     /**
      * Constructor
      */
-    constructor(private _fuseSplashScreenService: SplashScreenService)
+    constructor(private _splashScreenService: SplashScreenService)
     {
     }
 }

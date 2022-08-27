@@ -35,7 +35,7 @@ export class EkbzModule
     {
         if ( parentModule )
         {
-            throw new Error('FuseModule has already been loaded. Import this module in the AppModule only!');
+            throw new Error('EkbzModule has already been loaded. Import this module in the AppModule only!');
         }
     }
 }

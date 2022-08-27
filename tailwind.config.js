@@ -158,61 +158,61 @@ const config = {
           typography: ({theme}) => ({
               DEFAULT: {
                   css: {
-                      color              : 'var(--fuse-text-default)',
+                      color              : 'var(--ekbz-text-default)',
                       '[class~="lead"]'  : {
-                          color: 'var(--fuse-text-secondary)'
+                          color: 'var(--ekbz-text-secondary)'
                       },
                       a                  : {
-                          color: 'var(--fuse-primary-500)'
+                          color: 'var(--ekbz-primary-500)'
                       },
                       strong             : {
-                          color: 'var(--fuse-text-default)'
+                          color: 'var(--ekbz-text-default)'
                       },
                       'ol > li::before'  : {
-                          color: 'var(--fuse-text-secondary)'
+                          color: 'var(--ekbz-text-secondary)'
                       },
                       'ul > li::before'  : {
-                          backgroundColor: 'var(--fuse-text-hint)'
+                          backgroundColor: 'var(--ekbz-text-hint)'
                       },
                       hr                 : {
-                          borderColor: 'var(--fuse-border)'
+                          borderColor: 'var(--ekbz-border)'
                       },
                       blockquote         : {
-                          color          : 'var(--fuse-text-default)',
-                          borderLeftColor: 'var(--fuse-border)'
+                          color          : 'var(--ekbz-text-default)',
+                          borderLeftColor: 'var(--ekbz-border)'
                       },
                       h1                 : {
-                          color: 'var(--fuse-text-default)'
+                          color: 'var(--ekbz-text-default)'
                       },
                       h2                 : {
-                          color: 'var(--fuse-text-default)'
+                          color: 'var(--ekbz-text-default)'
                       },
                       h3                 : {
-                          color: 'var(--fuse-text-default)'
+                          color: 'var(--ekbz-text-default)'
                       },
                       h4                 : {
-                          color: 'var(--fuse-text-default)'
+                          color: 'var(--ekbz-text-default)'
                       },
                       'figure figcaption': {
-                          color: 'var(--fuse-text-secondary)'
+                          color: 'var(--ekbz-text-secondary)'
                       },
                       code               : {
-                          color     : 'var(--fuse-text-default)',
+                          color     : 'var(--ekbz-text-default)',
                           fontWeight: '500'
                       },
                       'a code'           : {
-                          color: 'var(--fuse-primary)'
+                          color: 'var(--ekbz-primary)'
                       },
                       pre                : {
                           color          : theme('colors.white'),
                           backgroundColor: theme('colors.gray.800')
                       },
                       thead              : {
-                          color            : 'var(--fuse-text-default)',
-                          borderBottomColor: 'var(--fuse-border)'
+                          color            : 'var(--ekbz-text-default)',
+                          borderBottomColor: 'var(--ekbz-border)'
                       },
                       'tbody tr'         : {
-                          borderBottomColor: 'var(--fuse-border)'
+                          borderBottomColor: 'var(--ekbz-border)'
                       },
                       'ol[type="A" s]'   : false,
                       'ol[type="a" s]'   : false,
@@ -247,7 +247,7 @@ const config = {
   },
   plugins    : [
 
-      // Fuse - Tailwind plugins
+      // ekbz - Tailwind plugins
       require(path.resolve(__dirname, ('src/@ekbz/tailwind/plugins/utilities'))),
       require(path.resolve(__dirname, ('src/@ekbz/tailwind/plugins/icon-size'))),
       require(path.resolve(__dirname, ('src/@ekbz/tailwind/plugins/theming')))({themes}),
