@@ -2,12 +2,10 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SplashScreenModule } from 'src/@ekbz/services/splash-screen/splash-screen.module';
-import { FuseUtilsModule } from 'src/@ekbz/services/utils/utils.module';
 
 @NgModule({
     imports  : [
         SplashScreenModule,
-        FuseUtilsModule
     ],
     providers: [
         {
