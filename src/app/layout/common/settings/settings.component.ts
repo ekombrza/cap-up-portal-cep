@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ConfigService } from 'src/@ekbz/services/config';
-import { AppConfig, Scheme, Theme, Themes } from 'src/app/core/config/app.config';
+import { AppConfig, Scheme, Theme, Themes } from 'src/app/models-services/config/app.config';
 import { Layout } from 'src/app/layout/layout.types';
 
 @Component({
@@ -62,7 +62,6 @@ export class SettingsComponent implements OnInit, OnDestroy
 
                 // Store the config
                 this.config = config;
-                console.log('this.config', this.config )
             });
     }
 

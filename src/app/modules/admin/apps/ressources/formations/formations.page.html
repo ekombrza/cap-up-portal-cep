@@ -1,0 +1,47 @@
+<ion-content>
+  <div class="header">Les Formations</div>
+  <div class="content" [ngClass]="i%2==0?'pair':'impair'" *ngFor="let categorie of categories; let i=index">
+    <div class="content-wrapper">
+      <div class="categorie-title">
+        <ion-text><h3>{{categorie?.name}} <ion-badge color="primary">{{categorie?.resources?.length}}</ion-badge></h3></ion-text>
+        <a class="browse-all" [routerLink]="['/apps/ressources/resources']" [queryParams]="{ searchCategorie: categorie?.name}">Voir tout</a>
+      </div>
+      <div class="resource-content-wrapper">
+        <div class="left-resource">
+          <div class="card">
+            <a [routerLink]="['/apps/ressources/formations', categorie?.resources[0].id, 'view']"><img class="card-img-top" src="{{categorie?.resources[0].imageLink}}"></a>
+            
+            <div class="card-body">
+              <a [routerLink]="['/apps/ressources/formations', categorie?.resources[0].id, 'view']">
+                <div class="card-type">
+                  {{categorie?.resources[0].typeResourceEnum}}
+                <span class="subtitle-divider text-secondary">//</span>
+                {{categorie?.resources[0].sectionResources?.length}} SECTIONS
+                </div>
+                <div class="card-title">{{categorie?.resources[0].title}}</div>
+                <div class="card-description">{{categorie?.resources[0].description}}</div>
+              </a>
+            </div>
+          
+          </div>
+        </div>
+        <div class="right-resources">
+          <ng-container *ngFor="let resource of categorie?.resources; let i=index">
+            <div class="right-resource" *ngIf="i !==0">
+              <div class="card">
+                <a [routerLink]="['/apps/ressources/formations',resource.id, 'view']"><img class="card-img-top" src="{{resource.imageLink}}">
+                </a><div class="card-body">
+                <a [routerLink]="['/apps/ressources/formations', resource.id, 'view']">
+                <div class="card-title">{{resource.title}}</div>
+                <div class="card-description">{{resource.description}}</div>
+                </a>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

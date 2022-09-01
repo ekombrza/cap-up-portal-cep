@@ -26,7 +26,7 @@ import { authSignInRoutes } from 'src/app/modules/auth/sign-in/sign-in.routing';
         MatProgressSpinnerModule,
         CardModule,
         AlertModule,
-        SharedModule
+        SharedModule,
     ]
 })
 export class AuthSignInModule

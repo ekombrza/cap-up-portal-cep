@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { animations } from 'src/@ekbz/animations';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { UserService } from 'src/app/core/user/user.service';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
+import { UserService } from 'src/app/models-services/user/user.service';
 import { AlertType } from 'src/@ekbz/components/alert';
 
 @Component({
@@ -49,7 +49,7 @@ export class AuthUnlockSessionComponent implements OnInit
     {
         // Get the user's name
         this._userService.user$.subscribe((user) => {
-            this.name = user.name;
+            this.name = user.firstName + ' ' + user.lastName;
             this._email = user.email;
         });
 

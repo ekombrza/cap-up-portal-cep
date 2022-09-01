@@ -1,0 +1,87 @@
+<ion-content>
+
+  <div class="header container-fluid">
+
+    <div class="container">
+      <div class="name-wrapper">
+        <h1 class="title"><a><ion-icon class='nav-back-button' (click)="previousState()" slot="icon-only" name="chevron-back-outline"></ion-icon></a>Création d'une section</h1>
+      </div>
+    </div>
+  </div>
+
+<div id="formContent">
+  <div class="row-card">
+    <mat-card class="card">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class="underline">
+          <h3>Création d'une nouvelle section</h3>
+        </div>
+        <div padding>
+
+          <mat-form-field class="full-width" appearance="outline" [hidden]="editForm.get('id')!.value == null">
+            <mat-label>ID</mat-label>
+            <input id="id" name="field_id" type="number" matInput formControlName="id" [readonly]="true" >
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_title">Titre</mat-label>
+            <input id="field_title" name="title" type="text" matInput formControlName="title"
+              placeholder="Ex. Ma formation 1">
+            <mat-error *ngIf="editForm.controls.title.touched && editForm.controls.title.invalid">
+              <span *ngIf="editForm.controls.title.errors.required">Le titre est <strong>requis</strong>.</span>
+              <span *ngIf="editForm.controls.title.errors.maxlength">Le titre ne doit pas être <strong>plus grand
+                  que 200 caractères</strong>.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <quill-editor [styles]="{height: '250px'}" name="contentSection"
+          id="field_contentSection"
+          placeholder="Description...." 
+          formControlName="contentSection"></quill-editor>
+
+          <!--<mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_contentSection">Description de la section *</mat-label>
+           
+             <textarea matInput 
+              rows="10"
+              name="contentSection"
+              id="field_contentSection"
+              placeholder="Description...." 
+              formControlName="contentSection">
+            </textarea> 
+            <mat-error *ngIf="editForm.controls.contentSection.touched && editForm.controls.contentSection.invalid">
+              <span *ngIf="editForm.controls.contentSection.errors.required">La desxcription est <strong>requis</strong>.</span>
+            </mat-error>
+          </mat-form-field>-->
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_orderSection">Order Section</mat-label>
+            <input id="field_orderSection" name="orderSection" type="number" matInput formControlName="orderSection"
+              placeholder="Ex.1">
+            <mat-error *ngIf="editForm.controls.orderSection.touched && editForm.controls.orderSection.invalid">
+              <span *ngIf="editForm.controls.orderSection.errors.required">L'ordre est <strong>requis</strong>.</span>
+              <span [hidden]="!editForm.get('orderSection')?.errors?.number">Ce champ doit être un nombre</span>
+            </mat-error>
+          </mat-form-field>
+        
+        </div>
+
+        <div>
+          <button mat-raised-button color="warn" type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+            <ion-icon name="ban-outline"></ion-icon>&nbsp;<span>Cancel</span>
+          </button>
+
+          <button mat-raised-button color="primary"
+            type="submit"
+            id="save-entity"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+          <ion-icon name="save-outline"></ion-icon>&nbsp;<span>Enregistrer</span>
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>
+</ion-content>

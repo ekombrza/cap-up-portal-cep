@@ -3,7 +3,8 @@ import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angul
 import { ActivatedRoute, Router } from '@angular/router';
 import { animations } from 'src/@ekbz/animations';
 import { AlertType } from 'src/@ekbz/components/alert';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
+
 
 @Component({
     selector     : 'auth-sign-in',
@@ -45,8 +46,8 @@ export class AuthSignInComponent implements OnInit
     {
         // Create the form
         this.signInForm = this._formBuilder.group({
-            email     : ['jean.dupont@company.com', [Validators.required, Validators.email]],
-            password  : ['admin', Validators.required],
+            username     : ['ekombrza@gmail.com', [Validators.required, Validators.email]],
+            password  : ['qlstb2210&', Validators.required],
             rememberMe: ['']
         });
     }

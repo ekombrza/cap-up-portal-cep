@@ -1,0 +1,65 @@
+@media(min-width: 768px) {
+    .mobile-header {
+      display: none;
+    }
+   
+    .header {
+      display: flex;
+      background: #fff;
+      padding-left: 10px;
+      padding-right: 40px;
+    }
+  }
+   
+  @media(max-width: 768px) {
+    .mobile-header {
+      display: block;
+    }
+   
+    .header {
+      display: none;
+    }
+  }
+   
+  .active-item {
+    border-bottom: 2px solid var(--ion-color-primary);
+  }
+   
+  .dropdown {
+      width: 200px;
+      height: 150px;
+      background: #fff;
+      position: absolute;
+      top: 50px;
+      left: 200px;
+      z-index: 1;
+      ion-item:hover {
+          --ion-item-color: var(--ion-color-primary);
+      }
+      border: 1px solid rgba(29,37,44,0.15);
+      border-radius: 0.25rem;
+  }
+
+  .dropdownAccount {
+    left: 0px;
+    right:0px;
+  }
+
+  .ion-align-items-center {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .titre-logo {
+    padding-left:10px;
+    font-weight: 900;
+    font-family: sans-serif;
+    color:grey;
+  }
+
+  .logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }

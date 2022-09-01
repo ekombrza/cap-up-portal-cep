@@ -1,0 +1,162 @@
+<ion-content>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="isAdministrateur()">
+        <ion-fab-button (click)="goToAddResource()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <div class="header">Les Ressources</div>
+    <div class="content-wrapper">
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="search-wrapper">
+                <mat-form-field class="full-width">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input type="search" matInput placeholder="Rechercher" appearance="fill">
+                </mat-form-field>
+            </div>
+            <div class="result-wrapper">
+                <div class="flex-item-filters">
+                    <div class="filter">
+                        Filtres
+                        <div *ngFor="let filtersObj of filtersCheckboxes; let i=index">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkboxFilterId{{i}}" formArrayName="selectedFiltersCheckBoxes" [checked]="filtersObj.checked" [value]="filtersObj" (change)="onCheckboxChange( $event, filtersObj, 'selectedFiltersCheckBoxes')">
+                                <label for="checkboxFilterId{{i}}">{{filtersObj.categorie.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter">
+                        Type de contenu
+                        <div *ngFor="let contentTypeObj of contentTypesCheckboxes; let i=index">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkboxContentTypeId{{i}}" formArrayName="selectedContentTypesCheckBoxes" [checked]="contentTypeObj.checked" [value]="contentTypeObj" (change)="onCheckboxChange( $event, contentTypeObj, 'selectedContentTypesCheckBoxes')">
+                                <label for="checkboxContentTypeId{{i}}">{{contentTypeObj.categorie.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter">
+                        Categories
+                        <div *ngFor="let categorieObj of categoriesCheckboxes; let i=index">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkboxCategoriesId{{i}}" formArrayName="selectedCategoriesCheckBoxes" [checked]="categorieObj.checked" [value]="categorieObj" (change)="onCheckboxChange( $event, categorieObj, 'selectedCategoriesCheckBoxes')">
+                                <label for="checkboxCategoriesId{{i}}">{{categorieObj.categorie.name}}</label>
+                            </div>
+                        </div>
+                      <!--  <p>{{ form.value | json }}</p> -->
+                    </div>
+                </div>
+                <div class="flex-item-articles">
+                    <div class="infos-search">
+                        <div class="left-infos-search">
+                            <div class="infos-search-title">{{nbResultResource}} ressources trouvées</div>
+                            <div>
+                                <ion-chip outline *ngFor="let selected of selectedFilter; let i=index">
+                                    <ion-label>{{selected}}</ion-label>
+                                    <ion-icon (click)="deleteFilterIonChip(selected, true)" name="close-circle"></ion-icon>
+                                </ion-chip>
+                                <span *ngIf="selectedFilter  && selectedFilter.length" class="btn-effacer" (click)="onEffacerButtonClick()">effacer</span>
+                            </div>
+                        </div>
+                        <div class="right-infos-search">
+                            <div class="infos-search-title">Trié par</div>
+                            <div class="right-infos-search-input">
+                                <select name="order" id="order" formControlName="orderFilter" class="form-control select optional" dir="rtl" (change)="onChangeOrderSelect($event)">
+                                    <option value="newest">Nouveaux</option>
+                                    <option value="popular">Populaire</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <mat-paginator [ngClass]="nbResultResource == 0?'displayNone':''" [length]="nbResultResource" [pageIndex]="0" [pageSize]="itemsPerPage" (page)="onChangePage($event)" aria-label="Select page of Church Responsables search results"></mat-paginator>
+                    <div class="listItems">
+                        <ng-container *ngFor="let resource of resources; let i=index">
+                            <ion-item class="itemAdministration" *ngIf="isAdministrateur()">
+                                <ion-icon slot="start" *ngIf="!resource.publish" name="eye-off-outline"></ion-icon>
+                                <ion-button slot="end" [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'view','edit'] : ['/apps/ressources/formations', resource.id, 'view','edit']">
+                                    <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button icon-only slot="end">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-button>
+                            </ion-item>
+                            <div class="listItem" *ngIf="isAdministrateur() || resource.publish">
+                                <div class="listItem-column-left">
+                                    <a [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'view'] : ['/apps/ressources/formations', resource.id, 'view']"><img src="{{resource?.imageLink}}"></a>
+                                </div>
+                                <div class="listItem-column-right">
+                                    <div class="infosItems">
+                                    <a [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'view']: ['/apps/ressources/formations', resource.id, 'view']">
+                                            <div class="list-type">
+                                            {{resource?.typeResourceEnum}}
+                                            </div>
+                                            <div class="list-title">{{resource?.title}}</div>
+                                            <div class="list-description">{{resource?.description}}</div>
+                                        </a>
+                                    </div>
+                                    <div class="iconItem">
+                                        <ion-buttons>
+                                            <ion-button size="large" id="popover-button-{{i}}">
+                                                <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+                                            </ion-button>
+                                            <ion-button size="large" (click)="addRessourceToBookmark(resource)">
+                                                <ion-icon slot="icon-only"[ngClass]="isIncludedBookmark(resource) ? 'blue' : 'black'" name="bookmarks-outline"></ion-icon>
+                                            </ion-button>
+                                        </ion-buttons>
+                                        
+                                        
+                                        <ion-popover size="auto" side="top" trigger="popover-button-{{i}}" [dismissOnSelect]="true" (willPresent)="loadUsersShared()">
+                                            <ng-template>
+                                                <ion-content>
+                                                    <ion-list-header lines="inset">
+                                                      <ion-label>Partager avec...</ion-label>
+                                                    </ion-list-header>
+                                                    <ng-container *ngIf="!isLoadedMembreForShared">
+                                                      <ion-list>
+                                                        <ion-item>
+                                                          <ion-avatar slot="start">
+                                                            <ion-skeleton-text animated></ion-skeleton-text>
+                                                          </ion-avatar>
+                                                          <ion-label>
+                                                            <h3>
+                                                              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                                            </h3>
+                                                            <p>
+                                                              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                                            </p>
+                                                            <p>
+                                                              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                                                            </p>
+                                                          </ion-label>
+                                                        </ion-item>
+                                                      </ion-list>
+                                                    </ng-container>
+                                                    <ion-list *ngIf="isLoadedMembreForShared" class="popoverList">
+                                                      <ion-item button="true" detail="false" (click)="shareRessource(resource, membre)" *ngFor="let membre of allMembresChurch">
+                                                        <ion-avatar slot="start">
+                                                          <img src="{{membre.internalUser.imageUrl}}" />
+                                                        </ion-avatar>
+                                                        <ion-label>{{membre.internalUser.firstName }} {{membre.internalUser.lastName }}</ion-label>
+                                                      </ion-item>
+                                                    </ion-list>
+                                                    <ion-list-header lines="inset">
+                                                      <ion-button href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
+                                                      {{resource.title}} %0D {{getHref(resource.id)}}" target="_blank"><ion-icon slot="icon-only" name="mail-open-outline"></ion-icon></ion-button>
+                                                      <a class="linkSharedMail" href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
+                                                      {{resource.title}} %0D {{getHref(resource.id)}}" target="_blank"><ion-label>Partager par mail</ion-label></a>
+                                                    </ion-list-header>
+                                              </ion-content>
+                                            </ng-template>
+                                            </ion-popover>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <mat-paginator [ngClass]="nbResultResource == 0?'displayNone':''" [length]="nbResultResource" [pageIndex]="0" [pageSize]="itemsPerPage" (page)="onChangePage($event)" aria-label="Select page of Church Responsables search results"></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  </ion-content>

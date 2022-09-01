@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angul
 import { finalize } from 'rxjs';
 import { animations } from 'src/@ekbz/animations';
 import { AlertType } from 'src/@ekbz/components/alert';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
 
 @Component({
     selector     : 'auth-forgot-password',

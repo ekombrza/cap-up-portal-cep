@@ -3,25 +3,32 @@ import { NavigationItem } from 'src/@ekbz/components/navigation';
 
 export const defaultNavigation: NavigationItem[] = [
     {
-        id      : 'apps',
-        title   : 'Applications',
-        subtitle: 'Les applications du CEP Evry',
+        id      : 'ressources',
+        title   : 'Ressources',
+        subtitle: 'Les ressources du CEP Evry',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [
             {
-                id   : 'apps.ressources',
+                id   : 'ressources.ressources',
                 title: 'Les Ressources',
                 type : 'basic',
-                icon : 'heroicons_outline:academic-cap',
+                icon : 'heroicons_solid:archive',
                 link : '/apps/ressources'
             },
             {
-                id   : 'apps.contacts',
-                title: 'Gestion des membres',
+                id   : 'ressources.formations',
+                title: 'Les Formations',
                 type : 'basic',
-                icon : 'heroicons_outline:user-group',
-                link : '/apps/contacts'
+                icon : 'heroicons_outline:academic-cap',
+                link : '/apps/formations'
+            },
+            {
+                id   : 'ressources.dashboard',
+                title: 'Tableau de bord',
+                type : 'basic',
+                icon : 'heroicons_solid:identification',
+                link : '/apps/dashboard'
             },
        ]
     },

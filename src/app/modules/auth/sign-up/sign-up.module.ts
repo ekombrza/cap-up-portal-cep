@@ -10,7 +10,10 @@ import { CardModule } from 'src/@ekbz/components/card';
 import { AlertModule } from 'src/@ekbz/components/alert';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthSignUpComponent } from 'src/app/modules/auth/sign-up/sign-up.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
 import { authSignupRoutes } from 'src/app/modules/auth/sign-up/sign-up.routing';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -23,6 +26,9 @@ import { authSignupRoutes } from 'src/app/modules/auth/sign-up/sign-up.routing';
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatStepperModule,
         MatProgressSpinnerModule,
         CardModule,
         AlertModule,

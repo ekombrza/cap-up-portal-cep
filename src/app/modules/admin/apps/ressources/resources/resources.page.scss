@@ -1,0 +1,242 @@
+.header {
+    background-image: url('../../../../../../assets/images/freelancer-763730_1280.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8vw;
+    font-weight: lighter;
+    font-family: system-ui;
+    color: cornflowerblue;
+  }
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    .search-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .full-width {
+            width: 90%;
+            text-align: center;
+        }
+    }
+
+    .result-wrapper {
+        display: flex;
+        flex-direction: row;
+        .flex-item-filters {
+            flex-grow:1;
+            padding-left: 10px;
+            min-width: 250px;
+            .filter {
+                background: #e7e7e7;
+                padding: 15px;
+                min-height: 100px;
+                margin-bottom: 15px;
+
+                .checkbox {
+                    font-size: 0.8em;
+                    margin-top: 10px;
+                    display: -webkit-box;
+                    display: flex;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-direction: normal;
+                    flex-direction: row;
+                    -webkit-box-align: center;
+                    align-items: center;
+
+                    input {
+                        position: relative;
+                        top: 2px;
+                        margin-right: 5px;
+                    }
+                    input[type='checkbox'] {
+                        -webkit-appearance: none;
+                        background-color: #ffffff;
+                        border: 1px solid #1D252C !important;
+                        padding: 9px;
+                        border-radius: 2px;
+                        display: inline-block;
+                        position: relative;
+                        cursor: pointer;
+                    }
+                    input[type='checkbox']:checked {
+                        background-color: #1D252C;
+                        color: #ffffff;
+                        border: 1px solid #1D252C !important;
+                    }
+                    input[type='checkbox']:checked:after {
+                        content: 'X';
+                        
+                        font-weight: 900;
+                        font-size: 12px;
+                        position: absolute;
+                        top: 2px;
+                        left: 5px;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+        .flex-item-articles {
+            flex-grow:4;
+            display: flex;
+            flex-direction: column;
+            padding-right: 15px;
+            padding-left: 15px;
+            .infos-search {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 1rem;
+                .infos-search-title {
+                    margin-bottom: 1rem;
+                }
+                .left-infos-search {
+                    display: flex;
+                    flex-direction: column;
+
+                    .btn-effacer {
+                        font-size: 0.8em;
+                        padding: 5px;
+                        cursor: pointer;
+                    }
+                }
+                .right-infos-search {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: right;
+                    .right-infos-search-input {
+                        select {
+                            padding: 3px;
+                            background-color: transparent;
+                        }
+                    }
+                }
+            }
+            .listItems {
+                display: flex;
+                flex-direction: column;
+                .listItem {
+                    display: flex;
+                    flex-direction: row;
+                    padding: 25px;
+                    background: #f1f1f1;
+                    margin-bottom: 15px;
+                    
+                    .listItem-column-left {
+                        //flex-grow:1;
+                        width: 30%;
+                        display: flex;
+                        align-items: center;
+                        padding-right: 15px;
+                    }
+                    .listItem-column-right {
+                        //flex-grow:4;
+                        width: 70%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        padding-left: 15px;
+                        .infosItems {
+                            line-height: 24px;
+                            a {
+                                color: #1D252C;
+                                text-decoration: none;
+                            }
+                            .list-type {
+                                color: #1D252C;
+                                font-size: 0.7em;
+                                text-transform: uppercase;
+                            }
+                            .list-title {
+                                color: #1D252C;
+                                font-size: 1.2em;
+                                margin: 3px 0;
+                            }
+                            .list-description {
+                                color: #1D252C;
+                                font-size: 0.8em;
+                            }
+                        }
+                        .iconItem {
+                            margin-top: 10px;
+                            ion-icon {
+                                font-size: 1.5em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+      
+  }
+
+  .itemAdministration {
+    --background: #f1f1f1;
+
+    ion-button {
+        --background: #f1f1f1;
+        color:black;
+        font-size: xx-small;
+    }
+}   
+
+  @media screen and (max-width: 768px) {
+    .content-wrapper .result-wrapper {
+        .flex-item-filters {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .flex-item-articles .listItems .listItem {
+            flex-direction: column;
+            .listItem-column-left {
+                width: 100%;
+                display: block;
+                padding-right: 0px;
+                img {
+                    width: 100%;
+                }
+            }
+            .listItem-column-right {
+                width: 100%;
+            }
+        }
+    } 
+  }
+
+  .blue {
+    color: #87b6c9;
+  }
+  .black {
+    color : black;
+  }
+
+  .popoverList {
+    max-height: 150px;
+    overflow-y: scroll;
+  }
+
+  .linkSharedMail{
+    text-decoration: none;
+    color:black;
+  }
+
+  @media screen and (max-width: 650px) {
+    .content-wrapper .result-wrapper {
+        flex-direction: column;
+    }
+  }
+
+  .displayNone {
+    display: none;
+  }

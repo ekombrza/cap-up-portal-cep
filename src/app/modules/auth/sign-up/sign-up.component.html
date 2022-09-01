@@ -1,6 +1,6 @@
 <div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
     <div class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
-        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+        <div class="w-full  mx-auto ">
             <!-- Logo -->
             <div class="w-12">
                 <img src="assets/images/logo/CEP-LOGO-BLANC.png">
@@ -28,110 +28,559 @@
             </fuse-alert>
 
             <!-- Sign Up form -->
+
             <form
-                class="mt-8"
-                [formGroup]="signUpForm"
+                class="p-4 bg-card shadow rounded overflow-hidden"
+                [formGroup]="horizontalStepperForm"
                 #signUpNgForm="ngForm">
+                <mat-horizontal-stepper
+                    [linear]="true"
+                    #horizontalStepper>
+                    <mat-step
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>Profil</ng-template>
+                        <p class="my-6 font-medium">
+                            Remplir vos informations d'inscriptiion
+                        </p>
+               
+                        <div class="flex flex-col gt-xs:flex-row">
+          
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input
+                                    matInput
+                                    [formControlName]="'firstName'"
+                                    [placeholder]="'* Prénom'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('firstName').errors && horizontalStepperForm && horizontalStepperForm.get('step1').get('firstName').errors.required">
+                                    Le Prénom est requis.
+                                    </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('firstName').errors && horizontalStepperForm.get('step1').get('firstName').errors?.minlength">
+                                Le Prénom doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('firstName').errors && horizontalStepperForm.get('step1').get('firstName').errors?.maxlength">
+                                Le Prénom ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('firstName').errors && horizontalStepperForm.get('step1').get('firstName').errors?.pattern">
+                                Le Prénom ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                            
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <input
+                                    matInput
+                                    [formControlName]="'lastName'"
+                                    [placeholder]="'* Nom'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('lastName').errors && horizontalStepperForm.get('step1').get('lastName').errors.required">
+                                    Le nom est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('lastName').errors && horizontalStepperForm.get('step1').get('lastName').errors.minlength">
+                                Le nom doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('lastName').errors && horizontalStepperForm.get('step1').get('lastName').errors.maxlength">
+                                Le nom ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('lastName').errors && horizontalStepperForm.get('step1').get('lastName').errors.pattern">
+                                Le nom ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
 
-                <!-- Name field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Nom et prénom</mat-label>
-                    <input
-                        id="name"
-                        matInput
-                        [formControlName]="'name'">
-                    <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                        Le Nom et Prénom est nécessaire
-                    </mat-error>
-                </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="email"
+                                    matInput
+                                    [formControlName]="'email'"
+                                    [placeholder]="'* Addresse Email'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:at-symbol'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('email').errors && horizontalStepperForm.get('step1').get('email').errors.required">
+                                    L'Email est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('email').errors && horizontalStepperForm.get('step1').get('email').hasError('email')">
+                                    L'Email est invalide.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('email').errors && horizontalStepperForm.get('step1').get('email').errors.minlength">
+                                    L'Email doit faire plus de 5 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('email').errors && horizontalStepperForm.get('step1').get('email').errors.maxlength">
+                                    L'Email ne doit pas faire plus de 100 caractères.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input
+                                    matInput type="password"
+                                    [formControlName]="'password'"
+                                    [placeholder]="'* Mot de passe'"
+                                    autocomplete="current-password webauthn"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('password').errors && horizontalStepperForm.get('step1').get('password').errors.required">
+                                    Le mot de passe est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('password').errors && horizontalStepperForm.get('step1').get('password').errors.minlength">
+                                    Le mot de passe doit faire au moins 8 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('password').errors && horizontalStepperForm.get('step1').get('password').errors.maxlength">
+                                    Le mot de passe doit faire au moins 50 caractères.
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input
+                                    matInput type="password"
+                                    [formControlName]="'confirmPassword'"
+                                    [placeholder]="'* Confirmation mot de passe'"
+                                    autocomplete="current-password webauthn"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:lock-closed'"></mat-icon>
+                                <mat-error 
+                                    *ngIf="horizontalStepperForm.get('step1').get('confirmPassword').errors && horizontalStepperForm.get('step1').get('confirmPassword').errors.required">
+                                    Le mot de passe de confirmation est requis.
+                                </mat-error>
+                                <mat-error 
+                                    *ngIf="horizontalStepperForm.get('step1').get('confirmPassword').errors && horizontalStepperForm.get('step1').get('confirmPassword').errors.minlength">
+                                    Le mot de passe de confirmation doit faire plus de 8 caractères.
+                                </mat-error>
+                                <mat-error 
+                                    *ngIf="horizontalStepperForm.get('step1').get('confirmPassword').errors && horizontalStepperForm.get('step1').get('confirmPassword').errors.maxlength">
+                                    Le mot de passe de confirmation doit faire plus de 50 caractères.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select multiple
+                                    [formControlName]="'roles'"
+                                    [placeholder]="'* Rôles'"
+                                    required>
+                                    <mat-option *ngFor="let role of listRoles" [value]="role">{{role.name}}</mat-option>
+                                </mat-select>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step1').get('roles').errors && horizontalStepperForm.get('step1').get('roles').errors.required">
+                                    Un rôle est requis.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
+                                type="button"
+                                matStepperNext>
+                                Suivant
+                            </button>
+                        </div>
+                    </mat-step>
 
-                <!-- Email field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Adresse mail</mat-label>
-                    <input
-                        id="email"
-                        matInput
-                        [formControlName]="'email'">
-                    <mat-error *ngIf="signUpForm.get('email').hasError('required')">
-                        L'adresse e-mail est nécessaire
-                    </mat-error>
-                    <mat-error *ngIf="signUpForm.get('email').hasError('email')">
-                        S'il vous plaît, mettez une adresse email valide
-                    </mat-error>
-                </mat-form-field>
+                    <mat-step
+                        [formGroupName]="'step2'"
+                        [stepControl]="horizontalStepperForm.get('step2')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>Eglise</ng-template>
+                        <p class="my-6 font-medium">
+                            Choisissez votre église
+                        </p>
+                        
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select
+                                    [formControlName]="'church'"
+                                    [placeholder]="'* Eglise'"
+                                    required>
+                                    <mat-option *ngFor="let church of listChurches" [value]="church">{{church.churchName}}</mat-option>
+                                </mat-select>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:home'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step2').get('church').errors && horizontalStepperForm.get('step2').get('church').errors.required">
+                                    -Une église est requise.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button"
+                                matStepperPrevious>
+                                Précédent
+                            </button>
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
+                                type="button"
+                                matStepperNext>
+                                Suivant
+                            </button>
+                        </div>
+                    </mat-step>
 
-                <!-- Password field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Mot de passe</mat-label>
-                    <input
-                        id="password"
-                        matInput
-                        type="password"
-                        [formControlName]="'password'"
-                        #passwordField>
-                    <button
-                        mat-icon-button
-                        type="button"
-                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                        matSuffix>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'password'"
-                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'text'"
-                            [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
-                    </button>
-                    <mat-error>
-                        Le mot de passe est nécessaire
-                    </mat-error>
-                </mat-form-field>
+                    <mat-step
+                        [formGroupName]="'step3'"
+                        [stepControl]="horizontalStepperForm.get('step3')" *ngIf="horizontalStepperForm.get('step2').get('church')  && horizontalStepperForm.get('step2').get('church')?.value?.churchName === 'Autre église'"
+                        #horizontalStepperStep3>
+                        
+                        <ng-template matStepLabel>Nouvelle église</ng-template>
+                        <p class="my-6 font-medium">
+                            Création d'une nouvelle église.
+                        </p>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'churchName'"
+                                    [placeholder]="'* Nom de l\'église'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:home'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchName').errors && horizontalStepperForm.get('step3').get('churchName').errors.required">
+                                    - Le nom de l'église est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchName').errors && horizontalStepperForm.get('step3').get('churchName').errors.invalid">
+                                    - Le nom de l'église est invalide.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchName').errors && horizontalStepperForm.get('step3').get('churchName').errors.minlength">
+                                    - Le nom de l'église doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchName').errors && horizontalStepperForm.get('step3').get('churchName').errors.maxlength">
+                                    Le nom de l'église ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchName').errors && horizontalStepperForm.get('step3').get('churchName').errors.pattern">
+                                    Le nom de l'église ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'pastorName'"
+                                    [placeholder]="'Nom du pasteur'"
+                                    >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('pastorName').errors && horizontalStepperForm.get('step3').get('pastorName').errors.required">
+                                    Le nom du pasteur est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('pastorName').errors && horizontalStepperForm.get('step3').get('pastorName').errors.minlength">
+                                    Le nom du pasteur doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('pastorName').errors && horizontalStepperForm.get('step3').get('pastorName').errors.maxlength">
+                                    Le nom du pasteur ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('pastorName').errors && horizontalStepperForm.get('step3').get('pastorName').errors.pattern">
+                                    Le nom du pasteur ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'phoneNumber'"
+                                    [placeholder]="'N° de téléphone'"
+                                    >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('phoneNumber').errors && horizontalStepperForm.get('step3').get('phoneNumber').errors.required">
+                                Le numéro de téléphone est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('phoneNumber').errors && horizontalStepperForm.get('step3').get('phoneNumber').errors.minlength">
+                                Le numéro de téléphone doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('phoneNumber').errors && horizontalStepperForm.get('step3').get('phoneNumber').errors.maxlength">
+                                Le numéro de téléphone ne doit pas être plus grand que 10 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('phoneNumber').errors && horizontalStepperForm.get('step3').get('phoneNumber').errors.pattern">
+                                Le numéro de téléphone ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'churchEmail'"
+                                    [placeholder]="'* Email'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchEmail').errors && horizontalStepperForm.get('step3').get('churchEmail').errors.required">
+                                    L'Email est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchEmail').errors && horizontalStepperForm.get('step3').get('churchEmail').errors.invalid">
+                                    L'Email est invalide.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchEmail').errors && horizontalStepperForm.get('step3').get('churchEmail').errors.minlength">
+                                    L'Email doit faire plus de 5 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('churchEmail').errors && horizontalStepperForm.get('step3').get('churchEmail').errors.maxlength">
+                                    L'Email ne doit pas faire plus de 100 caractères.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'webSite'"
+                                    [placeholder]="'Site internet'"
+                                    >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:desktop-computer'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('webSite').errors && horizontalStepperForm.get('step3').get('webSite').errors.required">
+                                Le site web de l'église est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('webSite').errors && horizontalStepperForm.get('step3').get('webSite').errors.minlength">
+                                Le site web de l'église doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('webSite').errors && horizontalStepperForm.get('step3').get('webSite').errors.maxlength">
+                                Le site web de l'église ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error  *ngIf="horizontalStepperForm.get('step3').get('webSite').errors && horizontalStepperForm.get('step3').get('webSite').errors.pattern">
+                                Le site web de l'église ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select
+                                    [formControlName]="'denomination'"
+                                    [placeholder]="'* Dénomination'"
+                                    required>
+                                    <mat-option *ngFor="let denomination of listDenominations" [value]="denomination">{{denomination.name}}</mat-option>
+                                </mat-select>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:arrow-circle-right'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('denomination').errors && horizontalStepperForm.get('step3').get('denomination').errors.required">
+                                    -Une dénomination est requise.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'adress1'"
+                                    [placeholder]="'* Adresse 1'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:clipboard-check'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress1').errors && horizontalStepperForm.get('step3').get('adress1').errors.required">
+                                l'adresse 1 est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress1').errors && horizontalStepperForm.get('step3').get('adress1').errors.minlength">
+                                l'adresse 1 doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress1').errors && horizontalStepperForm.get('step3').get('adress1').errors.maxlength">
+                                l'adresse 1 ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress1').errors && horizontalStepperForm.get('step3').get('adress1').errors.pattern">
+                                l'adresse 1 ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'adress2'"
+                                    [placeholder]="'Adresse 2'"
+                                    >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:clipboard-check'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress2').errors && horizontalStepperForm.get('step3').get('adress2').errors.required">
+                                l'adresse 2 est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress2').errors && horizontalStepperForm.get('step3').get('adress2').errors.minlength">
+                                l'adresse 2 doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress2').errors && horizontalStepperForm.get('step3').get('adress2').errors.maxlength">
+                                l'adresse 2 ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('adress2').errors && horizontalStepperForm.get('step3').get('adress2').errors.pattern">
+                                l'adresse 2 ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'city'"
+                                    [placeholder]="'* Ville'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:clipboard-check'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('city').errors && horizontalStepperForm.get('step3').get('city').errors.required">
+                                    la ville est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('city').errors && horizontalStepperForm.get('step3').get('city').errors.minlength">
+                                    la ville doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('city').errors && horizontalStepperForm.get('step3').get('city').errors.maxlength">
+                                    la ville ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('city').errors && horizontalStepperForm.get('step3').get('city').errors.pattern">
+                                    la ville ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'region'"
+                                    [placeholder]="'Région'"
+                                    >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('region').errors && horizontalStepperForm.get('step3').get('region').errors.required">
+                                    la région est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('region').errors && horizontalStepperForm.get('step3').get('region').errors.minlength">
+                                    la région doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('region').errors && horizontalStepperForm.get('step3').get('region').errors.maxlength">
+                                    la région ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('region').errors && horizontalStepperForm.get('step3').get('region').errors.pattern">
+                                    la région ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col">
+                            <mat-form-field class="flex-auto">
+                                <input type="text"
+                                    matInput
+                                    [formControlName]="'postalCode'"
+                                    [placeholder]="'* Code postale'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:clipboard-check'"></mat-icon>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('postalCode').errors && horizontalStepperForm.get('step3').get('postalCode').errors.required">
+                                le code postal est requis.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('postalCode').errors && horizontalStepperForm.get('step3').get('postalCode').errors.minlength">
+                                le code postal doit faire plus de 1 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('postalCode').errors && horizontalStepperForm.get('step3').get('postalCode').errors.maxlength">
+                                le code postal ne doit pas être plus grand que 50 caractères.
+                                </mat-error>
+                                <mat-error *ngIf="horizontalStepperForm.get('step3').get('postalCode').errors && horizontalStepperForm.get('step3').get('postalCode').errors.pattern">
+                                le code postal ne doit contenir que des lettres et des chiffres.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end mt-8">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button"
+                                matStepperPrevious>
+                                Précédent
+                            </button>
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                type="button"
+                                [disabled]="horizontalStepperStep3.stepControl.pristine || horizontalStepperStep3.stepControl.invalid"
+                                matStepperNext>
+                                Suivant
+                            </button>
+                        </div>
+                    </mat-step>
 
-                <!-- Company field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Egmise</mat-label>
-                    <input
-                        id="company-confirm"
-                        matInput
-                        [formControlName]="'company'">
-                </mat-form-field>
-
-                <!-- ToS and PP -->
-                <div class="inline-flex items-end w-full mt-1.5">
-                    <mat-checkbox
-                        [color]="'primary'"
-                        [formControlName]="'agreements'">
-                        <span>J'accepte les conditions d'utilisation</span>
-                        <a
-                            class="ml-1 text-primary-500 hover:underline"
-                            [routerLink]="['./']">Conditions d'utilisation
-                        </a>
-                        <span>et</span>
-                        <a
-                            class="ml-1 text-primary-500 hover:underline"
-                            [routerLink]="['./']">la Politique de confidentialité
-                        </a>
-                    </mat-checkbox>
-                </div>
-
-                <!-- Submit button -->
-                <button
-                    class="fuse-mat-button-large w-full mt-6"
-                    mat-flat-button
-                    [color]="'primary'"
-                    [disabled]="signUpForm.disabled"
-                    (click)="signUp()">
-                    <span *ngIf="!signUpForm.disabled">
-                        Créez votre compte gratuitement
-                    </span>
-                    <mat-progress-spinner
-                        *ngIf="signUpForm.disabled"
-                        [diameter]="24"
-                        [mode]="'indeterminate'"></mat-progress-spinner>
-                </button>
-
+                    <mat-step>
+                        <ng-template matStepLabel>Terminer</ng-template>
+                        <p class="my-6 font-medium">
+                            Merci d'avoir complété le formulaire.  Veuillez cliquer sur 'Je m'inscris' pour procéder à votre inscription' .
+                        </p>
+                        <div class="flex justify-end mt-8">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button"
+                                matStepperPrevious>
+                                Précédent
+                            </button>
+                            <!-- Submit button -->
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="horizontalStepperForm.disabled"
+                                (click)="signUp()">
+                                <span *ngIf="!horizontalStepperForm.disabled">
+                                    Je m'inscris
+                                </span>
+                                <mat-progress-spinner
+                                    *ngIf="horizontalStepperForm.disabled"
+                                    [diameter]="24"
+                                    [mode]="'indeterminate'"></mat-progress-spinner>
+                            </button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
             </form>
+
+                
+
         </div>
     </div>
     <div class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">

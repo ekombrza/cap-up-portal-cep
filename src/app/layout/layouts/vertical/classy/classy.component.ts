@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { MediaWatcherService } from 'src/@ekbz/services/media-watcher';
 import { NavigationService, VerticalNavigationComponent } from 'src/@ekbz/components/navigation';
-import { Navigation } from 'src/app/core/navigation/navigation.types';
-import { CoreNavigationService } from 'src/app/core/navigation/navigation.service';
-import { User } from 'src/app/core/user/user.types';
-import { UserService } from 'src/app/core/user/user.service';
+import { Navigation } from 'src/app/models-services/navigation/navigation.types';
+import { CoreNavigationService } from 'src/app/models-services/navigation/navigation.service';
+import { User } from 'src/app/models-services/user/user.model';
+import { UserService } from 'src/app/models-services/user/user.service';
 
 @Component({
     selector     : 'classy-layout',

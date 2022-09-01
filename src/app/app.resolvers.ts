@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { MessagesService } from 'src/app/layout/common/messages/messages.service';
-import { CoreNavigationService } from 'src/app/core/navigation/navigation.service';
+import { CoreNavigationService } from 'src/app/models-services/navigation/navigation.service';
 import { NotificationsService } from 'src/app/layout/common/notifications/notifications.service';
 import { QuickChatService } from 'src/app/layout/common/quick-chat/quick-chat.service';
 import { ShortcutsService } from 'src/app/layout/common/shortcuts/shortcuts.service';
-import { UserService } from 'src/app/core/user/user.service';
+import { UserService } from 'src/app/models-services/user/user.service';
 
 @Injectable({
     providedIn: 'root'

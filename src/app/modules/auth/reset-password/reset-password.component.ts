@@ -4,7 +4,8 @@ import { finalize } from 'rxjs';
 import { animations } from 'src/@ekbz/animations';
 import { EkbzValidators } from 'src/@ekbz/validators';
 import { AlertType } from 'src/@ekbz/components/alert';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
 
 @Component({
     selector     : 'auth-reset-password',
@@ -22,13 +23,15 @@ export class AuthResetPasswordComponent implements OnInit
     };
     resetPasswordForm: UntypedFormGroup;
     showAlert: boolean = false;
+    key = '';
 
     /**
      * Constructor
      */
     constructor(
         private _authService: AuthService,
-        private _formBuilder: UntypedFormBuilder
+        private _formBuilder: UntypedFormBuilder,
+        private route: ActivatedRoute
     )
     {
     }
@@ -42,6 +45,12 @@ export class AuthResetPasswordComponent implements OnInit
      */
     ngOnInit(): void
     {
+        this.route.queryParams.subscribe(params => {
+            if (params['key']) {
+                this.key = params['key'];
+            }
+        });
+
         // Create the form
         this.resetPasswordForm = this._formBuilder.group({
                 password       : ['', Validators.required],
@@ -75,7 +84,7 @@ export class AuthResetPasswordComponent implements OnInit
         this.showAlert = false;
 
         // Send the request to the server
-        this._authService.resetPassword(this.resetPasswordForm.get('password').value)
+        this._authService.resetPassword(this.key, this.resetPasswordForm.get('password').value)
             .pipe(
                 finalize(() => {
 

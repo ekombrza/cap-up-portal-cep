@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, Route, RouterModule, Routes } from '@angular/router';
 import { InitialDataResolver } from './app.resolvers';
-import { AuthGuard } from './core/auth/guards/auth.guard';
-import { NoAuthGuard } from './core/auth/guards/noAuth.guard';
+
 import { LayoutComponent } from './layout/layout.component';
+import { AuthGuard } from './models-services/auth/guards/auth.guard';
+import { NoAuthGuard } from './models-services/auth/guards/noAuth.guard';
 
 const routes: Route[] = [
   // Redirect empty path to '/apps/ressources'
-{path: '', pathMatch : 'full', redirectTo: 'apps/ressources'},
+{path: '', pathMatch : 'full', redirectTo: 'apps/ressources/ressources'},
 
 // Redirect signed in user to the '/apps/ressources'
 //
 // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
 // path. Below is another redirection for that path to redirect the user to the desired
 // location. This is a small convenience to keep all main routes together here on this file.
-{path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'apps/ressources'},
+{path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'apps/ressources/ressources'},
 
 // Auth routes for guests
 {
@@ -28,7 +29,7 @@ const routes: Route[] = [
     children: [
         {path: 'confirmation-required', loadChildren: () => import('src/app/modules/auth/confirmation-required/confirmation-required.module').then(m => m.AuthConfirmationRequiredModule)},
         {path: 'forgot-password', loadChildren: () => import('src/app/modules/auth/forgot-password/forgot-password.module').then(m => m.AuthForgotPasswordModule)},
-        {path: 'reset-password', loadChildren: () => import('src/app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule)},
+        {path: 'reset-password-init', loadChildren: () => import('src/app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule)},
         {path: 'sign-in', loadChildren: () => import('src/app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule)},
         {path: 'sign-up', loadChildren: () => import('src/app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule)}
     ]
@@ -63,7 +64,7 @@ const routes: Route[] = [
 
 // Admin routes
 {
-    path       : '',
+    path       : 'apps',
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     component  : LayoutComponent,
@@ -71,13 +72,17 @@ const routes: Route[] = [
         initialData: InitialDataResolver,
     },
     children   : [
-        // Apps
-        {path: 'apps', children: [
+        // ressources/ressources
+        {path: 'ressources2', children: [
             {path: 'ressources', loadChildren: () => import('src/app/modules/admin/apps/academy/academy.module').then(m => m.AcademyModule)},
         ]},
-        // Administration
-        {path: 'admin', children: [
-            {path: 'example', loadChildren: () => import('src/app/modules/admin/admin/example/example.module').then(m => m.ExampleModule)},
+        // ressources/ressources
+        {path: 'ressources', children: [
+            {path: 'ressources', loadChildren: () => import('src/app/modules/admin/apps/ressources/resources/resources.module').then(m => m.ResourcesPageModule)},
+        ]},
+        // ressources/formations
+        {path: 'ressources', children: [
+            {path: 'formations', loadChildren: () => import('src/app/modules/admin/apps/ressources/formations/formations.module').then(m => m.FormationsPageModule)},
         ]},
 
     ]

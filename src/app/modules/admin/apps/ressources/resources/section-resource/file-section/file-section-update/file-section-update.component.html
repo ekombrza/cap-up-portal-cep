@@ -1,0 +1,105 @@
+<ion-content>
+
+  <div class="header container-fluid">
+
+    <div class="container">
+      <div class="name-wrapper">
+        <h1 class="title"><a><ion-icon class='nav-back-button' (click)="previousState()" slot="icon-only" name="chevron-back-outline"></ion-icon></a>Création d'un fichier</h1>
+      </div>
+    </div>
+  </div>
+
+<div id="formContent">
+  <div class="row-card">
+    <mat-card class="card">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class="underline">
+          <h3>Création d'un nouveau fichier</h3>
+        </div>
+        <div padding>
+
+          <mat-form-field class="full-width" appearance="outline" [hidden]="editForm.get('id')!.value == null">
+            <mat-label>ID</mat-label>
+            <input id="id" name="field_id" type="number" matInput formControlName="id" [readonly]="true" >
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_filename">Nom du fichier</mat-label>
+            <input id="field_filename" name="filename" type="text" matInput formControlName="filename"
+              placeholder="Ex. filename.pdf">
+            <mat-error *ngIf="editForm.controls.filename.touched && editForm.controls.filename.invalid">
+              <span *ngIf="editForm.controls.filename.errors.required">Le nom de fichier est <strong>requis</strong>.</span>
+              <span *ngIf="editForm.controls.filename.errors.maxlength">Le nom de fihier ne doit pas être <strong>plus grand
+                  que 200 caractères</strong>.</span>
+            </mat-error>
+          </mat-form-field>
+          <div class="file-explorer-field">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label for="field_filePathName">Url du fichier</mat-label>
+              <input id="field_filePathName" name="filePathName" type="text" matInput formControlName="filePathName"
+                placeholder="Ex. https://statique.cepevry.fr/aaa.pdf">
+              <mat-error *ngIf="editForm.controls.filePathName.touched && editForm.controls.filePathName.invalid">
+                <span *ngIf="editForm.controls.filePathName.errors.required">L'url du fichier est <strong>requis</strong>.</span>
+                <span *ngIf="editForm.controls.filePathName.errors.maxlength">L'url du fichier ne doit pas être <strong>plus grand
+                    que 300 caractères</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+            <ion-button id="open-modal" size="small" class="file-explorer-button">
+              <ion-icon slot="icon-only" name="ellipsis-horizontal-outline"></ion-icon>
+            </ion-button>
+          </div>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_typeFile">Type de fichier</mat-label>
+            <mat-select formControlName="typeFile" name="typeFile" id="field_typeFile">
+              <mat-option [value]="null">Selection</mat-option>
+              <mat-option *ngFor="let typeFileOption of typeFilesSharedCollection; trackBy: trackTypeFileById" [value]="typeFileOption.id === editForm.get('typeFile')!.value?.id ? editForm.get('typeFile')!.value : typeFileOption">
+                {{ typeFileOption.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="editForm.controls.typeFile.touched && editForm.controls.typeFile.invalid">
+              <span *ngIf="editForm.controls.typeFile.errors.required">Le type de fichier est <strong>requis</strong>.</span>
+            </mat-error>
+          </mat-form-field>
+         
+
+         
+        </div>
+
+        <div>
+          <button mat-raised-button color="warn" type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+            <ion-icon name="ban-outline"></ion-icon>&nbsp;<span>Cancel</span>
+          </button>
+
+          <button mat-raised-button color="primary"
+            type="submit"
+            id="save-entity"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+          <ion-icon name="save-outline"></ion-icon>&nbsp;<span>Enregistrer</span>
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>
+<ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelModal()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>File-explorer</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmModal()" [strong]="true">Selectionner</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-file-explorer (selectedPathFile)="onSelectedPathFile($event)"></app-file-explorer>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+</ion-content>

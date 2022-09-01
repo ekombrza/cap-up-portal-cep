@@ -11,9 +11,9 @@ import { EkbzModule } from 'src/@ekbz';
 import { ConfigModule } from 'src/@ekbz/services/config';
 import { FuseMockApiModule } from 'src/@ekbz/lib/mock-api';
 import { mockApiServices } from './mock-api';
-import { appConfig } from './core/config/app.config';
+import { appConfig } from './models-services/config/app.config';
 import { LayoutModule } from './layout/layout.module';
-import { CoreModule } from './core/core.module';
+import { CoreModule } from './models-services/core.module';
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,

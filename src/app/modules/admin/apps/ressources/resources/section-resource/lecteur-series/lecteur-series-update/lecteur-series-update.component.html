@@ -1,0 +1,149 @@
+<ion-content>
+
+  <div class="header container-fluid">
+
+    <div class="container">
+      <div class="name-wrapper">
+        <h1 class="title"><a><ion-icon class='nav-back-button' (click)="previousState()" slot="icon-only" name="chevron-back-outline"></ion-icon></a>Création d'un Média</h1>
+      </div>
+    </div>
+  </div>
+
+<div id="formContent">
+  <div class="row-card">
+    <mat-card class="card">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <div class="underline">
+          <h3>Création d'un nouveau Média</h3>
+        </div>
+        <div padding>
+
+          <mat-form-field class="full-width" appearance="outline" [hidden]="editForm.get('id')!.value == null">
+            <mat-label>ID</mat-label>
+            <input id="id" name="field_id" type="number" matInput formControlName="id" [readonly]="true" >
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_titre">Titre du média</mat-label>
+            <input id="field_titre" name="titre" type="text" matInput formControlName="titre"
+              placeholder="Ex. Titre de mon média">
+            <mat-error *ngIf="editForm.controls.titre.touched && editForm.controls.titre.invalid">
+              <span *ngIf="editForm.controls.titre.errors.required">Le titre du média est <strong>requis</strong>.</span>
+              <span *ngIf="editForm.controls.titre.errors.maxlength">Le titre du média ne doit pas être <strong>plus grand
+                  que 200 caractères</strong>.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <div class="file-explorer-field">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label for="field_supportLink">Url du média</mat-label>
+              <input id="field_supportLink" name="supportLink" type="text" matInput formControlName="supportLink"
+                placeholder="Ex. https://statique.cepevry.fr/aaa.mp4">
+              <mat-error *ngIf="editForm.controls.supportLink.touched && editForm.controls.supportLink.invalid">
+                <span *ngIf="editForm.controls.supportLink.errors.required">L'url du média est <strong>requis</strong>.</span>
+                <span *ngIf="editForm.controls.supportLink.errors.maxlength">L'url du média ne doit pas être <strong>plus grand
+                    que 400 caractères</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+            <ion-button id="open-modal-media" size="small" class="file-explorer-button">
+              <ion-icon slot="icon-only" name="ellipsis-horizontal-outline"></ion-icon>
+            </ion-button>
+          </div>
+
+          <div class="file-explorer-field">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label for="field_imageLink">Image liée au média</mat-label>
+              <input id="field_imageLink" name="imageLink" type="text" matInput formControlName="imageLink"
+                placeholder="Ex. https://statique.cepevry.fr/aaa.png">
+              <mat-error *ngIf="editForm.controls.imageLink.touched && editForm.controls.imageLink.invalid">
+                <span *ngIf="editForm.controls.imageLink.errors.required">L'url de l'image liée au média est <strong>requis</strong>.</span>
+                <span *ngIf="editForm.controls.imageLink.errors.maxlength">L'url de l'image liée au média ne doit pas être <strong>plus grand
+                    que 400 caractères</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+            <ion-button id="open-modal-image" size="small" class="file-explorer-button">
+              <ion-icon slot="icon-only" name="ellipsis-horizontal-outline"></ion-icon>
+            </ion-button>
+          </div>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_order">Ordre d'affcihage du média</mat-label>
+            <input id="field_order" name="order" type="number" matInput formControlName="order"
+              placeholder="Ex.1">
+            <mat-error *ngIf="editForm.controls.order.touched && editForm.controls.order.invalid">
+              <span *ngIf="editForm.controls.order.errors.required">L'ordre est <strong>requis</strong>.</span>
+              <span [hidden]="!editForm.get('order')?.errors?.number">Ce champ doit être un nombre</span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label for="field_typeLecteurEnum">Type de fichier</mat-label>
+            <mat-select formControlName="typeLecteurEnum" name="typeLecteurEnum" id="field_typeLecteurEnum">
+              <mat-option [value]="null">Selection</mat-option>
+              <mat-option *ngFor="let typeLecteurEnum of typeLecteurEnumValues" [value]="typeLecteurEnum">
+                {{ typeLecteurEnum }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="editForm.controls.typeLecteurEnum.touched && editForm.controls.typeLecteurEnum.invalid">
+              <span *ngIf="editForm.controls.typeLecteurEnum.errors.required">Le type de média est <strong>requis</strong>.</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-raised-button color="warn" type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+            <ion-icon name="ban-outline"></ion-icon>&nbsp;<span>Cancel</span>
+          </button>
+
+          <button mat-raised-button color="primary"
+            type="submit"
+            id="save-entity"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+          <ion-icon name="save-outline"></ion-icon>&nbsp;<span>Enregistrer</span>
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>
+
+<ion-modal #modalMedia trigger="open-modal-media" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelModal('supportLink')">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>File-explorer</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmModal('supportLink')" [strong]="true">Selectionner</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-file-explorer (selectedPathFile)="onSelectedPathFile($event)"></app-file-explorer>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<ion-modal #modalImage trigger="open-modal-image" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelModal('imageLink')">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>File-explorer</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmModal('imageLink')" [strong]="true">Selectionner</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-file-explorer (selectedPathFile)="onSelectedPathFile($event)"></app-file-explorer>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+</ion-content>

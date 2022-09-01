@@ -7,7 +7,7 @@ import { MediaWatcherService } from 'src/@ekbz/services/media-watcher';
 import { PlatformService } from 'src/@ekbz/services/platform';
 import { VERSION } from 'src/@ekbz/version';
 import { Layout } from 'src/app/layout/layout.types';
-import { AppConfig } from 'src/app/core/config/app.config';
+import { AppConfig } from 'src/app/models-services/config/app.config';
 
 @Component({
     selector     : 'layout',
