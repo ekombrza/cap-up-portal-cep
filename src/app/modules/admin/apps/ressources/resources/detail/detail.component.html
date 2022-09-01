@@ -1,10 +1,10 @@
-<ion-content [fullscreen]="true" [scrollEvents]="true">
+<ion-content  [scrollEvents]="true">
   <div class="header">Les Ressources</div>
   <div class="content-wrapper">
     <ion-breadcrumbs>
-      <ion-breadcrumb [routerLink]="['/secure']">Accueil</ion-breadcrumb>
+      <ion-breadcrumb [routerLink]="['/apps']">Accueil</ion-breadcrumb>
       <ion-breadcrumb *ngIf="resource.typeResourceEnum=='COURS'" [routerLink]="['/apps/ressources/formations']">Formations</ion-breadcrumb>
-      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='RESSOURCE'" [routerLink]="['/apps/ressources/resources']">Ressource</ion-breadcrumb>
+      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='RESSOURCE'" [routerLink]="['/apps/ressources/ressources']">Ressource</ion-breadcrumb>
       <ion-breadcrumb>{{resource.title}}</ion-breadcrumb>
     </ion-breadcrumbs>
     
@@ -164,7 +164,7 @@
                       <!-- Custom UI component. -->
                       <!-- <tap-sides-to-seek></tap-sides-to-seek> -->
                     </vm-default-ui>
-                  </vm-player>``
+                  </vm-player>
 
                   <swiper
                     [slidesPerView]="2.5"

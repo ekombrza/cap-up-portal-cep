@@ -8,14 +8,14 @@ import { NoAuthGuard } from './models-services/auth/guards/noAuth.guard';
 
 const routes: Route[] = [
   // Redirect empty path to '/apps/ressources'
-{path: '', pathMatch : 'full', redirectTo: 'apps/ressources/ressources'},
+{path: '', pathMatch : 'full', redirectTo: 'public/home'},
 
 // Redirect signed in user to the '/apps/ressources'
 //
 // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
 // path. Below is another redirection for that path to redirect the user to the desired
 // location. This is a small convenience to keep all main routes together here on this file.
-{path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'apps/ressources/ressources'},
+{path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'public/home'},
 
 // Auth routes for guests
 {
@@ -52,7 +52,7 @@ const routes: Route[] = [
 
 // Landing routes
 {
-    path: '',
+    path: 'public',
     component  : LayoutComponent,
     data: {
         layout: 'empty'
@@ -62,7 +62,7 @@ const routes: Route[] = [
     ]
 },
 
-// Admin routes
+// apps routes
 {
     path       : 'apps',
     canActivate: [AuthGuard],
@@ -72,18 +72,40 @@ const routes: Route[] = [
         initialData: InitialDataResolver,
     },
     children   : [
-        // ressources/ressources
-        {path: 'ressources2', children: [
-            {path: 'ressources', loadChildren: () => import('src/app/modules/admin/apps/academy/academy.module').then(m => m.AcademyModule)},
-        ]},
+        
         // ressources/ressources
         {path: 'ressources', children: [
             {path: 'ressources', loadChildren: () => import('src/app/modules/admin/apps/ressources/resources/resources.module').then(m => m.ResourcesPageModule)},
         ]},
         // ressources/formations
         {path: 'ressources', children: [
-            {path: 'formations', loadChildren: () => import('src/app/modules/admin/apps/ressources/formations/formations.module').then(m => m.FormationsPageModule)},
+            {path: 'formations', loadChildren: () => import('src/app/modules/admin/apps/ressources/resources/resources.module').then(m => m.ResourcesPageModule)},
         ]},
+        // ressources/dashboard
+        {path: 'ressources', children: [
+            {path: 'dashboard', loadChildren: () => import('src/app/modules/admin/apps/ressources/dashboard/dashboard.module').then(m => m.DashboardPageModule)},
+        ]},
+
+    ]
+},
+
+// admin routes
+{
+    path       : 'admin',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component  : LayoutComponent,
+    resolve    : {
+        initialData: InitialDataResolver,
+    },
+    children   : [
+        
+        // church
+        {path: 'church', loadChildren: () => import('src/app/modules/admin/admin/eglise/eglise.module').then(m => m.EglisePageModule)},
+        // profil
+        {path: 'profil', loadChildren: () => import('src/app/modules/admin/admin/profil/profil.module').then(m => m.ProfilPageModule)},
+        // setting
+        {path: 'settings', loadChildren: () => import('src/app/modules/admin/admin/settings/settings.module').then(m => m.SettingsModule)},
 
     ]
 }

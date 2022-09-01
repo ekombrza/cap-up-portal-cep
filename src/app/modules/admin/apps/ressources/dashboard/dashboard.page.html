@@ -1,0 +1,23 @@
+<div class="header">Tableau de bord</div>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="dashboard">
+        <ion-icon name="easel"></ion-icon>
+        <ion-label>Tableau de bord</ion-label>
+        <!-- <ion-badge>{{applicationData?.resourcesVieweds?.length}}</ion-badge> -->
+      </ion-tab-button>
+  
+      <ion-tab-button tab="bookmarks">
+        <ion-icon name="bookmarks"></ion-icon>
+        <ion-label>Marques page</ion-label>
+        <ion-badge>{{applicationData?.resourcesBookmarks?.length}}</ion-badge>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="shared-with-you">
+        <ion-icon name="attach"></ion-icon>
+        <ion-label>Partagé avec toi</ion-label>
+        <ion-badge>{{applicationData?.resourcesSharedWithYous?.length}}</ion-badge>
+      </ion-tab-button>
+  
+    </ion-tab-bar>
+  </ion-tabs>

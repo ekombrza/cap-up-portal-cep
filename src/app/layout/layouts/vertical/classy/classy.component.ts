@@ -3,10 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { MediaWatcherService } from 'src/@ekbz/services/media-watcher';
 import { NavigationService, VerticalNavigationComponent } from 'src/@ekbz/components/navigation';
-import { Navigation } from 'src/app/models-services/navigation/navigation.types';
-import { CoreNavigationService } from 'src/app/models-services/navigation/navigation.service';
 import { User } from 'src/app/models-services/user/user.model';
 import { UserService } from 'src/app/models-services/user/user.service';
+import { CoreNavigationService } from 'src/app/models-services/navigation/navigation.service';
+import { Navigation } from 'src/app/models-services/navigation/navigation.types';
+import { Membre } from 'src/app/models-services/membre/membre.model';
+import { Church } from 'src/app/models-services/church/church.model';
+import { MembreService } from 'src/app/models-services/membre/membre.service';
+import { ChurchService } from 'src/app/models-services/church/church.service';
 
 @Component({
     selector     : 'classy-layout',
@@ -18,6 +22,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     isScreenSmall: boolean;
     navigation: Navigation;
     user: User;
+    membre: Membre;
+    church: Church;
+    avatar: String;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -28,6 +35,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
         private _router: Router,
         private _navigationService: NavigationService,
         private _userService: UserService,
+        private _membreService: MembreService,
+        private _churchService: ChurchService,
         private _mediaWatcherService: MediaWatcherService,
         private _coreNavigationService: CoreNavigationService
     )
@@ -67,6 +76,23 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             .pipe((takeUntil(this._unsubscribeAll)))
             .subscribe((user: User) => {
                 this.user = user;
+            });
+        
+        // Subscribe to membres changes
+        this._membreService.membre$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((membre: Membre) => {
+                this.membre = membre;
+                console.log('membre',this.membre);
+                this.avatar = 'data:'+this.membre.imageBlobContentType + ';base64,' + this.membre.imageBlob;
+            });
+        
+        // Subscribe to churches changes
+        this._churchService.church$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((church: Church) => {
+                this.church = church;
+                console.log('church',this.church)
             });
 
         // Subscribe to media changes

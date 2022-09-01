@@ -1,0 +1,93 @@
+.header {
+    min-height: 135px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    background-image: url('../../../../../assets/images/freelancer-flou_1280.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+       
+        .avatar-wrapper {
+            width: 130px;
+            height: 130px;
+            -o-object-fit: cover;
+            object-fit: cover;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: -webkit-box;
+
+            display: flex;
+    
+            align-items: center;
+            justify-content: space-around;
+            font-size: xx-large;
+            color: cornflowerblue;
+        
+            img {
+                width: 100%;
+                border-radius: 50%;
+                box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+            }
+        }
+        .info-wrapper {
+            margin-left: 20px;
+            color:white;
+
+            .name-wrapper {
+                display: flex;
+                flex-direction: row;
+                -webkit-box-align: center;
+                align-items: center;
+
+                .status-pill {
+                    margin-left: 15px;
+                    background-color: #1D252C;
+                    border-radius: 500vh;
+                    padding: 5px 15px;
+                    p {
+                        text-transform: capitalize;
+                        margin: 0px;
+                        position: relative;
+                        bottom: 2px;
+                    }
+                }
+            }
+            
+            .church-adress {
+                margin:5px 0px;
+            }
+
+            .church-created-at {
+                margin: 0px;
+
+            }
+        }
+    }
+}
+.church-profile {
+    .section-row {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+
+    
+a.nav-link {
+    align-self:center;
+    text-decoration: none;
+}

@@ -1,0 +1,107 @@
+<ion-content padding>
+
+  <div class="header container-fluid">
+    
+    <div class="container">
+
+      <div class="name-wrapper">
+        <h1 class="title"><a><ion-icon class='nav-back-button' (click)="navigateback()" slot="icon-only" name="chevron-back-outline"></ion-icon></a>Inviter un membre</h1>
+      </div>
+    </div>
+  </div>
+
+  <div id="formContent">
+    <!-- Error message -->
+    <div>
+      <div class="success" *ngIf="success">
+        <strong>Enregistrement sauvegardé ! Un email a été envoyé. </strong>
+      </div>
+      <div class="alert" *ngIf="errorUserExists || errorEmailExists">
+        <strong>Ce membre est déjà inscrit</strong>
+      </div>
+
+      <div class="alert" *ngIf="error">
+        <strong>Erreur lors de l'enregistrement!</strong> <br />
+        <ul>
+          <li>{{error}}</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="row-card">
+      <mat-card class="card">
+        <form name="form" role="form" (ngSubmit)="sendInvitation()" [formGroup]="invitationForm" >
+
+          <div class="underline">
+            <h3>Informations utilisateur</h3>
+          </div>
+          <div padding>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input id="email" name="login" type="text" matInput formControlName="email"
+                placeholder="jdupond@gmail.com">
+              <mat-error *ngIf="invitationForm.controls.email.touched && invitationForm.controls.email.invalid">
+                <span *ngIf="invitationForm.controls.email.errors.required">L'email est <strong>requis</strong>.</span>
+                <span *ngIf="invitationForm.controls.email.errors.minlength">L'email doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="invitationForm.controls.email.errors.maxlength">L'email ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="invitationForm.controls.email.errors.pattern">L'email ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nom</mat-label>
+              <input id="lastName" name="lastName" type="text" matInput formControlName="lastName"
+                placeholder="Ex. Dupond">
+              <mat-error *ngIf="invitationForm.controls.lastName.touched && invitationForm.controls.lastName.invalid">
+                <span *ngIf="invitationForm.controls.lastName.errors.required">Le nom est <strong>requis</strong>.</span>
+                <span *ngIf="invitationForm.controls.lastName.errors.minlength">Le nom doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="invitationForm.controls.lastName.errors.maxlength">Le nom ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="invitationForm.controls.lastName.errors.pattern">Le nom ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Prénom</mat-label>
+              <input id="firstName" name="firstName" type="text" matInput formControlName="firstName"
+                placeholder="Ex. Jean">
+              <mat-error *ngIf="invitationForm.controls.firstName.touched && invitationForm.controls.firstName.invalid">
+                <span *ngIf="invitationForm.controls.firstName.errors.required">Le prénom est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="invitationForm.controls.firstName.errors.minlength">Le prénom doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="invitationForm.controls.firstName.errors.maxlength">Le prénom ne doit pas être <strong>plus
+                    grand que 50 caractères</strong>.</span>
+                <span *ngIf="invitationForm.controls.firstName.errors.pattern">Le prénom ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Rôles</mat-label>
+              <mat-select formControlName="roles" multiple [compareWith]="compareFn">
+                <mat-select-trigger>
+                  {{invitationForm.get('roles').value ? invitationForm.get('roles').value[0]?.name : ''}}
+                  <span *ngIf="invitationForm.get('roles').value?.length > 1" class="example-additional-selection">
+                    (+{{invitationForm.get('roles').value.length - 1}} {{invitationForm.get('roles').value?.length === 2 ?
+                    'autre' : 'autres'}})
+                  </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let role of listRoles" [value]="role">{{role.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <button class="full-width" mat-raised-button color="primary" [disabled]="invitationForm.invalid">Envoyer le mail d'invitation</button>
+        </form>
+      </mat-card>
+
+    </div>
+  </div>
+</ion-content>

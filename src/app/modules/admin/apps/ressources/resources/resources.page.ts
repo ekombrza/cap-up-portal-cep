@@ -425,7 +425,7 @@ export class ResourcesPage implements OnInit {
 
   getHref(resourceId){  
      var currentUrl = window.location.href;
-     var indexToReplace = currentUrl.lastIndexOf('/secure');
+     var indexToReplace = currentUrl.lastIndexOf('/apps');
      var domain = currentUrl.substring(0,indexToReplace);
      return domain + '/apps/ressources/resources/' + resourceId +  '/view'
 

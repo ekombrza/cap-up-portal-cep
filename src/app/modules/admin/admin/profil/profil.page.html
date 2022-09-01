@@ -1,0 +1,114 @@
+<ion-content>
+  <div class="header">
+    <div class="container">
+        <div class="content">
+            <div class="avatar-wrapper">
+              
+              <img [src]="croppedImage">
+               <ion-buttons class="btn-update-image"><ion-button id="open-modal"><ion-icon slot="icon-only" name="create-outline"></ion-icon></ion-button></ion-buttons>
+              </div>
+            <div class="info-wrapper">
+              <div class="name-wrapper">
+                <h1>{{adminUser?.firstName}} {{adminUser?.lastName}}</h1>
+                <div class="status-pill">
+                  <p id="status-text">{{connectedMembre?.jobStatus | titlecase}}</p>
+                </div>
+              </div>
+              <p class="user-created-at">Depuis le {{connectedMembre?.creationDate | formatMediumDate}}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="ion-padding user-profile">
+    <mat-card class="user-info-wrapper">
+      <div class="section-header">
+        <h2>Information</h2>
+        <a class="btn btn-outline-secondary edit" [routerLink]="['profil-update']">
+          <ion-icon name="pencil-outline"></ion-icon>
+          <ion-label>Edit</ion-label>
+        </a>
+      </div>
+      <div class="section-row">
+        <p class="light-font">Email</p>
+        <p>{{adminUser?.email}}</p>
+      </div>
+      <div class="section-row">
+        <p class="light-font">Eglise</p>
+        <a class="nav-link p-0" (click)="navigateToChurch()">{{connectedMembre?.church.churchName}}
+        </a>
+      </div>
+  
+      <div class="section-row">
+        <p class="light-font">Status</p>
+        <p>{{connectedMembre?.jobStatus | titlecase}}</p>
+      </div>
+      <div class="section-row">
+        <p class="light-font">Téléphone</p>
+        <p>{{connectedMembre?.phoneNumber}}</p>
+      </div>
+      <div class="section-row">
+        <p class="light-font">Rôles</p>
+        <ul>
+          <li *ngFor="let role of roles">{{role.name}}</li>
+        </ul>
+      </div>
+    </mat-card>
+  </div>
+  <ion-modal trigger="open-modal" [presentingElement]="modalPresentingElement">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="modal.dismiss()">Abandonner</ion-button>
+          </ion-buttons>
+          <ion-title>Modifier l'image du profil</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirmer</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <input type="file" (change)="fileChangeEvent($event)" />
+        <div class="commands-wrapper">
+          <div class="commands-content">
+            <button (click)="rotateLeft()">Rotation gauche</button>
+            <button (click)="rotateRight()">Rotation droite</button><br/>
+            <button (click)="flipHorizontal()">Flip horizontal</button>
+            <button (click)="flipVertical()">Flip vertical</button><br/>
+            <button (click)="toggleContainWithinAspectRatio()">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button><br/>
+            <button (click)="resetImage()">Reset de l'image</button>
+            <br />
+            Rotation : <input [(ngModel)]="rotation" placeholder="Rotation" type="number" (change)="updateRotation()" /> 
+            <button (click)="zoomOut()">Zoom -</button> <button (click)="zoomIn()">Zoom +</button>
+          </div>
+          <div class="image-exemple-content">
+            <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
+          </div>
+        </div>
+
+        <div>
+            <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="containWithinAspectRatio"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="256"
+                [cropperMinWidth]="128"
+                [onlyScaleDown]="true"
+                [roundCropper]="false"
+                [canvasRotation]="canvasRotation"
+                [transform]="transform"
+                [alignImage]="'left'"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady($event)"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

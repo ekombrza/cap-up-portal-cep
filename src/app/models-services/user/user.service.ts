@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, ReplaySubject, tap } from 'rxjs';
 import { User } from 'src/app/models-services/user/user.model';
+import { baseUrlJHipsterApi } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService
 {
+    public resourceUrlPublic = baseUrlJHipsterApi + 'api/admin/extended/users';
     private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
     /**
@@ -46,24 +48,12 @@ export class UserService
      */
     get(): Observable<User>
     {
-        return this._httpClient.get<User>('api/common/user').pipe(
+        return this._httpClient.get<User>(`${this.resourceUrlPublic}/currentConnected`).pipe(
             tap((user) => {
                 this._user.next(user);
             })
         );
     }
 
-    /**
-     * Update the user
-     *
-     * @param user
-     */
-    update(user: User): Observable<any>
-    {
-        return this._httpClient.patch<User>('api/common/user', {user}).pipe(
-            map((response) => {
-                this._user.next(response);
-            })
-        );
-    }
+
 }

@@ -27,3 +27,108 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@import 'swiper/scss';
+@import 'swiper/scss/navigation';
+@import 'swiper/scss/pagination';
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+/* Default theme. ~960B */
+@import '~@vime/core/themes/default.css';
+
+/* Optional light theme (extends default). ~400B */
+@import '~@vime/core/themes/light.css';
+
+
+a {
+    cursor:pointer;
+}
+
+.mat-card-info-wrapper {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .section-header {
+        border-bottom: 1px solid #cac5be;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 60px;
+        .btn {
+            border: none;
+            border-radius: 500vh !important;
+        }
+        a {
+            color: #1D252C;
+            text-decoration: none;
+            background-color: transparent;
+        }
+        .btn-outline-secondary {
+            border-color: #1D252C;
+            background-color: transparent !important;
+            border-width: 2px;
+            border-style: solid;
+            padding: 5px 15px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #1D252C !important;;
+            color: white;
+            border-color: white;
+        }
+    }
+
+    
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+  }
+  
+  .success{
+    padding: 20px;
+    background-color:#249424; /* Green */
+    color: white;
+    margin-bottom: 15px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  ion-menu-button {
+    --color: rgb(71, 71, 71);
+  }
+  
+  .file-explorer-field {
+    display: flex;
+    flex-direction: row;
+    //align-items: baseline;
+  }
+
+  .file-explorer-button{
+    height: 58px;
+    --background: lightgrey;
+  }
+
+.btnEditAdd {
+  margin-top: 5px !important;
+}
+
+.impair {
+  background-color: #f7f7f7;
+}
+.pair {
+  background-color: white;
+}

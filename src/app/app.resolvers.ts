@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { MessagesService } from 'src/app/layout/common/messages/messages.service';
-import { CoreNavigationService } from 'src/app/models-services/navigation/navigation.service';
 import { NotificationsService } from 'src/app/layout/common/notifications/notifications.service';
 import { QuickChatService } from 'src/app/layout/common/quick-chat/quick-chat.service';
 import { ShortcutsService } from 'src/app/layout/common/shortcuts/shortcuts.service';
-import { UserService } from 'src/app/models-services/user/user.service';
+import { MembreService } from './models-services/membre/membre.service';
+import { ChurchService } from './models-services/church/church.service';
+import { CoreNavigationService } from './models-services/navigation/navigation.service';
+import { UserService } from './models-services/user/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +24,9 @@ export class InitialDataResolver implements Resolve<any>
         private _notificationsService: NotificationsService,
         private _quickChatService: QuickChatService,
         private _shortcutsService: ShortcutsService,
-        private _userService: UserService
+        private _userService: UserService,
+        private _membreService: MembreService,
+        private _churchService: ChurchService
     )
     {
     }
@@ -42,10 +46,12 @@ export class InitialDataResolver implements Resolve<any>
         // Fork join multiple API endpoint calls to wait all of them to finish
         return forkJoin([
             this._userService.get(),
+            this._membreService.get(),
+            this._churchService.get(),
             this._navigationService.get(),
-            this._messagesService.getAll(),
-            this._notificationsService.getAll(),
-            this._quickChatService.getChats(),
+            //this._messagesService.getAll(),
+            //this._notificationsService.getAll(),
+            //this._quickChatService.getChats(),
             this._shortcutsService.getAll(),
 
         ]);

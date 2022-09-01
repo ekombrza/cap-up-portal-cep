@@ -4,6 +4,9 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'src/app/models-services/auth/auth.utils';
 import { UserService } from 'src/app/models-services/user/user.service';
 import { baseUrlJHipsterApi } from 'src/environments/environment';
+import { ChurchService } from '../church/church.service';
+import { MembreService } from '../membre/membre.service';
+import jwt_decode from "jwt-decode";
 
 @Injectable()
 export class AuthService
@@ -15,7 +18,9 @@ export class AuthService
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
+        private _userService: UserService,
+        private _churchService: ChurchService,
+        private _membreService: MembreService
     )
     {
     }
@@ -85,8 +90,10 @@ export class AuthService
 
                 // Store the user on the user service
                 this._userService.user = response.body.userDTO;
-                //churchDTO
-
+                //Store the church on the church service
+                this._churchService.church = response.body.church;
+                //Store the membre on the membre service
+                this._membreService.membre = response.body.membre;
                 // Return a new observable with the response
                 return of(response);
             })
@@ -184,4 +191,9 @@ export class AuthService
         // If the access token exists and it didn't expire, sign in using it
         return this.signInUsingToken();
     }
+
+    getChurch(): number {
+        const decoded = jwt_decode(this.accessToken);
+        return decoded['church'];
+      }
 }

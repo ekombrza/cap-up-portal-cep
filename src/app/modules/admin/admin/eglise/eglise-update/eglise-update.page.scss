@@ -1,0 +1,89 @@
+.header {
+    min-height: 135px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    background-image: url('../../../../../../assets/images/freelancer-flou_1280.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+   
+}
+.container-fluid .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto; 
+    text-align: center;
+    color: white;
+
+    .avatar-wrapper {
+      width: 130px;
+      height: 130px;
+      -o-object-fit: cover;
+      object-fit: cover;
+      background-color: #ffffff;
+      border-radius: 50%;
+      margin-right: auto;
+      margin-left: auto; 
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-around;
+      font-size: xx-large;
+      color: cornflowerblue;
+  
+      img {
+          width: 100%;
+          border-radius: 50%;
+          box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+      }
+  }
+}
+
+  .full-width {
+    width: 100%;
+  }
+
+  .row-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin: 10px;
+    max-width: 700px;
+    width:100%;
+  }
+
+  .text-center{
+    text-align: center;
+  }
+
+  .underline{
+    border-bottom: 1px solid #cac5be;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-back-button {
+    font-size: xxx-large;
+    color:white;
+  }
+  .nav-back-button:hover {
+    color: cornflowerblue;
+  }
+
+  .button {
+    margin-bottom: 10px;
+  }
+  .button-annuler {
+  }

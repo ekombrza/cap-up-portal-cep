@@ -14,21 +14,21 @@ export const defaultNavigation: NavigationItem[] = [
                 title: 'Les Ressources',
                 type : 'basic',
                 icon : 'heroicons_solid:archive',
-                link : '/apps/ressources'
+                link : '/apps/ressources/ressources'
             },
             {
                 id   : 'ressources.formations',
                 title: 'Les Formations',
                 type : 'basic',
                 icon : 'heroicons_outline:academic-cap',
-                link : '/apps/formations'
+                link : '/apps/ressources/formations'
             },
             {
                 id   : 'ressources.dashboard',
                 title: 'Tableau de bord',
                 type : 'basic',
                 icon : 'heroicons_solid:identification',
-                link : '/apps/dashboard'
+                link : '/apps/ressources/dashboard'
             },
        ]
     },

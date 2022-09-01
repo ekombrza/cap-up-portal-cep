@@ -1,0 +1,193 @@
+<ion-content padding>
+
+  <div class="header container-fluid">
+    
+    <div class="container">
+
+      <div class="name-wrapper">
+        <h1 class="title"><a><ion-icon class='nav-back-button' (click)="navigateback()" slot="icon-only" name="chevron-back-outline"></ion-icon></a> Mise à jour du profil</h1>
+      </div>
+     <!-- <div class="avatar-wrapper">
+        <img
+          src="https://resources.churchofthehighlands.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcGhMIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--aee606d1b9c15c36f342c82c27a8505d26e91328/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTVRNd2VERXpNQ0VHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--5a8264743f89f980753e06a6ef3c22c2997392eb/avatar.png">
+      </div>-->
+    </div>
+  </div>
+
+  <div id="formContent">
+    <!-- Error message -->
+    <div>
+      <div class="success" *ngIf="success">
+        <strong>Enregistrement sauvegardé ! </strong>
+      </div>
+
+      <div class="alert" *ngIf="error">
+        <strong>Erreur lors de l'enregistrement!</strong> <br />
+        <ul>
+          <li>{{error}}</li>
+        </ul>
+      </div>
+
+      <div class="alert" *ngIf="doNotMatch">
+        <strong>Le nouveau mot de passe et sa confirmation</strong> ne matchent pas.
+      </div>
+
+    </div>
+
+    <div class="row-card">
+      <mat-card class="card">
+        <form name="form" role="form" (ngSubmit)="updateProfil()" [formGroup]="profilForm" >
+
+          <div class="underline">
+            <h3>Informations utilisateur</h3>
+          </div>
+          <div padding>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input id="email" name="login" type="text" matInput formControlName="email"
+                placeholder="jdupond@gmail.com">
+              <mat-error *ngIf="profilForm.controls.email.touched && profilForm.controls.email.invalid">
+                <span *ngIf="profilForm.controls.email.errors.required">L'email est <strong>requis</strong>.</span>
+                <span *ngIf="profilForm.controls.email.errors.minlength">L'email doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.email.errors.maxlength">L'email ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.email.errors.pattern">L'email ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nom</mat-label>
+              <input id="lastName" name="lastName" type="text" matInput formControlName="lastName"
+                placeholder="Ex. Dupond">
+              <mat-error *ngIf="profilForm.controls.lastName.touched && profilForm.controls.lastName.invalid">
+                <span *ngIf="profilForm.controls.lastName.errors.required">Le nom est <strong>requis</strong>.</span>
+                <span *ngIf="profilForm.controls.lastName.errors.minlength">Le nom doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.lastName.errors.maxlength">Le nom ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.lastName.errors.pattern">Le nom ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Prénom</mat-label>
+              <input id="firstName" name="firstName" type="text" matInput formControlName="firstName"
+                placeholder="Ex. Jean">
+              <mat-error *ngIf="profilForm.controls.firstName.touched && profilForm.controls.firstName.invalid">
+                <span *ngIf="profilForm.controls.firstName.errors.required">Le prénom est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="profilForm.controls.firstName.errors.minlength">Le prénom doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.firstName.errors.maxlength">Le prénom ne doit pas être <strong>plus
+                    grand que 50 caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.firstName.errors.pattern">Le prénom ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>N° téléphone</mat-label>
+              <input id="phoneNumber" name="phoneNumber" type="text" matInput formControlName="phoneNumber"
+                placeholder="Ex. 0623456789">
+              <mat-error *ngIf="profilForm.controls.phoneNumber.touched && profilForm.controls.phoneNumber.invalid">
+                <span *ngIf="profilForm.controls.phoneNumber.errors.required">Le n° téléphone est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="profilForm.controls.phoneNumber.errors.minlength">Le n° téléphone doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.phoneNumber.errors.maxlength">Le n° téléphone ne doit pas être
+                  <strong>plus grand que 50 caractères</strong>.</span>
+                <span *ngIf="profilForm.controls.phoneNumber.errors.pattern">Le n° téléphone ne doit contenir
+                  <strong>que des lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Rôles</mat-label>
+              <mat-select formControlName="roles" multiple [compareWith]="compareFn">
+                <mat-select-trigger>
+                  {{profilForm.get('roles').value ? profilForm.get('roles').value[0]?.name : ''}}
+                  <span *ngIf="profilForm.get('roles').value?.length > 1" class="example-additional-selection">
+                    (+{{profilForm.get('roles').value.length - 1}} {{profilForm.get('roles').value?.length === 2 ?
+                    'autre' : 'autres'}})
+                  </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let role of listRoles" [value]="role">{{role.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <button class="full-width" mat-raised-button color="primary" [disabled]="profilForm.invalid">Mettre
+            à jour</button>
+        </form>
+      </mat-card>
+
+
+      <mat-card class="card">
+        <form name="formPassword" role="form" (ngSubmit)="changePassword()" [formGroup]="passwordForm" >
+
+
+          <div class="underline">
+            <h3>Changement du mot de passe</h3>
+          </div>
+          <div padding>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Not de passe actuel </mat-label>
+              <input id="currentPassword" name="currentPassword" type="password" matInput
+                formControlName="currentPassword" placeholder="**********">
+              <mat-error
+                *ngIf="passwordForm.controls.currentPassword.touched && passwordForm.controls.currentPassword.invalid">
+                <span *ngIf="passwordForm.controls.currentPassword.errors.required">Le mot de passe actuel est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="passwordForm.controls.currentPassword.errors.minlength">Le mot de passe actuel doit faire
+                  <strong>moins de 8 caractères</strong>.</span>
+                <span *ngIf="passwordForm.controls.currentPassword.errors.maxlength">Le mot de passe actuel ne doit
+                  pas être <strong>plus grand que 50 caractères</strong>.</span>
+                <span *ngIf="passwordForm.controls.currentPassword.errors.pattern">Le mot de passe actuel ne doit
+                  contenir <strong>que des lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nouveau mot de passe </mat-label>
+              <input id="password" name="password" type="password" matInput formControlName="password"
+                placeholder="**********">
+              <mat-error *ngIf="passwordForm.controls.password.touched && passwordForm.controls.password.invalid">
+                <span *ngIf="passwordForm.controls.password.errors.required">Le mot de passe est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="passwordForm.controls.password.errors.minlength">Le mot de passe doit faire <strong>moins
+                    de 8 caractères</strong>.</span>
+                <span *ngIf="passwordForm.controls.password.errors.maxlength">Le mot de passe ne doit pas être
+                  <strong>plus grand que 50 caractères</strong>.</span>
+                <span *ngIf="passwordForm.controls.password.errors.pattern">Le mot de passe ne doit contenir
+                  <strong>que des lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Confirmation nouveau mot de passe </mat-label>
+              <input id="confirmPassword" name="confirmPassword" type="password" matInput
+                formControlName="confirmPassword" placeholder="">
+              <mat-error
+                *ngIf="passwordForm.controls.confirmPassword.touched && passwordForm.controls.confirmPassword.invalid">
+                <span *ngIf="passwordForm.controls.confirmPassword.errors.required">Le mot de passe de confirmation
+                  est <strong>requis</strong>.</span>
+                <span *ngIf="passwordForm.controls.confirmPassword.errors.minlength">Le mot de passe de confirmation
+                  doit faire <strong>de 1 caractères</strong>.</span>
+                <span *ngIf="passwordForm.controls.confirmPassword.errors.maxlength">Le mot de passe de confirmation
+                  ne doit pas être <strong>plus grand que 50 caractères</strong>.</span>
+                <span *ngIf="passwordForm.controls.confirmPassword.errors.pattern">Le mot de passe de confirmation ne
+                  doit contenir <strong>que des lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <button class="full-width" mat-raised-button color="primary" [disabled]="profilForm.invalid">Changer
+            le mot de passe</button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</ion-content>

@@ -14,6 +14,7 @@ export interface IMembre {
   imageBlobContentType?: string | null;
   imageBlob?: string | null;
   jobStatus?: JobStatus | null;
+  instantStatus?: string | null;
   creationDate?: dayjs.Dayjs;
   updatedDate?: dayjs.Dayjs | null;
   internalUser?: IUser | null;
@@ -32,6 +33,7 @@ export class Membre implements IMembre {
     public imageBlobContentType?: string | null,
     public imageBlob?: string | null,
     public jobStatus?: JobStatus | null,
+    public instantStatus?: string | null,
     public creationDate?: dayjs.Dayjs,
     public updatedDate?: dayjs.Dayjs | null,
     public internalUser?: IUser | null,

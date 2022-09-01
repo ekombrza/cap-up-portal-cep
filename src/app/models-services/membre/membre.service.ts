@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as dayjs from 'dayjs';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { createRequestOption } from 'src/@ekbz/services/utils';
 import { baseUrlJHipsterApi } from 'src/environments/environment';
 import { Membre } from './membre.model';
@@ -19,6 +19,44 @@ export class MembreService {
   public baseUrlExtended = baseUrlJHipsterApi + 'api/extended/membres';
   public baseUrl = baseUrlJHipsterApi + 'api/membres';
   public resourceUrl = baseUrlJHipsterApi + 'api/membres';
+
+  private _membre: ReplaySubject<Membre> = new ReplaySubject<Membre>(1);
+
+   // -----------------------------------------------------------------------------------------------------
+    // @ Accessors
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Setter & getter for membre
+     *
+     * @param value
+     */
+     set membre(value: Membre)
+     {
+         // Store the value
+         this._membre.next(value);
+     }
+ 
+     get membre$(): Observable<Membre>
+     {
+         return this._membre.asObservable();
+     }
+ 
+     // -----------------------------------------------------------------------------------------------------
+     // @ Public methods
+     // -----------------------------------------------------------------------------------------------------
+ 
+     /**
+      * Get the current logged in membre data
+      */
+     get(): Observable<Membre>
+     {
+         return this.http.get<Membre>(`${this.baseUrlExtended}/current`).pipe(
+             tap((membre) => {
+                 this._membre.next(membre);
+             })
+         );
+     }
   
   queryCurrentUser(req?: any): Observable<HttpResponse<any>> {
     const options = createRequestOption(req);
@@ -40,6 +78,7 @@ export class MembreService {
     const copy = this.convertDateFromClient(membre);
     return this.http
       .put<Membre>(`${this.resourceUrl}/${this.getMembreIdentifier(membre) as number}`, membre, { observe: 'response' })
+      .pipe(tap((res) => this._membre.next(res.body)))
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -47,6 +86,7 @@ export class MembreService {
     const copy = this.convertDateFromClient(membre);
     return this.http
       .patch<Membre>(`${this.resourceUrl}/${this.getMembreIdentifier(membre) as number}`, copy, { observe: 'response' })
+      .pipe(tap((res) => this._membre.next(res.body)))
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

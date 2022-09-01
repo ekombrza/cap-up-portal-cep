@@ -1,0 +1,163 @@
+.header {
+    min-height: 135px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    background-image: url('../../../../../assets/images/freelancer-flou_1280.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+image-cropper {
+    height: 50vh;
+  }
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+       
+        .avatar-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            -o-object-fit: cover;
+            object-fit: cover;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: -webkit-box;
+        
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+            }
+            .btn-update-image{
+                position: absolute;
+                bottom: 78px;
+                left: 72%;
+            }
+        }
+        .info-wrapper {
+            margin-left: 20px;
+            color:white;
+
+            .name-wrapper {
+                display: flex;
+                flex-direction: row;
+                -webkit-box-align: center;
+                align-items: center;
+
+                .status-pill {
+                    margin-left: 15px;
+                    background-color: #1D252C;
+                    border-radius: 500vh;
+                    padding: 5px 15px;
+                    p {
+                        text-transform: capitalize;
+                        margin: 0px;
+                        position: relative;
+                        bottom: 2px;
+                    }
+                }
+            }
+        }
+    } 
+}
+
+.user-profile {
+    .user-info-wrapper {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    
+        .section-header {
+            border-bottom: 1px solid #cac5be;
+            padding-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 60px;
+            .btn {
+                border: none;
+                border-radius: 500vh !important;
+            }
+            a {
+                color: #1D252C;
+                text-decoration: none;
+                background-color: transparent;
+            }
+            .btn-outline-secondary {
+                border-color: #1D252C;
+                background-color: transparent !important;
+                border-width: 2px;
+                border-style: solid;
+                padding: 5px 15px !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+            .btn-outline-secondary:hover {
+                background-color: #1D252C !important;;
+                color: white;
+                border-color: white;
+            }
+        }
+    
+        .section-row {
+ 
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+    
+}
+
+.commands-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+
+    .commands-content {
+        width: 70%;
+    }
+    .image-exemple-content {
+        width: 30%;
+    }
+}
+
+a.nav-link {
+    align-self:center;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 594px) {
+    .avatar-wrapper {
+        width: 80px !important;
+        height: 80px !important;
+
+        .btn-update-image{
+            position: absolute;
+            bottom: 45px !important;;
+            left: 63% !important;;
+        }
+    }
+    .name-wrapper.h1 {
+        font-size: larger !important;
+    }
+    .user-created-at {
+        margin-top: 0px !important;
+    }
+}
+

@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="content" [ngClass]="i%2==0?'pair':'impair'" *ngFor="let groupCategorie of this.groupsCategories  | keyvalue; let i=index">
+    <div class="content-wrapper">
+      <div class="categorie-title">
+        <ion-text><h3>{{groupCategorie.key}} <ion-badge color="primary">{{groupCategorie?.value?.length}}</ion-badge></h3></ion-text>
+        <a class="browse-all" [routerLink]="['/apps/ressources/formations']" [queryParams]="{ searchCategorie: groupCategorie.key}">Voir tout</a>
+      </div>
+      <div class="resource-content-wrapper">
+        <ng-container *ngFor="let resource of groupCategorie.value; let i=index">
+          <div class="card">
+            <a [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'view'] : ['/apps/ressources/formations', resource.id, 'view']">
+              <div class="resource-block">
+                <div class="block-image" style="background: url({{resource.imageLink}}) no-repeat center; background-size: cover;">
+                </div>
+                <div class="block-text">
+                  <div class="block-title">{{resource.title}}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ion-content>

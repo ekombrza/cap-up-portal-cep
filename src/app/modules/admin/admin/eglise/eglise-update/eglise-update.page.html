@@ -1,0 +1,215 @@
+<ion-content padding>
+
+  <div class="header container-fluid">
+    
+    <div class="container">
+
+      <div class="name-wrapper">
+        <h1 class="title"><a><ion-icon class='nav-back-button' (click)="navigateback()" slot="icon-only" name="chevron-back-outline"></ion-icon></a> Mise à jour de l'église</h1>
+      </div>
+      <div class="avatar-wrapper">
+        {{church?.churchName.charAt(0)}}
+      </div>
+    </div>
+  </div>
+
+  <div id="formContent">
+    <!-- Error message -->
+    <div>
+      <div class="success" *ngIf="success">
+        <strong>Enregistrement sauvegardé ! </strong>
+      </div>
+
+      <div class="alert" *ngIf="error">
+        <strong>Erreur lors de l'enregistrement!</strong> <br />
+        <ul>
+          <li>{{error}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row-card">
+      <mat-card class="card">
+        <form name="form" role="form" (ngSubmit)="updateChurch()" [formGroup]="churchForm" >
+
+          <div class="underline">
+            <h3>Informations sur l'église</h3>
+          </div>
+          <div padding>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nom de l'église *</mat-label>
+              <input id="churchName" name="churchName" type="text" matInput formControlName="churchName"
+                placeholder="Ex. CEP Evry">
+              <mat-error *ngIf="churchForm.controls.churchName.touched && churchForm.controls.churchName.invalid">
+                <span *ngIf="churchForm.controls.churchName.errors.required">Le nom est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.churchName.errors.minlength">Le nom doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.churchName.errors.maxlength">Le nom ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.churchName.errors.pattern">Le nom ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Nom du pasteur *</mat-label>
+              <input id="pastorName" name="pastorName" type="text" matInput formControlName="pastorName"
+                placeholder="Ex. Jean Dupond">
+              <mat-error *ngIf="churchForm.controls.pastorName.touched && churchForm.controls.pastorName.invalid">
+                <span *ngIf="churchForm.controls.pastorName.errors.required">Le nom est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.pastorName.errors.minlength">Le nom doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.pastorName.errors.maxlength">Le nom ne doit pas être <strong>plus
+                    grand que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.pastorName.errors.pattern">Le nom ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>N° téléphone *</mat-label>
+              <input id="phoneNumber" name="phoneNumber" type="text" matInput formControlName="phoneNumber"
+                placeholder="Ex. 0623456789">
+              <mat-error *ngIf="churchForm.controls.phoneNumber.touched && churchForm.controls.phoneNumber.invalid">
+                <span *ngIf="churchForm.controls.phoneNumber.errors.required">Le n° téléphone est
+                  <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.phoneNumber.errors.minlength">Le n° téléphone doit faire <strong>de 1
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.phoneNumber.errors.maxlength">Le n° téléphone ne doit pas être
+                  <strong>plus grand que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.phoneNumber.errors.pattern">Le n° téléphone ne doit contenir
+                  <strong>que des lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Email *</mat-label>
+              <input id="email" name="login" type="text" matInput formControlName="email"
+                placeholder="jdupond@gmail.com">
+              <mat-error *ngIf="churchForm.controls.email.touched && churchForm.controls.email.invalid">
+                <span *ngIf="churchForm.controls.email.errors.required">L'email est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.email.errors.minlength">L'email doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.email.errors.maxlength">L'email ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.email.errors.pattern">L'email ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Site web *</mat-label>
+              <input id="website" name="login" type="text" matInput formControlName="website"
+                placeholder="jdupond@gmail.com">
+              <mat-error *ngIf="churchForm.controls.website.touched && churchForm.controls.website.invalid">
+                <span *ngIf="churchForm.controls.website.errors.required">Le site web est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.website.errors.minlength">Le site web doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.website.errors.maxlength">Le site web ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.website.errors.pattern">Le site web ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Dénomination *</mat-label>
+              <mat-select formControlName="denomination" [compareWith]="compareFn">
+                <mat-option *ngFor="let denomination of listDenominations" [value]="denomination">{{denomination.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Adresse 1 *</mat-label>
+              <input id="adress1" name="login" type="text" matInput formControlName="adress1"
+                placeholder="10 impasse du square">
+              <mat-error *ngIf="churchForm.controls.adress1.touched && churchForm.controls.adress1.invalid">
+                <span *ngIf="churchForm.controls.adress1.errors.required">L'adresse 1 est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.adress1.errors.minlength">L'adresse 1 doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.adress1.errors.maxlength">L'adresse 1 ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.adress1.errors.pattern">L'adresse 1 ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Adresse 2 </mat-label>
+              <input id="adress2" name="login" type="text" matInput formControlName="adress2"
+                placeholder="10 impasse du square">
+              <mat-error *ngIf="churchForm.controls.adress2.touched && churchForm.controls.adress2.invalid">
+                <span *ngIf="churchForm.controls.adress2.errors.required">L'adresse 2 est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.adress2.errors.minlength">L'adresse 2 doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.adress2.errors.maxlength">L'adresse 2 ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.adress2.errors.pattern">L'adresse 2 ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Code postal *</mat-label>
+              <input id="postalCode" name="login" type="text" matInput formControlName="postalCode"
+                placeholder="91130">
+              <mat-error *ngIf="churchForm.controls.postalCode.touched && churchForm.controls.city.invalid">
+                <span *ngIf="churchForm.controls.postalCode.errors.required">Le code postal est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.postalCode.errors.minlength">Le code postal doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.postalCode.errors.maxlength">Le code postal ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.postalCode.errors.pattern">Le code postal ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Ville *</mat-label>
+              <input id="city" name="login" type="text" matInput formControlName="city"
+                placeholder="Evry">
+              <mat-error *ngIf="churchForm.controls.city.touched && churchForm.controls.city.invalid">
+                <span *ngIf="churchForm.controls.city.errors.required">La ville est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.city.errors.minlength">La ville doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.city.errors.maxlength">La ville ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.city.errors.pattern">La ville ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Région *</mat-label>
+              <input id="region" name="login" type="text" matInput formControlName="region"
+                placeholder="Evry">
+              <mat-error *ngIf="churchForm.controls.region.touched && churchForm.controls.city.invalid">
+                <span *ngIf="churchForm.controls.region.errors.required">La région est <strong>requis</strong>.</span>
+                <span *ngIf="churchForm.controls.region.errors.minlength">La région doit faire <strong>moins de 8
+                    caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.region.errors.maxlength">La région ne doit pas être <strong>plus grand
+                    que 50 caractères</strong>.</span>
+                <span *ngIf="churchForm.controls.region.errors.pattern">La région ne doit contenir <strong>que des
+                    lettres et des chiffres</strong>.</span>
+              </mat-error>
+            </mat-form-field>
+
+           <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Pays *</mat-label>
+              <mat-select formControlName="country" [compareWith]="compareFn">
+                <mat-option *ngFor="let country of listCountry" [value]="country">{{country.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <button class="full-width button" mat-raised-button color="primary" [disabled]="churchForm.invalid">Mettre à jour</button>
+          
+        </form>
+        <button class="full-width button-annuler" mat-raised-button (click)="navigateback()">Annuler</button>
+      </mat-card>
+    </div>
+  </div>
+</ion-content>

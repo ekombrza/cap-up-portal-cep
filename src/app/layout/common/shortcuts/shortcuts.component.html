@@ -26,8 +26,8 @@
                 <span class="">Raccourcis</span>
                 <ng-container *ngIf="mode !== 'view'">
                     <span class="ml-1">
-                        <ng-container *ngIf="mode === 'add'">- Add new</ng-container>
-                        <ng-container *ngIf="mode === 'modify' || mode === 'edit'">- Editing</ng-container>
+                        <ng-container *ngIf="mode === 'add'">- Ajouter nouveau</ng-container>
+                        <ng-container *ngIf="mode === 'modify' || mode === 'edit'">- Editer</ng-container>
                     </span>
                 </ng-container>
             </div>
@@ -38,7 +38,7 @@
                     <!-- Enter 'modify' mode -->
                     <button
                         (click)="changeMode('modify')"
-                        [matTooltip]="'Enter edit mode'"
+                        [matTooltip]="'Entrer en mode edition'"
                         mat-icon-button>
                         <mat-icon
                             [svgIcon]="'heroicons_solid:pencil-alt'"
@@ -47,7 +47,7 @@
                     <!-- Enter 'add' mode -->
                     <button
                         (click)="newShortcut()"
-                        [matTooltip]="'Add shortcut'"
+                        [matTooltip]="'Ajouter Raccourci'"
                         mat-icon-button>
                         <mat-icon
                             [svgIcon]="'heroicons_solid:plus-circle'"
@@ -157,7 +157,7 @@
                                 [svgIcon]="'heroicons_outline:bookmark'"
                                 class="text-primary-700 dark:text-primary-50"></mat-icon>
                         </div>
-                        <div class="mt-5 text-2xl font-semibold tracking-tight">No shortcuts</div>
+                        <div class="mt-5 text-2xl font-semibold tracking-tight">Aucun raccourci</div>
                         <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">Quand vous avez des
                             raccourcis,
                             ils apparaissent içi.
@@ -172,7 +172,7 @@
                     [formGroup]="shortcutForm"
                     class="p-6">
                     <mat-form-field class="w-full">
-                        <mat-label>Label</mat-label>
+                        <mat-label>Libellé</mat-label>
                         <input
                             [formControlName]="'label'"
                             matInput
@@ -185,14 +185,14 @@
                             matInput>
                     </mat-form-field>
                     <mat-form-field class="w-full">
-                        <mat-label>Icon</mat-label>
+                        <mat-label>Icone</mat-label>
                         <input
                             [formControlName]="'icon'"
                             matInput
                             required>
                     </mat-form-field>
                     <mat-form-field class="w-full">
-                        <mat-label>Link</mat-label>
+                        <mat-label>Lien</mat-label>
                         <input
                             [formControlName]="'link'"
                             matInput
@@ -201,7 +201,7 @@
                     <mat-slide-toggle
                         [color]="'primary'"
                         [formControlName]="'useRouter'">
-                        Use router for the link
+                        Utiliser la route interne pour le lien
                     </mat-slide-toggle>
                     <!-- Actions -->
                     <div class="flex items-center justify-end mt-4">
@@ -219,8 +219,8 @@
                             [disabled]="!shortcutForm.valid"
                             mat-flat-button
                             type="button">
-                            <ng-container *ngIf="mode === 'add'">Add</ng-container>
-                            <ng-container *ngIf="mode === 'edit'">Update</ng-container>
+                            <ng-container *ngIf="mode === 'add'">Ajouter</ng-container>
+                            <ng-container *ngIf="mode === 'edit'">Mettre à jour</ng-container>
                         </button>
                     </div>
                 </form>

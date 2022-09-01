@@ -4,8 +4,9 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { MatButton } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
-import { Shortcut } from 'src/app/layout/common/shortcuts/shortcuts.types';
+import { IShortcuts, Shortcuts } from 'src/app/layout/common/shortcuts/shortcuts.types';
 import { ShortcutsService } from 'src/app/layout/common/shortcuts/shortcuts.service';
+import dayjs from 'dayjs';
 
 @Component({
     selector       : 'shortcuts',
@@ -21,7 +22,7 @@ export class ShortcutsComponent implements OnInit, OnDestroy
 
     mode: 'view' | 'modify' | 'add' | 'edit' = 'view';
     shortcutForm: UntypedFormGroup;
-    shortcuts: Shortcut[];
+    shortcuts: Shortcuts[];
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -60,7 +61,7 @@ export class ShortcutsComponent implements OnInit, OnDestroy
         // Get the shortcuts
         this._shortcutsService.shortcuts$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((shortcuts: Shortcut[]) => {
+            .subscribe((shortcuts: Shortcuts[]) => {
 
                 // Load the shortcuts
                 this.shortcuts = shortcuts;
@@ -146,7 +147,7 @@ export class ShortcutsComponent implements OnInit, OnDestroy
     /**
      * Edit a shortcut
      */
-    editShortcut(shortcut: Shortcut): void
+    editShortcut(shortcut: Shortcuts): void
     {
         // Reset the form with the shortcut
         this.shortcutForm.reset(shortcut);
@@ -161,16 +162,18 @@ export class ShortcutsComponent implements OnInit, OnDestroy
     save(): void
     {
         // Get the data from the form
-        const shortcut = this.shortcutForm.value;
+        const shortcut: IShortcuts = this.shortcutForm.value;
 
         // If there is an id, update it...
         if ( shortcut.id )
         {
+            shortcut.creationDate = dayjs();
             this._shortcutsService.update(shortcut.id, shortcut).subscribe();
         }
         // Otherwise, create a new shortcut...
         else
         {
+            shortcut.creationDate = dayjs();
             this._shortcutsService.create(shortcut).subscribe();
         }
 

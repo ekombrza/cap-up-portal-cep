@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as dayjs from 'dayjs';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { createRequestOption } from 'src/@ekbz/services/utils';
 import { baseUrlJHipsterApi } from 'src/environments/environment';
 import { Church } from './church.model';
@@ -18,6 +18,44 @@ export class ChurchService {
   
   public resourceUrl = baseUrlJHipsterApi + 'api/churches';
   public resourceUrlPublic = baseUrlJHipsterApi + 'api/extendedPublic/churches';
+
+  private _church: ReplaySubject<Church> = new ReplaySubject<Church>(1);
+
+  // -----------------------------------------------------------------------------------------------------
+    // @ Accessors
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Setter & getter for church
+     *
+     * @param value
+     */
+     set church(value: Church)
+     {
+         // Store the value
+         this._church.next(value);
+     }
+ 
+     get church$(): Observable<Church>
+     {
+         return this._church.asObservable();
+     }
+ 
+     // -----------------------------------------------------------------------------------------------------
+     // @ Public methods
+     // -----------------------------------------------------------------------------------------------------
+ 
+     /**
+      * Get the current logged in user data
+      */
+     get(): Observable<Church>
+     {
+         return this.http.get<Church>(`${this.resourceUrlPublic}/current`).pipe(
+             tap((church) => {
+                 this._church.next(church);
+             })
+         );
+     }
   
   create(church: Church): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(church);
