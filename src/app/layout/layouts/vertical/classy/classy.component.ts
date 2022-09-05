@@ -84,7 +84,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             .subscribe((membre: Membre) => {
                 this.membre = membre;
                 console.log('membre',this.membre);
-                this.avatar = 'data:'+this.membre.imageBlobContentType + ';base64,' + this.membre.imageBlob;
+                if(membre.imageBlob){
+                    this.avatar = 'data:'+this.membre.imageBlobContentType + ';base64,' + this.membre.imageBlob;
+                }
+                
             });
         
         // Subscribe to churches changes

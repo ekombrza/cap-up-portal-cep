@@ -1,0 +1,16 @@
+
+.categorie-grid {
+    grid-template-columns: auto 50px;
+
+    @screen sm {
+        grid-template-columns: 200px auto 50px;
+    }
+
+    @screen md {
+        grid-template-columns: 200px auto 50px;
+    }
+
+    @screen lg {
+        grid-template-columns: 200px auto 50px;
+    }
+}

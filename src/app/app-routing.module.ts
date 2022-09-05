@@ -30,6 +30,7 @@ const routes: Route[] = [
         {path: 'confirmation-required', loadChildren: () => import('src/app/modules/auth/confirmation-required/confirmation-required.module').then(m => m.AuthConfirmationRequiredModule)},
         {path: 'forgot-password', loadChildren: () => import('src/app/modules/auth/forgot-password/forgot-password.module').then(m => m.AuthForgotPasswordModule)},
         {path: 'reset-password-init', loadChildren: () => import('src/app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule)},
+        {path: 'activate', loadChildren: () => import('src/app/modules/auth/activate/activate.module').then(m => m.AuthActivateModule)},
         {path: 'sign-in', loadChildren: () => import('src/app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule)},
         {path: 'sign-up', loadChildren: () => import('src/app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule)}
     ]
@@ -85,7 +86,12 @@ const routes: Route[] = [
         {path: 'ressources', children: [
             {path: 'dashboard', loadChildren: () => import('src/app/modules/admin/apps/ressources/dashboard/dashboard.module').then(m => m.DashboardPageModule)},
         ]},
-
+        {
+            path: 'admin',
+            children   : [
+                { path: 'categorie', loadChildren: () => import('./modules/admin/apps/admin/categorie/categorie.module').then( m => m.CategoriePageModule)},
+            ]
+        }
     ]
 },
 
@@ -108,7 +114,7 @@ const routes: Route[] = [
         {path: 'settings', loadChildren: () => import('src/app/modules/admin/admin/settings/settings.module').then(m => m.SettingsModule)},
 
     ]
-}
+},
 
 ];
 

@@ -10,18 +10,18 @@ export const defaultNavigation: NavigationItem[] = [
         icon    : 'heroicons_outline:home',
         children: [
             {
-                id   : 'ressources.ressources',
-                title: 'Les Ressources',
-                type : 'basic',
-                icon : 'heroicons_solid:archive',
-                link : '/apps/ressources/ressources'
-            },
-            {
                 id   : 'ressources.formations',
                 title: 'Les Formations',
                 type : 'basic',
                 icon : 'heroicons_outline:academic-cap',
                 link : '/apps/ressources/formations'
+            },
+            {
+                id   : 'ressources.ressources',
+                title: 'Les Ressources',
+                type : 'basic',
+                icon : 'heroicons_solid:archive',
+                link : '/apps/ressources/ressources'
             },
             {
                 id   : 'ressources.dashboard',
@@ -35,24 +35,31 @@ export const defaultNavigation: NavigationItem[] = [
     {
         id      : 'administration',
         title   : 'Administration',
-        subtitle: 'Administration du site',
+        subtitle: 'Administration des ressources',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [
             {
-                id   : 'administration.Project',
-                title: 'Project',
+                id   : 'administration.Categories',
+                title: 'Gestion des Catégories',
                 type : 'basic',
-                icon : 'heroicons_outline:chart-pie',
-                link : '/admin/example'
+                icon : 'heroicons_outline:adjustments',
+                link : '/apps/admin/categorie'
             },
             {
-                id   : 'administration.Dashboard',
-                title: 'Visualisation des tableaux de bord',
+                id   : 'administration.TypeFile',
+                title: 'Gestion des types de fichiers',
                 type : 'basic',
-                icon : 'heroicons_outline:chart-pie',
+                icon : 'heroicons_outline:adjustments',
                 link : '/admin/dashboard'
-              }
+            },
+            {
+                id   : 'administration.Roles',
+                title: 'Gestion des rôles',
+                type : 'basic',
+                icon : 'heroicons_outline:adjustments',
+                link : '/admin/dashboard'
+            }
        ]
     },
 

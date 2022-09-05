@@ -13,6 +13,16 @@
   font-family: system-ui;
   color: cornflowerblue;
 }
+
+ion-tab-bar {
+  --background: #f2f2f2
+}
+
+
 ion-badge {
   background-color: #00000091;;
+}
+
+ion-tab-bar {
+  border-bottom: var(--border);
 }

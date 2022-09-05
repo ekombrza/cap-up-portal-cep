@@ -4,7 +4,7 @@
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-    <div class="header">Les Ressources</div>
+    <div class="header">Les {{lastRouteSegment}}</div>
     <div class="content-wrapper">
         <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
             <div class="search-wrapper">
@@ -29,7 +29,7 @@
                         Type de contenu
                         <div *ngFor="let contentTypeObj of contentTypesCheckboxes; let i=index">
                             <div class="checkbox">
-                                <input type="checkbox" id="checkboxContentTypeId{{i}}" formArrayName="selectedContentTypesCheckBoxes" [checked]="contentTypeObj.checked" [value]="contentTypeObj" (change)="onCheckboxChange( $event, contentTypeObj, 'selectedContentTypesCheckBoxes')">
+                                <input type="checkbox" [disabled]="disableTypeCheckboxes(contentTypeObj.categorie.name)" id="checkboxContentTypeId{{i}}" formArrayName="selectedContentTypesCheckBoxes" [checked]="contentTypeObj.checked" [value]="contentTypeObj" (change)="onCheckboxChange( $event, contentTypeObj, 'selectedContentTypesCheckBoxes')">
                                 <label for="checkboxContentTypeId{{i}}">{{contentTypeObj.categorie.name}}</label>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                 <div class="flex-item-articles">
                     <div class="infos-search">
                         <div class="left-infos-search">
-                            <div class="infos-search-title">{{nbResultResource}} ressources trouvées</div>
+                            <div class="infos-search-title">{{nbResultResource}} {{lastRouteSegment}} trouvées</div>
                             <div>
                                 <ion-chip outline *ngFor="let selected of selectedFilter; let i=index">
                                     <ion-label>{{selected}}</ion-label>

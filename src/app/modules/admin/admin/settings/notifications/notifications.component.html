@@ -1,10 +1,11 @@
+
 <div class="w-full max-w-3xl">
 
     <!-- Form -->
     <form [formGroup]="notificationsForm">
 
         <!-- Section -->
-        <div class="w-full text-xl">Alerts</div>
+        <div class="w-full text-xl">Alertes</div>
         <div class="grid grid-cols-1 gap-6 w-full mt-8">
             <!-- Communication -->
             <div class="flex items-center justify-between">
@@ -25,7 +26,7 @@
             <div class="flex items-center justify-between">
                 <div
                     class="flex-auto cursor-pointer"
-                    (click)="securityToggle.toggle()">
+                    (click)="newletterToggle.toggle()">
                     <div class="leading-6 font-medium">Newsletter</div>
                     <div class="text-md text-secondary">
                         Recevez l'email de newletter.
@@ -34,15 +35,15 @@
                 <mat-slide-toggle
                     class="ml-2"
                     [color]="'primary'"
-                    [formControlName]="'security'"
-                    #securityToggle>
+                    [formControlName]="'newletter'"
+                    #newletterToggle>
                 </mat-slide-toggle>
             </div>
             <!-- Activités -->
             <div class="flex items-center justify-between">
                 <div
                     class="flex-auto cursor-pointer"
-                    (click)="meetupsToggle.toggle()">
+                    (click)="activitesToggle.toggle()">
                     <div class="leading-6 font-medium">Activités de l'église</div>
                     <div class="text-md text-secondary">
                         Recevoir des notifications sur les activités de l'église.
@@ -51,8 +52,8 @@
                 <mat-slide-toggle
                     class="ml-2"
                     [color]="'primary'"
-                    [formControlName]="'meetups'"
-                    #meetupsToggle>
+                    [formControlName]="'activites'"
+                    #activitesToggle>
                 </mat-slide-toggle>
             </div>
         </div>
@@ -64,18 +65,18 @@
         <div class="w-full text-xl">Activité du compte</div>
         <div class="w-full mt-8 font-medium">M'envoyer un email quand :</div>
         <div class="grid grid-cols-1 gap-4 w-full mt-4">
-            <!-- Comments -->
+            <!-- partages -->
             <div class="flex items-center justify-between">
                 <div
                     class="flex-auto leading-6 cursor-pointer"
-                    (click)="comments.toggle()">
+                    (click)="partages.toggle()">
                     Quelqu'un partage du contenu avec moi
                 </div>
                 <mat-slide-toggle
                     class="ml-2"
                     [color]="'primary'"
-                    [formControlName]="'comments'"
-                    #comments>
+                    [formControlName]="'partages'"
+                    #partages>
                 </mat-slide-toggle>
             </div>
             <!-- Mention -->
@@ -117,13 +118,13 @@
             <button
                 mat-stroked-button
                 type="button">
-                Cancel
+                Annuler
             </button>
             <button
                 class="ml-4"
                 mat-flat-button
                 type="button"
-                [color]="'primary'">Save
+                [color]="'primary'">Enregistrer
             </button>
         </div>
     </form>

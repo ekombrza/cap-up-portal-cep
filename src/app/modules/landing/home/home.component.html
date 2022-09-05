@@ -1,31 +1,133 @@
-<div class="flex flex-col items-center justify-center w-full h-full">
-    <div class="w-full max-w-3xl">
-        <div class="max-w-none mx-auto prose prose-sm">
-            <img
-                class="w-20"
-                src="assets/images/logo/CEP-LOGO-BLANC.png"
-                alt="Logo image">
-            <h1>Landing Module</h1>
-            <p>
-                This can be the landing or the welcome page of your application. If you have an SSR (Server Side Rendering) setup, or if you don't need to have Search engine
-                visibility and optimizations, you can even use this page as your primary landing page.
-            </p>
-            <p>
-                This is a separate "module", it has its own directory and routing setup and also it's completely separated from the actual application. This is also a simple example of
-                a multiple applications setup that uses the same codebase. You can have different entry points and essentially have different applications within the same codebase.
-            </p>
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="relative pt-8 pb-28 px-4 sm:pt-20 sm:pb-48 sm:px-16 overflow-hidden bg-gray-800 dark:bg-gray-900 dark">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center">
+            <img class="pb-3 w-10" src="../../../../assets/images/logo/CEP-LOGO-BLANC.png"/>
+            <h2 class="text-xl font-semibold">CEP RESSOURCES</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                Que souhaitez-vous apprendre aujourd'hui ?
+            </div>
+            <div class="mt-3 sm:text-2xl text-center tracking-tight text-secondary">
+                L'ensemble des équipes du CEP Evry vous proposent de découvrir les différentes formations et ressources mises à votre disposition pour grandir dans la foi et voir votre église locale grandir !
+            </div>
         </div>
-        <div>
-            <a
-                class="mt-8"
-                mat-flat-button
-                [color]="'primary'"
-                [routerLink]="'/dashboards/project'">
-                <span>Launch the App</span>
-                <mat-icon
-                    class="ml-2 icon-size-5"
-                    [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
-            </a>
+    </div>
+
+    <div class="flex flex-col items-center pb-6 px-6 sm:pb-10 sm:px-10">
+        <!-- Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-y-0 md:gap-x-6 w-full max-w-sm md:max-w-6xl -mt-16 sm:-mt-24">
+            <!-- FAQs card -->
+            <div class="relative flex flex-col rounded-2xl shadow hover:shadow-lg overflow-hidden bg-card transition-shadow ease-in-out duration-150">
+                <div class="flex flex-col flex-auto items-center p-8 text-center">
+                    <div class="text-2xl font-semibold">Les formations</div>
+                    <div class="md:max-w-100 mt-1 text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</div>
+                </div>
+                <div class="flex items-center justify-center py-4 px-8 text-primary-500 dark:text-primary-400 bg-gray-50 dark:bg-transparent dark:border-t">
+                    <a
+                        class="flex items-center"
+                        [routerLink]="['/apps/ressources/formations']">
+                        <span class="absolute inset-0"></span>
+                        <span class="font-medium">Aller aux formations</span>
+                        <mat-icon
+                            class="ml-2 icon-size-5 text-current"
+                            [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                    </a>
+                </div>
+            </div>
+            <!-- Guides card -->
+            <div class="relative flex flex-col rounded-2xl shadow hover:shadow-lg overflow-hidden bg-card transition-shadow ease-in-out duration-150">
+                <div class="flex flex-col flex-auto items-center p-8 text-center">
+                    <div class="text-2xl font-semibold">Les ressources</div>
+                    <div class="md:max-w-100 mt-1 text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</div>
+                </div>
+                <div class="flex items-center justify-center py-4 px-8 text-primary-500 dark:text-primary-400 bg-gray-50 dark:bg-transparent dark:border-t">
+                    <a
+                        class="flex items-center"
+                        [routerLink]="['/apps/ressources/ressources']">
+                        <span class="absolute inset-0"></span>
+                        <span class="font-medium">Aller aux ressources</span>
+                        <mat-icon
+                            class="ml-2 icon-size-5 text-current"
+                            [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                    </a>
+                </div>
+            </div>
+            <!-- Guides card -->
+            <div class="relative flex flex-col rounded-2xl shadow hover:shadow-lg overflow-hidden bg-card transition-shadow ease-in-out duration-150">
+                <div class="flex flex-col flex-auto items-center p-8 text-center">
+                    <div class="text-2xl font-semibold">Suivi d'avancement</div>
+                    <div class="md:max-w-100 mt-1 text-secondary">Vous pouvez suivre l'avancement de vos formations, voir les formations partagés avec vous, mettre des formations en favoris... Tout est accessible via différents tableaux de bord.</div>
+                </div>
+                <div class="flex items-center justify-center py-4 px-8 text-primary-500 dark:text-primary-400 bg-gray-50 dark:bg-transparent dark:border-t">
+                    <a
+                        class="flex items-center"
+                        [routerLink]="['/apps/ressources/dashboard/dashboard']">
+                        <span class="absolute inset-0"></span>
+                        <span class="font-medium">Aller à mon suivi</span>
+                        <mat-icon
+                            class="ml-2 icon-size-5 text-current"
+                            [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                    </a>
+                </div>
+            </div>
         </div>
+        <!-- FAQs -->
+        <div class="mt-24 text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight text-center">Les formations et ressources les plus demandées</div>
+        <div class="mt-2 text-xl text-center text-secondary">Voici ci dessous les ressources les plus demandés par catégories</div>
+        <div class="content mt-12" [ngClass]="i%2==0?'pair':'impair'" *ngFor="let categorie of categories; let i=index">
+            <div class="content-wrapper">
+              <div class="categorie-title">
+                <ion-text><h3>{{categorie?.name}} <ion-badge color="primary">{{categorie?.resources?.length}}</ion-badge></h3></ion-text>
+                <a class="browse-all" [routerLink]="['/apps/ressources/ressources']" [queryParams]="{ searchCategorie: categorie?.name}">Voir tout</a>
+              </div>
+              <div class="resource-content-wrapper">
+                <div class="left-resource">
+                  <div class="card">
+                    <a [routerLink]="['/apps/ressources/formations', categorie?.resources[0].id, 'view']"><img class="card-img-top" src="{{categorie?.resources[0].imageLink}}"></a>
+                    
+                    <div class="card-body">
+                      <a [routerLink]="['/apps/ressources/formations', categorie?.resources[0].id, 'view']">
+                        <div class="card-type">
+                          {{categorie?.resources[0].typeResourceEnum}}
+                        <span class="subtitle-divider text-secondary">//</span>
+                        {{categorie?.resources[0].sectionResources?.length}} SECTIONS
+                        </div>
+                        <div class="card-title">{{categorie?.resources[0].title}}</div>
+                        <div class="card-description">{{categorie?.resources[0].description}}</div>
+                      </a>
+                    </div>
+                  
+                  </div>
+                </div>
+                <div class="right-resources">
+                  <ng-container *ngFor="let resource of categorie?.resources; let i=index">
+                    <div class="right-resource" *ngIf="i !==0">
+                      <div class="card">
+                        <a [routerLink]="['/apps/ressources/formations',resource.id, 'view']"><img class="card-img-top" src="{{resource.imageLink}}">
+                        </a><div class="card-body">
+                        <a [routerLink]="['/apps/ressources/formations', resource.id, 'view']">
+                        <div class="card-title">{{resource.title}}</div>
+                        <div class="card-description">{{resource.description}}</div>
+                        </a>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+        
+            </div>
+          </div>
     </div>
 </div>

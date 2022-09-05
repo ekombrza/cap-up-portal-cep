@@ -32,9 +32,9 @@ export class SettingsNotificationsComponent implements OnInit
         // Create the form
         this.notificationsForm = this._formBuilder.group({
             communication: [true],
-            security     : [true],
-            meetups      : [false],
-            comments     : [false],
+            newletter     : [true],
+            activites      : [true],
+            partages     : [true],
             mention      : [true],
             follow       : [true],
             inquiry      : [true]

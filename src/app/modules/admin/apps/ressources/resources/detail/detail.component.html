@@ -165,58 +165,59 @@
                       <!-- <tap-sides-to-seek></tap-sides-to-seek> -->
                     </vm-default-ui>
                   </vm-player>
-
-                  <swiper
-                    [slidesPerView]="2.5"
-                    [centeredSlides]="false"
-                    [spaceBetween]="10"
-                    [autoHeight]="true"
-                    [centerInsufficientSlides]="true"
-                    [pagination]="{
-                      clickable: true,
-                      enabled:true
-                    }"
-                    [navigation]="true"
-                    [breakpoints]="{
-                      '640': {
-                        slidesPerView: 2.5,
-                        spaceBetween: 20,
-                        pagination: {enabled: false}
-                      },
-                      '768': {
-                        slidesPerView: 4.5,
-                        spaceBetween: 40,
-                        pagination: {enabled: false}
-                      },
-                      '1024': {
-                        slidesPerView: 5.5,
-                        spaceBetween: 50,
-                        pagination: {enabled: false}
-                      }
-                    }"
-                    class="mySwiper"
-                  >
-                    <ng-template swiperSlide *ngFor="let video of lecteurVideoSeries; let i=index">
-                      <a (click)="onSwiperSlideClick(video)">
-                        <div class="imageVideoContainer">
-                          <img src="{{video.imageLink}}">
-                          <ion-icon *ngIf="video.endReaded" name="checkmark-outline"></ion-icon>
-                          <div *ngIf="video.endReaded" class="screen"></div>
-                        </div>
-                        <span class="titleVideo" [ngClass]="video.id == currentVideo.id?'bold':''">{{i+1}}. {{video.titre}}</span>
-                      </a>
-                      <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
-                        <ion-button [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']">
-                          <ion-icon slot="icon-only"  name="create-outline"></ion-icon>  
-                        </ion-button>
-                        <ion-button icon-only (click)="presentAlertDeleteMedia(video.id, sectionResource.id)">
-                            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                        </ion-button>
-                      </ion-item>
-                    </ng-template>
-                    
-                    
-                  </swiper>
+                  <div class="mt-8">
+                    <swiper
+                      [slidesPerView]="2.5"
+                      [centeredSlides]="false"
+                      [spaceBetween]="10"
+                      [autoHeight]="true"
+                      [centerInsufficientSlides]="true"
+                      [pagination]="{
+                        clickable: true,
+                        enabled:true
+                      }"
+                      [navigation]="true"
+                      [breakpoints]="{
+                        '640': {
+                          slidesPerView: 2.5,
+                          spaceBetween: 20,
+                          pagination: {enabled: false}
+                        },
+                        '768': {
+                          slidesPerView: 4.5,
+                          spaceBetween: 40,
+                          pagination: {enabled: false}
+                        },
+                        '1024': {
+                          slidesPerView: 5.5,
+                          spaceBetween: 50,
+                          pagination: {enabled: false}
+                        }
+                      }"
+                      class="mySwiper"
+                    >
+                      <ng-template swiperSlide *ngFor="let video of lecteurVideoSeries; let i=index">
+                        <a (click)="onSwiperSlideClick(video)">
+                          <div class="imageVideoContainer">
+                            <img src="{{video.imageLink}}">
+                            <ion-icon *ngIf="video.endReaded" name="checkmark-outline"></ion-icon>
+                            <div *ngIf="video.endReaded" class="screen"></div>
+                          </div>
+                          <span class="titleVideo" [ngClass]="video.id == currentVideo.id?'bold':''">{{i+1}}. {{video.titre}}</span>
+                        </a>
+                        <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
+                          <ion-button [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']">
+                            <ion-icon slot="icon-only"  name="create-outline"></ion-icon>  
+                          </ion-button>
+                          <ion-button icon-only (click)="presentAlertDeleteMedia(video.id, sectionResource.id)">
+                              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                          </ion-button>
+                        </ion-item>
+                      </ng-template>
+                      
+                      
+                    </swiper>
+                  </div>
                   <button mat-raised-button color="primary"
                       *ngIf="editMode"
                       [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']"
@@ -305,8 +306,7 @@
           <ion-icon name="add-outline"></ion-icon>
           <ion-label>Ajouter une section</ion-label>
         </button>
-        
-      <div style="height:100px"></div>
+      
     </div>
   </div>
 </ion-content>

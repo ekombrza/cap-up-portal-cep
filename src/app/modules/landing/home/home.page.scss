@@ -1,0 +1,145 @@
+.content {
+  padding-right: 15px;
+  padding-left: 15px;
+  
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    .categorie-title {
+      padding-bottom: 20px;
+      padding-top:10px;
+
+      .browse-all{
+        margin-top: -30px;
+        float: right;
+        text-decoration: none;
+      }
+      .browse-all:hover{
+        text-decoration: underline;
+      }
+    }
+    .resource-content-wrapper{
+      display: flex;
+      flex-direction: row;
+      
+      .left-resource{
+        :hover{
+          background-color: #f2f2f2;
+        }
+        width: 50%;
+        padding: 3px;
+      }
+      
+      .right-resources{
+        :hover {
+          background-color: #f2f2f2;
+        }
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .right-resource {
+          width:50%;
+          height: 50%;
+          padding: 3px;
+          .card{
+            .card-body {
+              text-align: center;
+              padding-left: 10px;
+              padding-right: 10px
+            }
+            .card-description{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.card {
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 1px solid rgba(29,37,44,0.125);
+  border-radius: 0.25rem;
+  height: 100%;
+  a {
+    color: #1D252C;
+    text-decoration: none;
+    background-color: transparent;
+    
+    .card-img-top{
+      width: 100%;
+      object-fit: cover;
+      flex: 1 1 auto;
+      //padding: 1.25rem;
+    }
+  }
+  .card-body {
+    color: #1D252C;
+    font-family: "GT America Regular";
+    padding: 1.25rem;
+    .card-type {
+      font-size: 0.7em;
+      text-transform: uppercase;
+    }
+    .subtitle-divider text-secondary {
+
+    }
+    .card-title{
+      position: relative;
+      margin: 10px 0;
+      font-size: 1.2em;
+      overflow: hidden;
+      font-weight: 700;
+    }
+    .card-description {
+      font-size: 0.8em;
+      margin: 15px 0 20px;
+      text-align: justify;
+      
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+
+    .content-wrapper {
+      .resource-content-wrapper{
+        flex-direction: column;
+        .left-resource{
+          width: 100%;
+          padding: 10px;
+          :hover {
+            background-color: white;
+          }
+        }
+        .right-resources{
+          width: 100%;
+          flex-direction: column;
+          :hover {
+            background-color: white;
+          }
+
+          .right-resource {
+            width:100%;
+            padding: 10px;
+            .card{
+              .card-body {
+                text-align: left;
+              } 
+              .card-description{
+                display: block;
+              }
+            }
+            
+          }
+        }
+      }
+    }
+  }
+}

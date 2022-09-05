@@ -24,7 +24,7 @@ import { ResourceService } from 'src/app/models-services/ressource/resource.serv
   styleUrls: ['./resources.page.scss'],
 })
 export class ResourcesPage implements OnInit {
-
+  lastRouteSegment;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   itemsPerPage = 20;
   nbResultResource: number = 0;
@@ -71,7 +71,8 @@ export class ResourcesPage implements OnInit {
 
   ngOnInit() {
 
-
+    this.detectCategorieByRoute();
+    
     forkJoin([
       this.membreService.queryCurrentUser().pipe(map(result => result.body)),
       this.applicationService.query({'name.equals':'Resource Management'}).pipe(map(result => result.body[0])),
@@ -93,23 +94,36 @@ export class ResourcesPage implements OnInit {
     });
   }
 
-  checkTheBoxAccordingRoute() {
+  detectCategorieByRoute() {
+    this.lastRouteSegment = this.router.url.split('?')[0].split('/').pop();
+    console.log('this.lastRouteSegment :' ,this.lastRouteSegment);
+  }
+
+  checkTheCategorieBoxAccordingRoute() {
     this.route.queryParams
       .subscribe(params => {
         console.log(params);
         var searchCategorieSelected = params.searchCategorie;
-        var typeResourceSelected = params.typeResource;
+        //var typeResourceSelected = params.typeResource;
         console.log('searchCategorieSelected', searchCategorieSelected);
-        console.log('typeResourceSelected', typeResourceSelected);
-        if(typeResourceSelected){
-          this.checkResourcesContentType(typeResourceSelected);
-        } else if(searchCategorieSelected){
+        //console.log('typeResourceSelected', typeResourceSelected);
+        //if(typeResourceSelected){
+        //  this.checkResourcesContentType(typeResourceSelected);
+        //} else 
+        if(searchCategorieSelected){
           this.checkCategorieCheckbox(searchCategorieSelected);
-        } else {
-          this.loadAllResources();
-        }
+        } 
       }
     );
+  }
+
+  checkTheContentTypeBoxAccordingRoute() {
+    if(this.lastRouteSegment === 'formations'){
+      this.checkResourcesContentType('Formations');
+    }
+    if(this.lastRouteSegment === 'ressources'){
+      this.checkResourcesContentType('Ressources');
+    }
   }
 
   loadAllResources(): void {
@@ -207,8 +221,11 @@ export class ResourcesPage implements OnInit {
 
   loadAllCategoriesCheckBoxes(): void {
     this.isLoadingCategories = true;
-
-    this.categorieService.query().subscribe({
+    let typeRessource = 'COURS';
+    if(this.lastRouteSegment == 'ressources'){
+      typeRessource = 'RESSOURCE';
+    }
+    this.categorieService.query({'typeResourceEnum.equals':typeRessource}).subscribe({
       next: (res: HttpResponse<ICategorie[]>) => {
         this.isLoadingCategories = false;
         if(res.body){
@@ -221,8 +238,9 @@ export class ResourcesPage implements OnInit {
         }
         console.log('this.categories' , this.categoriesCheckboxes);
         // Check the Resources or formations checkbox according the route 
-      this.checkTheBoxAccordingRoute();
-      //this.loadAllResources();
+      this.checkTheCategorieBoxAccordingRoute();
+      this.checkTheContentTypeBoxAccordingRoute();
+      this.loadAllResources();
       },
       error: () => {
         this.isLoadingCategories = false;
@@ -346,7 +364,7 @@ export class ResourcesPage implements OnInit {
   }
 
   goToAddResource(){
-    this.router.navigate(['/apps/ressources/resources', 'new']);
+    this.router.navigate(['apps/ressources/ressources', 'new']);
   }
 
   addRessourceToBookmark(resource: IResource){
@@ -434,6 +452,10 @@ export class ResourcesPage implements OnInit {
   onChangePage(event: PageEvent){
     this.paginator.pageIndex = event.pageIndex;
     this.loadAllResources();
+  }
+
+  disableTypeCheckboxes(contentType: string){
+    return contentType.toLowerCase() !== this.lastRouteSegment.toLowerCase();
   }
 }
 

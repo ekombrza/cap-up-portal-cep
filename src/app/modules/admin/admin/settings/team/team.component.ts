@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
+import { forkJoin, map } from 'rxjs';
+
+import { Membre } from 'src/app/models-services/membre/membre.model';
+import { MembreService } from 'src/app/models-services/membre/membre.service';
+import { IRole } from 'src/app/models-services/role/role.model';
+import { RoleService } from 'src/app/models-services/role/role.service';
 
 @Component({
     selector       : 'settings-team',
@@ -8,13 +16,21 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 })
 export class SettingsTeamComponent implements OnInit
 {
-    members: any[];
     roles: any[];
+
+    @ViewChild('searchBar') searchBar ;
+    public members : Membre[] = [];
+    public filtredMembers : Membre[] = [];
+    selectedPrivateRole;
 
     /**
      * Constructor
      */
-    constructor()
+    constructor(
+        private membreService: MembreService,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _roleService: RoleService
+    )
     {
     }
 
@@ -27,72 +43,73 @@ export class SettingsTeamComponent implements OnInit
      */
     ngOnInit(): void
     {
-        // Setup the team members
-        this.members = [
-            {
-                avatar: '',
-                name  : 'Dejesus Michael',
-                email : 'dejesusmichael@mail.org',
-                role  : 'admin'
-            },
-            {
-                avatar: 'assets/images/avatars/male-03.jpg',
-                name  : 'Mclaughlin Steele',
-                email : 'mclaughlinsteele@mail.me',
-                role  : 'admin'
-            },
-            {
-                avatar: 'assets/images/avatars/female-02.jpg',
-                name  : 'Laverne Dodson',
-                email : 'lavernedodson@mail.ca',
-                role  : 'write'
-            },
-            {
-                avatar: 'assets/images/avatars/female-03.jpg',
-                name  : 'Trudy Berg',
-                email : 'trudyberg@mail.us',
-                role  : 'read'
-            },
-            {
-                avatar: 'assets/images/avatars/male-07.jpg',
-                name  : 'Lamb Underwood',
-                email : 'lambunderwood@mail.me',
-                role  : 'read'
-            },
-            {
-                avatar: 'assets/images/avatars/male-08.jpg',
-                name  : 'Mcleod Wagner',
-                email : 'mcleodwagner@mail.biz',
-                role  : 'read'
-            },
-            {
-                avatar: 'assets/images/avatars/female-07.jpg',
-                name  : 'Shannon Kennedy',
-                email : 'shannonkennedy@mail.ca',
-                role  : 'read'
-            }
-        ];
+        forkJoin([
+            this.membreService.query().pipe(map((res) => res.body)),
+            this._roleService.query({'typeRole.equals':'PRIVATE', 'applicationId.equals':'1'}).pipe(map(result => result.body))
+          ]).subscribe(data => {
+         
+            this.members = data[0];
+            console.log('membres : ', this.members);
+            this.roles = data[1];
+            console.log('roles : ', this.roles);
+            this.filtredMembers = this.members;
+             // Mark for check
+             this._changeDetectorRef.markForCheck();
+             
 
-        // Setup the roles
-        this.roles = [
-            {
-                label      : 'Read',
-                value      : 'read',
-                description: 'Can read and clone this repository. Can also open and comment on issues and pull requests.'
-            },
-            {
-                label      : 'Write',
-                value      : 'write',
-                description: 'Can read, clone, and push to this repository. Can also manage issues and pull requests.'
-            },
-            {
-                label      : 'Admin',
-                value      : 'admin',
-                description: 'Can read, clone, and push to this repository. Can also manage issues, pull requests, and repository settings, including adding collaborators.'
-            }
-        ];
+          });
+
     }
 
+    filterItems(ev: any) {
+        this.filtredMembers = this.members;
+    
+        let val = ev.target.value;
+        console.log("val : ", val)
+        if (val) {
+          this.filtredMembers = this.members.filter(
+            item => item.internalUser.firstName.toLowerCase().includes(val.toLowerCase()) || item.internalUser.lastName.toLowerCase().includes(val.toLowerCase())
+          );
+        }
+    }
+
+    checkEsc(key:number){
+        if (key == 27){  // Escape
+          if (this.searchBar.value != "")
+            this.searchBar.value = "";
+        }
+      }
+
+      public objectComparisonFunction = function( option, value ) : boolean {
+        return option.id === value.id;
+      }
+    
+    onOpenClose(eventOpen, membre: Membre) {
+        if(eventOpen){
+            this.selectedPrivateRole = membre.roles;
+        }
+        if(!eventOpen){
+            var rolesPrivateSelected: IRole[] = this.selectedPrivateRole;
+            var rolesPublicSelected: IRole[] = membre.roles.filter((role) => role.typeRole === 'PUBLIC');
+            let allRoles: IRole[] = [];
+            membre.roles = allRoles.concat(rolesPublicSelected, rolesPrivateSelected);
+            console.log('eventOpen : ',eventOpen)
+            console.log('close : ', membre, membre.roles)
+            this.membreService.partialUpdate(membre).subscribe(
+                (membre)=>{
+                    console.log('success Updated Role', membre);
+            },
+            (err)=> {
+                console.log('error Updated Role');
+            });
+        }
+        
+    }
+
+    onSelectChange(event: MatSelectChange){
+        console.log('eventChange : ',event),
+        this.selectedPrivateRole = event.value;
+    }
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------

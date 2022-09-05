@@ -1,0 +1,204 @@
+<ion-content>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+      <!-- Loader -->
+      <div
+          class="absolute inset-x-0 bottom-0"
+          *ngIf="isLoading">
+          <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+      </div>
+      <!-- Title -->
+      <div class="text-4xl font-extrabold tracking-tight">Categories</div>
+      <!-- Actions -->
+      <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+          <!-- Search -->
+          <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-64">
+              <mat-icon
+                  class="icon-size-5"
+                  matPrefix
+                  [svgIcon]="'heroicons_solid:search'"></mat-icon>
+              <input
+                  matInput
+                  [formControl]="searchInputControl"
+                  [autocomplete]="'off'"
+                  [placeholder]="'Rechercher catégorie'">
+          </mat-form-field>
+          <!-- Add categorie button -->
+          <button
+              class="ml-4"
+              mat-flat-button
+              [color]="'primary'"
+              (click)="createCategorie()">
+              <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+              <span class="ml-2 mr-1">Add</span>
+          </button>
+      </div>
+  </div>
+
+  <!-- Main -->
+  <div class="flex flex-auto overflow-hidden">
+
+      <!-- Categories list -->
+      <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+          <ng-container *ngIf="(categories$ | async) as categories">
+              <ng-container *ngIf="categories.length > 0; else noCategories">
+                  <div class="grid">
+                      <!-- Header -->
+                      <div
+                          class="categorie-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                          matSort
+                          matSortDisableClear>
+                          <div [mat-sort-header]="'name'">Nom</div>
+                          <div
+                              class="hidden sm:block"
+                              [mat-sort-header]="'typeResourceEnum'">
+                              Type de categorie
+                          </div>
+                          
+                          <div class="">Details</div>
+                      </div>
+                      <!-- Rows -->
+                      <ng-container *ngIf="(categories$ | async) as categories">
+                          <ng-container *ngFor="let categorie of categories; trackBy: trackByFn">
+                              <div class="categorie-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+
+                                  <!-- Name -->
+                                  <div class="truncate">
+                                    {{categorie.name}}
+                                  </div>
+
+                                  <!-- type de categorie -->
+                                  <div class="hidden sm:block">
+                                      {{categorie.typeResourceEnum==='COURS'? 'FORMATION':'RESSOURCE'}}
+                                  </div>
+
+                                  <!-- Details button -->
+                                  <div>
+                                      <button
+                                          class="min-w-10 min-h-7 h-7 px-2 leading-6"
+                                          mat-stroked-button
+                                          (click)="toggleDetails(categorie.id)">
+                                          <mat-icon
+                                              class="icon-size-5"
+                                              [svgIcon]="selectedCategorie?.id === categorie.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
+                                      </button>
+                                  </div>
+                              </div>
+                              <div class="grid">
+                                  <ng-container *ngIf="selectedCategorie?.id === categorie.id">
+                                      <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: categorie}"></ng-container>
+                                  </ng-container>
+                              </div>
+                          </ng-container>
+                      </ng-container>
+                  </div>
+
+                  <mat-paginator
+                        class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+                        [ngClass]="{'pointer-events-none': isLoading}"
+                        [length]="pagination.length"
+                        [pageIndex]="pagination.page"
+                        [pageSize]="pagination.size"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        [showFirstLastButtons]="true"></mat-paginator>
+      
+              </ng-container>
+          </ng-container>
+
+          <ng-template
+              #rowDetailsTemplate
+              let-categorie>
+              <div class="shadow-lg overflow-hidden">
+                  <div class="flex border-b">
+                      <!-- Selected categorie form -->
+                      <form
+                          class="flex flex-col w-full"
+                          [formGroup]="selectedCategorieForm">
+
+                          <div class="flex flex-col sm:flex-row p-8">
+
+
+                              <div class="flex flex-auto flex-wrap">
+                                  <!-- Name, type de categorie & etc. -->
+                                  <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+
+                                      <!-- Name -->
+                                      <mat-form-field class="w-full">
+                                          <mat-label>Nom catégorie</mat-label>
+                                          <input
+                                              matInput
+                                              [formControlName]="'name'">
+                                      </mat-form-field>
+
+                                      <!-- type de catégorie -->
+                                      <div class="flex">
+                                        <mat-form-field class="w-1/3 pr-2">
+                                          <mat-label>Type de categorie</mat-label>
+                                          <mat-select [formControlName]="'typeResourceEnum'">
+                                              
+                                                  <mat-option value='COURS'>
+                                                      FORMATION
+                                                  </mat-option>
+                                                  <mat-option value='RESSOURCE'>
+                                                    RESSOURCE
+                                                </mat-option>
+  
+                                          </mat-select>
+                                        </mat-form-field>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="flex items-center justify-between w-full border-t px-8 py-4">
+                              <button
+                                  class="-ml-4"
+                                  mat-button
+                                  [color]="'warn'"
+                                  (click)="deleteSelectedCategorie()">
+                                  Supprimer
+                              </button>
+                              <div class="flex items-center">
+                                  <div
+                                      class="flex items-center mr-4"
+                                      *ngIf="flashMessage">
+                                      <ng-container *ngIf="flashMessage === 'success'">
+                                          <mat-icon
+                                              class="text-green-500"
+                                              [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                          <span class="ml-2">Catégorie mise à jour</span>
+                                      </ng-container>
+                                      <ng-container *ngIf="flashMessage === 'error'">
+                                          <mat-icon
+                                              class="text-red-500"
+                                              [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                                          <span class="ml-2">Une erreur est apparu, veuillez essayer à nouveau!</span>
+                                      </ng-container>
+                                  </div>
+                                  <button
+                                      mat-flat-button
+                                      [color]="'primary'"
+                                      (click)="updateSelectedCategorie()">
+                                      Mise à jour
+                                  </button>
+                              </div>
+                          </div>
+
+                      </form>
+                  </div>
+              </div>
+          </ng-template>
+
+          <ng-template #noCategories>
+              <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">Il n'y a pas de categories!</div>
+          </ng-template>
+
+      </div>
+
+  </div>
+
+</div>
+</ion-content>

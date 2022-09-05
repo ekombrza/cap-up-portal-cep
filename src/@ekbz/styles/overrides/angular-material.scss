@@ -16,7 +16,7 @@
 /* ----------------------------------------------------------------------------------------------------- */
 /*  @ Accordion
 /* ----------------------------------------------------------------------------------------------------- */
-.mat-accordion {
+/*.mat-accordion {
 
     .mat-expansion-panel {
         margin-bottom: 24px;
@@ -66,7 +66,7 @@
                 height: 12px;
 
                 /* Do not override the border color of the expansion panel indicator */
-                &:after {
+              /*  &:after {
                     border-color: currentColor !important;
                 }
             }
@@ -77,7 +77,7 @@
             @apply text-secondary #{'!important'};
         }
     }
-}
+}*/
 
 /* ----------------------------------------------------------------------------------------------------- */
 /*  @ Buttons

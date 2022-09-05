@@ -38,7 +38,7 @@
           <div padding>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Nom de l'église *</mat-label>
+              <mat-label>Nom de l'église</mat-label>
               <input id="churchName" name="churchName" type="text" matInput formControlName="churchName"
                 placeholder="Ex. CEP Evry">
               <mat-error *ngIf="churchForm.controls.churchName.touched && churchForm.controls.churchName.invalid">
@@ -53,7 +53,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Nom du pasteur *</mat-label>
+              <mat-label>Nom du pasteur</mat-label>
               <input id="pastorName" name="pastorName" type="text" matInput formControlName="pastorName"
                 placeholder="Ex. Jean Dupond">
               <mat-error *ngIf="churchForm.controls.pastorName.touched && churchForm.controls.pastorName.invalid">
@@ -69,7 +69,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>N° téléphone *</mat-label>
+              <mat-label>N° téléphone</mat-label>
               <input id="phoneNumber" name="phoneNumber" type="text" matInput formControlName="phoneNumber"
                 placeholder="Ex. 0623456789">
               <mat-error *ngIf="churchForm.controls.phoneNumber.touched && churchForm.controls.phoneNumber.invalid">
@@ -85,7 +85,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Email *</mat-label>
+              <mat-label>Email</mat-label>
               <input id="email" name="login" type="text" matInput formControlName="email"
                 placeholder="jdupond@gmail.com">
               <mat-error *ngIf="churchForm.controls.email.touched && churchForm.controls.email.invalid">
@@ -100,7 +100,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Site web *</mat-label>
+              <mat-label>Site web</mat-label>
               <input id="website" name="login" type="text" matInput formControlName="website"
                 placeholder="jdupond@gmail.com">
               <mat-error *ngIf="churchForm.controls.website.touched && churchForm.controls.website.invalid">
@@ -115,14 +115,14 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Dénomination *</mat-label>
+              <mat-label>Dénomination</mat-label>
               <mat-select formControlName="denomination" [compareWith]="compareFn">
                 <mat-option *ngFor="let denomination of listDenominations" [value]="denomination">{{denomination.name}}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Adresse 1 *</mat-label>
+              <mat-label>Adresse 1</mat-label>
               <input id="adress1" name="login" type="text" matInput formControlName="adress1"
                 placeholder="10 impasse du square">
               <mat-error *ngIf="churchForm.controls.adress1.touched && churchForm.controls.adress1.invalid">
@@ -137,7 +137,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Adresse 2 </mat-label>
+              <mat-label>Adresse 2</mat-label>
               <input id="adress2" name="login" type="text" matInput formControlName="adress2"
                 placeholder="10 impasse du square">
               <mat-error *ngIf="churchForm.controls.adress2.touched && churchForm.controls.adress2.invalid">
@@ -152,7 +152,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Code postal *</mat-label>
+              <mat-label>Code postal</mat-label>
               <input id="postalCode" name="login" type="text" matInput formControlName="postalCode"
                 placeholder="91130">
               <mat-error *ngIf="churchForm.controls.postalCode.touched && churchForm.controls.city.invalid">
@@ -167,7 +167,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Ville *</mat-label>
+              <mat-label>Ville</mat-label>
               <input id="city" name="login" type="text" matInput formControlName="city"
                 placeholder="Evry">
               <mat-error *ngIf="churchForm.controls.city.touched && churchForm.controls.city.invalid">
@@ -182,7 +182,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Région *</mat-label>
+              <mat-label>Région</mat-label>
               <input id="region" name="login" type="text" matInput formControlName="region"
                 placeholder="Evry">
               <mat-error *ngIf="churchForm.controls.region.touched && churchForm.controls.city.invalid">
@@ -197,7 +197,7 @@
             </mat-form-field>
 
            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Pays *</mat-label>
+              <mat-label>Pays</mat-label>
               <mat-select formControlName="country" [compareWith]="compareFn">
                 <mat-option *ngFor="let country of listCountry" [value]="country">{{country.name}}</mat-option>
               </mat-select>

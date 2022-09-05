@@ -132,3 +132,18 @@ a {
 .pair {
   background-color: white;
 }
+
+ion-chip {
+  border-color: rgba(0,0,0,0.32) !important;
+  background: transparent !important;
+  border-width: 1px !important;
+  border-style: solid;
+}
+
+ion-chip:hover {
+  background: rgba(0, 0, 0, 0.055) !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 0 16px !important;
+}

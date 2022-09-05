@@ -49,7 +49,7 @@ export class SettingsComponent implements OnInit, OnDestroy
             {
                 id         : 'team',
                 icon       : 'heroicons_outline:user-group',
-                title      : 'Équipe',
+                title      : 'Membres',
                 description: 'Gérez léquipe existante et modifiez les rôles/autorisations'
             }
         ];

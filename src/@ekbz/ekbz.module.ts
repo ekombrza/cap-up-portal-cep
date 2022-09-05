@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { SplashScreenModule } from 'src/@ekbz/services/splash-screen/splash-screen.module';
+import { ConfirmationModule } from './services/confirmation';
 import { LoadingModule } from './services/loading';
 import { MediaWatcherModule } from './services/media-watcher';
 import { PlatformModule } from './services/platform/platform.module';
@@ -12,6 +13,7 @@ import { UtilsModule } from './services/utils';
         //ConfirmationModule,
         LoadingModule,
         MediaWatcherModule,
+        ConfirmationModule,
         PlatformModule,
         SplashScreenModule,
         UtilsModule
