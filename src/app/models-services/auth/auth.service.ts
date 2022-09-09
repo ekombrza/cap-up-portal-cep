@@ -196,4 +196,9 @@ export class AuthService
         const decoded = jwt_decode(this.accessToken);
         return decoded['church'];
       }
+
+      getRoles(): string {
+        const decoded = jwt_decode(this.accessToken);
+        return decoded['auth'];
+      }
 }

@@ -69,6 +69,7 @@
                         </div>
 
                     </div>
+                    
                     <mat-paginator [ngClass]="nbResultResource == 0?'displayNone':''" [length]="nbResultResource" [pageIndex]="0" [pageSize]="itemsPerPage" (page)="onChangePage($event)" aria-label="Select page of Church Responsables search results"></mat-paginator>
                     <div class="listItems">
                         <ng-container *ngFor="let resource of resources; let i=index">
@@ -110,43 +111,43 @@
                                             <ng-template>
                                                 <ion-content>
                                                     <ion-list-header lines="inset">
-                                                      <ion-label>Partager avec...</ion-label>
+                                                    <ion-label>Partager avec...</ion-label>
                                                     </ion-list-header>
                                                     <ng-container *ngIf="!isLoadedMembreForShared">
-                                                      <ion-list>
+                                                    <ion-list>
                                                         <ion-item>
-                                                          <ion-avatar slot="start">
+                                                        <ion-avatar slot="start">
                                                             <ion-skeleton-text animated></ion-skeleton-text>
-                                                          </ion-avatar>
-                                                          <ion-label>
+                                                        </ion-avatar>
+                                                        <ion-label>
                                                             <h3>
-                                                              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                                            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
                                                             </h3>
                                                             <p>
-                                                              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                                            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
                                                             </p>
                                                             <p>
-                                                              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                                                            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
                                                             </p>
-                                                          </ion-label>
+                                                        </ion-label>
                                                         </ion-item>
-                                                      </ion-list>
+                                                    </ion-list>
                                                     </ng-container>
                                                     <ion-list *ngIf="isLoadedMembreForShared" class="popoverList">
-                                                      <ion-item button="true" detail="false" (click)="shareRessource(resource, membre)" *ngFor="let membre of allMembresChurch">
+                                                    <ion-item button="true" detail="false" (click)="shareRessource(resource, membre)" *ngFor="let membre of allMembresChurch">
                                                         <ion-avatar slot="start">
-                                                          <img src="{{membre.internalUser.imageUrl}}" />
+                                                        <img src="{{membre.internalUser.imageUrl}}" />
                                                         </ion-avatar>
                                                         <ion-label>{{membre.internalUser.firstName }} {{membre.internalUser.lastName }}</ion-label>
-                                                      </ion-item>
+                                                    </ion-item>
                                                     </ion-list>
                                                     <ion-list-header lines="inset">
-                                                      <ion-button href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
-                                                      {{resource.title}} %0D {{getHref(resource.id)}}" target="_blank"><ion-icon slot="icon-only" name="mail-open-outline"></ion-icon></ion-button>
-                                                      <a class="linkSharedMail" href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
-                                                      {{resource.title}} %0D {{getHref(resource.id)}}" target="_blank"><ion-label>Partager par mail</ion-label></a>
+                                                    <ion-button href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
+                                                    {{resource.title}} %0D {{getHref(resource.id)}}" target="_blank"><ion-icon slot="icon-only" name="mail-open-outline"></ion-icon></ion-button>
+                                                    <a class="linkSharedMail" href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
+                                                    {{resource.title}} %0D {{getHref(resource.id)}}" target="_blank"><ion-label>Partager par mail</ion-label></a>
                                                     </ion-list-header>
-                                              </ion-content>
+                                            </ion-content>
                                             </ng-template>
                                             </ion-popover>
                                     </div>
@@ -155,6 +156,11 @@
                         </ng-container>
                         <mat-paginator [ngClass]="nbResultResource == 0?'displayNone':''" [length]="nbResultResource" [pageIndex]="0" [pageSize]="itemsPerPage" (page)="onChangePage($event)" aria-label="Select page of Church Responsables search results"></mat-paginator>
                     </div>
+
+                    <ng-container *ngIf="nbResultResource==0">
+                        <div class="p-8 sm:p-16 border-b text-2xl text-center">Aucune ressources n'existe pour le moment.</div>
+                        
+                      </ng-container>
                 </div>
             </div>
         </form>

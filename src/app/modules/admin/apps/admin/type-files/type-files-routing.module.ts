@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CategoriePage } from './categorie.page';
-import { CategoriesResolver } from './categorie.resolvers';
+import { TypeFilePage } from './type-files.page';
+import { TypeFilesResolver } from './typeFiles.resolvers';
 
 const routes: Routes = [
   {
     path: '',
-    component: CategoriePage,
+    component: TypeFilePage,
     resolve  : {
-      categories  : CategoriesResolver,
+      typeFiles  : TypeFilesResolver,
     }
   }
 ];
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CategoriePageRoutingModule {}
+export class TypeFilesPageRoutingModule {}

@@ -98,8 +98,8 @@
         </ion-list>
         <mat-accordion *ngIf="sectionsResource">
           <ng-container *ngFor="let sectionResource of sectionsResource; let i=index">
-            <div id="accordionId-{{i}}">
-              <mat-expansion-panel [expanded]="numberPanelSelected === i" (opened)="onLoadDetailSection(sectionResource.id, i, true)" >
+            <div *ngIf="isAuthorizeToShowSection" id="accordionId-{{i}}">
+              <mat-expansion-panel [expanded]="numberPanelSelected === i" (opened)="onLoadDetailSection(resource, sectionResource.id, i, true)" >
                 <mat-expansion-panel-header>
                   <mat-panel-title id="mat-expansion-panel-header-{{i}}">
                     {{ sectionResource.title }} 
@@ -112,7 +112,7 @@
                   <ion-button icon-only slot="end" (click)="presentAlertDeleteSection(sectionResource)">
                       <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
                   </ion-button>
-              </ion-item>
+                </ion-item>
                 <quill-view [content]="sectionResource.contentSection"></quill-view>
                 <div class="subSectionContent" *ngIf="editMode || files?.length > 0">
                   <div class="separator"></div>
@@ -295,6 +295,20 @@
                     <ion-label>Ajouter un Audio</ion-label>
                   </button>
                 </div>
+              </mat-expansion-panel>
+            </div>
+            <div *ngIf="!isAuthorizeToShowSection" id="accordionId-{{i}}">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title id="mat-expansion-panel-header-{{i}}">
+                    {{ sectionResource.title }} 
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="subSectionContent">
+                  Vous n'avez pas les autorisation necessaires pour visualiser cette formation. <a href="">Je fais une demande d'accès</a>
+                </div>
+                  
+                
               </mat-expansion-panel>
             </div>
           </ng-container>

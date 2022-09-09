@@ -5,6 +5,7 @@ import { VerticalNavigationComponent } from 'src/@ekbz/components/navigation/ver
 import { NavigationService } from 'src/@ekbz/components/navigation/navigation.service';
 import { NavigationItem } from 'src/@ekbz/components/navigation/navigation.types';
 import { UtilsService } from 'src/@ekbz/services/utils/utils.service';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
 
 @Component({
     selector       : 'fuse-vertical-navigation-basic-item',
@@ -26,7 +27,8 @@ export class VerticalNavigationBasicItemComponent implements OnInit, OnDestroy
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _navigationService: NavigationService,
-        private _utilsService: UtilsService
+        private _utilsService: UtilsService,
+        private _authService: AuthService
     )
     {
         // Set the equivalent of {exact: false} as default for active match options.
@@ -77,5 +79,14 @@ export class VerticalNavigationBasicItemComponent implements OnInit, OnDestroy
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
+    }
+
+    isAuthorize(roles: string[]){
+        const userRoles= this._authService.getRoles();
+        if(userRoles){
+            const listUserRoles = userRoles.split(',');
+            return listUserRoles.some(r=> roles.indexOf(r) >= 0);
+        }
+        return false;
     }
 }

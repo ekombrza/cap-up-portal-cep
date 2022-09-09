@@ -1,0 +1,16 @@
+
+.typeFile-grid {
+    grid-template-columns: auto 50px;
+
+    @screen sm {
+        grid-template-columns: 200px auto ;
+    }
+
+    @screen md {
+        grid-template-columns: 200px auto ;
+    }
+
+    @screen lg {
+        grid-template-columns: 200px auto ;
+    }
+}

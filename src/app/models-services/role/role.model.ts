@@ -7,6 +7,7 @@ import {IResource} from '../ressource/resource.model';
 export interface IRole {
   id?: number;
   name?: string;
+  description?: string | null;
   typeRole?: TypeRoleEnum;
   creationDate?: dayjs.Dayjs;
   updatedDate?: dayjs.Dayjs | null;
@@ -19,6 +20,7 @@ export class Role implements IRole {
   constructor(
     public id?: number,
     public name?: string,
+    public description?: string | null,
     public typeRole?: TypeRoleEnum,
     public creationDate?: dayjs.Dayjs,
     public updatedDate?: dayjs.Dayjs | null,
@@ -30,4 +32,14 @@ export class Role implements IRole {
 
 export function getRoleIdentifier(role: IRole): number | undefined {
   return role.id;
+}
+
+export interface RolePagination
+{
+    length: number;
+    size: number;
+    page: number;
+    lastPage: number;
+    startIndex: number;
+    endIndex: number;
 }

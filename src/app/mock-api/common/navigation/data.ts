@@ -1,6 +1,7 @@
 /* tslint:disable:max-line-length */
 import { NavigationItem } from 'src/@ekbz/components/navigation';
 
+
 export const defaultNavigation: NavigationItem[] = [
     {
         id      : 'ressources',
@@ -38,12 +39,14 @@ export const defaultNavigation: NavigationItem[] = [
         subtitle: 'Administration des ressources',
         type    : 'group',
         icon    : 'heroicons_outline:home',
+        roles: ['Administrateur'],
         children: [
             {
                 id   : 'administration.Categories',
                 title: 'Gestion des Catégories',
                 type : 'basic',
                 icon : 'heroicons_outline:adjustments',
+                roles: ['Administrateur'],
                 link : '/apps/admin/categorie'
             },
             {
@@ -51,14 +54,16 @@ export const defaultNavigation: NavigationItem[] = [
                 title: 'Gestion des types de fichiers',
                 type : 'basic',
                 icon : 'heroicons_outline:adjustments',
-                link : '/admin/dashboard'
+                roles: ['Administrateur'],
+                link : '/apps/admin/type-files'
             },
             {
                 id   : 'administration.Roles',
                 title: 'Gestion des rôles',
                 type : 'basic',
                 icon : 'heroicons_outline:adjustments',
-                link : '/admin/dashboard'
+                roles: ['Administrateur'],
+                link : '/apps/admin/roles'
             }
        ]
     },
@@ -112,3 +117,4 @@ export const horizontalNavigation: NavigationItem[] = [
         children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
     },
 ];
+

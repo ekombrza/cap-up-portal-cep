@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { MediaWatcherService } from 'src/@ekbz/services/media-watcher';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
 
 @Component({
     selector       : 'settings',
@@ -23,7 +24,8 @@ export class SettingsComponent implements OnInit, OnDestroy
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _fuseMediaWatcherService: MediaWatcherService
+        private _fuseMediaWatcherService: MediaWatcherService,
+        private _authService: AuthService
     )
     {
     }
@@ -50,7 +52,8 @@ export class SettingsComponent implements OnInit, OnDestroy
                 id         : 'team',
                 icon       : 'heroicons_outline:user-group',
                 title      : 'Membres',
-                description: 'Gérez léquipe existante et modifiez les rôles/autorisations'
+                description: 'Gérez léquipe existante et modifiez les rôles/autorisations',
+                roles: ['Administrateur']
             }
         ];
 
@@ -125,5 +128,14 @@ export class SettingsComponent implements OnInit, OnDestroy
     trackByFn(index: number, item: any): any
     {
         return item.id || index;
+    }
+
+    isAuthorize(roles: string[]){
+        const userRoles= this._authService.getRoles();
+        if(userRoles){
+            const listUserRoles = userRoles.split(',');
+            return listUserRoles.some(r=> roles.indexOf(r) >= 0);
+        }
+        return false;
     }
 }

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RolesResolver } from './role.resolvers';
 
-import { CategoriePage } from './categorie.page';
-import { CategoriesResolver } from './categorie.resolvers';
+import { RolePage } from './roles.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CategoriePage,
+    component: RolePage,
     resolve  : {
-      categories  : CategoriesResolver,
-    }
+      roles  : RolesResolver,
+  }
   }
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CategoriePageRoutingModule {}
+export class RolesPageRoutingModule {}

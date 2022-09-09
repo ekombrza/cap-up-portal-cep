@@ -27,7 +27,7 @@ export class AdminUserService {
   }
 
   update(user: IUser): Observable<IUser> {
-    return this.http.put<User>(this.baseUrl, user);
+    return this.http.put<User>(this.baseUrlExtended, user);
   }
 
 }

@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { VerticalNavigationComponent } from 'src/@ekbz/components/navigation/vertical/vertical.component';
 import { NavigationService } from 'src/@ekbz/components/navigation/navigation.service';
 import { NavigationItem } from 'src/@ekbz/components/navigation/navigation.types';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
 
 @Component({
     selector       : 'fuse-vertical-navigation-group-item',
@@ -28,7 +29,8 @@ export class VerticalNavigationGroupItemComponent implements OnInit, OnDestroy
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _navigationService: NavigationService
+        private _navigationService: NavigationService,
+        private _authService: AuthService
     )
     {
     }
@@ -78,5 +80,14 @@ export class VerticalNavigationGroupItemComponent implements OnInit, OnDestroy
     trackByFn(index: number, item: any): any
     {
         return item.id || index;
+    }
+
+    isAuthorize(roles: string[]){
+        const userRoles= this._authService.getRoles();
+        if(userRoles){
+            const listUserRoles = userRoles.split(',');
+            return listUserRoles.some(r=> roles.indexOf(r) >= 0);
+        }
+        return false;
     }
 }

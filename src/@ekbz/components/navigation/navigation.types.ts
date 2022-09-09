@@ -44,6 +44,7 @@ export interface NavigationItem
     };
     children?: NavigationItem[];
     meta?: any;
+    roles?: string[];
 }
 
 export type VerticalNavigationAppearance =

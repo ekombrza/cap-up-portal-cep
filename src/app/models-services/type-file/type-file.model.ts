@@ -22,3 +22,13 @@ export class TypeFile implements ITypeFile {
 export function getTypeFileIdentifier(typeFile: ITypeFile): number | undefined {
   return typeFile.id;
 }
+
+export interface TypefilePagination
+{
+    length: number;
+    size: number;
+    page: number;
+    lastPage: number;
+    startIndex: number;
+    endIndex: number;
+}

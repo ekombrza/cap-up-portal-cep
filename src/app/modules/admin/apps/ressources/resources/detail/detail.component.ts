@@ -25,8 +25,9 @@ import { ApplicationService } from 'src/app/models-services/application/applicat
 import { ApplicationDataService } from 'src/app/models-services/application-data/application-data.service';
 import { RessourceStatsLectureVideoService } from 'src/app/models-services/statistiquesLectureVideo/ressourceStatsLectureVideo.service';
 import { SectionStats } from 'src/app/models-services/statistiquesLectureVideo/SectionsStats.model';
-import { Player } from '@vime/angular';
+import { Icon, Player } from '@vime/angular';
 import { SwiperComponent } from 'swiper/angular';
+import { AuthService } from 'src/app/models-services/auth/auth.service';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
@@ -60,6 +61,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   notTriggerPlaybackEnded = false;
   isResourceBookmarked: boolean = false;
   isLoadedMembreForShared = false;
+  isAuthorizeToShowSection = false;
   
   private unsubscribe$: Subject<any> = new Subject<any>();
 
@@ -74,6 +76,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     protected applicationService: ApplicationService,
     protected applicationDataService: ApplicationDataService,
     protected ressourceStatsLectureVideoService: RessourceStatsLectureVideoService,
+    private _authService : AuthService,
     public toastController: ToastController) { }
 
   ngOnDestroy() {
@@ -92,6 +95,8 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.resource = resource;
       console.log("resource :", this.resource);
       this.loadSectionsResource();
+
+     this.isAuthorizeToShowSection = this.isAuthorize(this.resource);
 
       if(this.editMode == false) {
         this.resource.nbReadForPopularity =  this.resource.nbReadForPopularity + 1;
@@ -177,7 +182,8 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   truncate = (input) => input.length > 20 ? `${input.substring(0, 20)}...` : input;
 
-  onLoadDetailSection(sectionResourceId:number, index: number, scrollToSection: boolean) {
+  onLoadDetailSection(ressource: IResource, sectionResourceId:number, index: number, scrollToSection: boolean) {
+    
     forkJoin([
       this.ressourceStatsLectureVideoService.query({'idResource.equals': this.resource.id}).pipe(map(result => result.body)),
       this.fileService.query({ 'sectionResourceId.equals': sectionResourceId, 'applicationDataId.equals': this.applicationData.id}).pipe(map(result => result.body)),
@@ -215,7 +221,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           if(!this.currentAudio){
             this.currentAudio = this.lecteurAudioSeries[0];
           }
-         
+          
           
         }
 
@@ -226,8 +232,24 @@ export class DetailComponent implements OnInit, OnDestroy {
             this.numberPanelSelected = index;
           },300);
         }
-       
+        
     });
+  
+  }
+
+  isAuthorize(ressource: IResource) {
+    let authorize = false;
+    const userConnectedRoles = this._authService.getRoles();
+    if(userConnectedRoles){
+        const listUserConnectedRoles = userConnectedRoles.split(',');
+        console.log('userConnectedRoles : ', listUserConnectedRoles);
+        console.log('ressources.roles : ', ressource.roles.map(role => role.name));
+        
+        if(listUserConnectedRoles.some(roles => ressource.roles.map(role => role.name).indexOf(roles) >= 0)){
+          authorize = true;
+        }
+    }
+    return authorize;
   }
 
   applyStatsLecture(medias: ILecteurSeries[], statsLectureVideo: StatsLectureVideo, sectionResourceId: number): ILecteurSeries[] {
@@ -370,7 +392,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           handler: () => { 
             this.fileService.delete(idFile).subscribe(async() => {
               console.log('Fichier supprimé');
-              this.onLoadDetailSection(idSection, this.numberPanelSelected, false);
+              this.onLoadDetailSection(this.resource, idSection, this.numberPanelSelected, false);
               const toast = await this.toastController.create({
                 message: 'Le fichier a été supprimée.',
                 duration: 2000
@@ -399,7 +421,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           handler: () => { 
             this.lecteurSeriesService.delete(idMedia).subscribe(async() => {
               console.log('Media supprimé');
-              this.onLoadDetailSection(idSection, this.numberPanelSelected, false);
+              this.onLoadDetailSection(this.resource, idSection, this.numberPanelSelected, false);
               const toast = await this.toastController.create({
                 message: 'Le Média a été supprimée.',
                 duration: 2000
@@ -510,14 +532,14 @@ export class DetailComponent implements OnInit, OnDestroy {
         ressourceStatsLectureVideo.creationDate = dayjs().startOf('day');
         ressourceStatsLectureVideo.updatedDate = dayjs().startOf('day');
         this.ressourceStatsLectureVideoService.create(ressourceStatsLectureVideo).subscribe(() => {
-          this.onLoadDetailSection(section.id, this.numberPanelSelected, false);
+          this.onLoadDetailSection(this.resource, section.id, this.numberPanelSelected, false);
           console.log('Creation d\'une nouvelle ressourceStatsLectureVideoService : ', this.ressourceStatsLectureVideoService);
         })
       }else{
         this.ressourceStatsLectureVideo.statsLectureVideo = JSON.stringify(this.statsLectureVideo);
         this.ressourceStatsLectureVideo.updatedDate = dayjs().startOf('day');
         this.ressourceStatsLectureVideoService.update(this.ressourceStatsLectureVideo).subscribe(() => {
-          this.onLoadDetailSection(section.id, this.numberPanelSelected, false);
+          this.onLoadDetailSection(this.resource, section.id, this.numberPanelSelected, false);
           console.log('MAJ de la ressourceStatsLectureVideoService : ', this.ressourceStatsLectureVideoService);
         });
       }
