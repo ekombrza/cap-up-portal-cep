@@ -5,10 +5,15 @@
         <ng-content select="[fuseVerticalNavigationHeader]"></ng-content>
     </div>
 
+    <!-- Content header application -->
+    <div class="fuse-vertical-navigation-content-header">
+        <ng-content select="[fuseVerticalNavigationApplicationHeader]"></ng-content>
+    </div>
+    
     <!-- Content -->
     <div
         class="fuse-vertical-navigation-content"
-        fuseScrollbar
+        
         [fuseScrollbarOptions]="{wheelPropagation: inner, suppressScrollX: true}"
         #navigationContent>
 

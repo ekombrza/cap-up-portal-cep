@@ -8,6 +8,18 @@
     [navigation]="navigation.default"
     [opened]="!isScreenSmall"
     class="dark bg-gray-900 print:hidden">
+
+     <!-- Navigation header application -->
+    <ng-container fuseVerticalNavigationApplicationHeader>
+        <div class="flex justify-center bg-[#000] pb-2">
+            <mat-form-field appearance="legacy" class="w-5/6 rounded-none">
+                <mat-select [(value)]="spaceSelected">
+                    <mat-option selected value="resource">Formation/ressources</mat-option>
+                </mat-select>
+                <mat-hint align="end">Choisissez l'espace applicatif</mat-hint>
+            </mat-form-field>
+        </div>
+    </ng-container>
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
         <div class="flex items-center w-full p-4 pl-6">

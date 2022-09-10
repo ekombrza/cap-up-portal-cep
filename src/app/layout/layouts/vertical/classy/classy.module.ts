@@ -17,6 +17,8 @@ import { ShortcutsModule } from 'src/app/layout/common/shortcuts/shortcuts.modul
 import { UserModule } from 'src/app/layout/common/user/user.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ClassyLayoutComponent } from 'src/app/layout/layouts/vertical/classy/classy.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,8 @@ import { ClassyLayoutComponent } from 'src/app/layout/layouts/vertical/classy/cl
         MatDividerModule,
         MatIconModule,
         MatMenuModule,
+        MatFormFieldModule,
+        MatSelectModule,
         FullscreenModule,
         LoadingBarModule,
         NavigationModule,

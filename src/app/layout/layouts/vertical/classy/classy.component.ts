@@ -19,6 +19,7 @@ import { ChurchService } from 'src/app/models-services/church/church.service';
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy
 {
+    spaceSelected = 'resource';
     isScreenSmall: boolean;
     navigation: Navigation;
     user: User;
