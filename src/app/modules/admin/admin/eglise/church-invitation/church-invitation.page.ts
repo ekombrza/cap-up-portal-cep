@@ -103,7 +103,7 @@ export class ChurchInvitationPage implements OnInit {
     const inAppNotification:boolean = true;
     const emailNotification:boolean = true;
     const phoneNumber:string = "";
-    const jobStatus:string = "INACTIVE";
+    const jobStatus:string = "INVITED";
     const roles = this.invitationForm.get(['roles']).value;
     membreDTO = { ...membreDTO, phoneNumber, inAppNotification, emailNotification, jobStatus, church, roles };
 

@@ -10,7 +10,7 @@ import { baseUrlJHipsterApi } from 'src/environments/environment';
 export class ShortcutsService
 {
     private _shortcuts: ReplaySubject<IShortcuts[]> = new ReplaySubject<IShortcuts[]>(1);
-    public resourceUrlExtended = baseUrlJHipsterApi + 'api/shortcuts';
+    public resourceUrlExtended = baseUrlJHipsterApi + 'api/extended/shortcuts';
     /**
      * Constructor
      */

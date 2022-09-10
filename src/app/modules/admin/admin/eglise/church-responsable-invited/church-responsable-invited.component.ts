@@ -64,7 +64,7 @@ export class ChurchResponsableInvitedComponent implements OnInit {
             size: this.itemsPerPage,
             sort: this.sortingString(),
             eagerload: false,
-            'jobStatus.equals': 'INACTIVE'
+            'jobStatus.equals': 'INVITED'
           }).pipe(catchError(() => observableOf(null)));
         }),
         map(data => {
@@ -99,6 +99,9 @@ export class ChurchResponsableInvitedComponent implements OnInit {
     console.log('delete membre :', membre);
     this.membreService.delete(membre.id).subscribe(()=> {
       this.loadData();
+    },
+    (error)=> {
+      this.presentToast('Erreur lors de la suppression', 'danger'); 
     });
   
   }
