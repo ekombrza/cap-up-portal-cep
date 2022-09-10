@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, map } from 'rxjs';
 
 import { Membre } from 'src/app/models-services/membre/membre.model';
@@ -29,7 +30,7 @@ export class SettingsTeamComponent implements OnInit
     constructor(
         private membreService: MembreService,
         private _changeDetectorRef: ChangeDetectorRef,
-        private _roleService: RoleService
+        private _roleService: RoleService,
     )
     {
     }
@@ -124,4 +125,5 @@ export class SettingsTeamComponent implements OnInit
     {
         return item.id || index;
     }
+
 }

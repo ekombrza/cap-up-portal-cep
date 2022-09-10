@@ -14,6 +14,7 @@ import { SettingsTeamComponent } from './team/team.component';
 import { settingsRoutes } from './settings.routing';
 import { AlertModule } from 'src/@ekbz/components/alert';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ],
     imports     : [
         RouterModule.forChild(settingsRoutes),
+        IonicModule,
         MatButtonModule,
         MatFormFieldModule,
         MatIconModule,

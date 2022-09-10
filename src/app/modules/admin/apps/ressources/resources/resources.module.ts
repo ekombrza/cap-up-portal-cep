@@ -9,7 +9,7 @@ import { ResourcesPageRoutingModule } from './resources-routing.module';
 import { ResourcesPage } from './resources.page';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {MatExpansionModule} from '@angular/material/expansion';
+import {MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS} from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +38,16 @@ import { SharedComponentsModule } from 'src/@ekbz/components/shared-components.m
     SharedComponentsModule,
     QuillModule.forRoot()
   ],
-  declarations: [ResourcesPage]
+  declarations: [ResourcesPage],
+  providers: [
+    {
+        provide: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
+        useValue: {
+            hideToggle: true,
+            expandedHeight: '80px',
+            collapsedHeight: '70px'
+        }
+    }
+]
 })
 export class ResourcesPageModule {}

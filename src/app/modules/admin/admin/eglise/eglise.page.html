@@ -19,42 +19,44 @@
     </div>
   </div>
   <div class="ion-padding church-profile">
-    <mat-card class="mat-card-info-wrapper">
-      <div class="section-header">
-        <h2>Information</h2>
-        <a *ngIf="isAdministrateur()" class="btn btn-outline-secondary edit" [routerLink]="['eglise-update']">
-          <ion-icon name="pencil-outline"></ion-icon>
-          <ion-label>Edit</ion-label>
-        </a>
-      </div>
-      <div class="section-row">
-        <p class="light-font">Pasteur</p>
-        <p>{{church?.pastorName}}</p>
-      </div>
-      <div class="section-row">
-        <p class="light-font">Téléphone</p>
-        <p><a href="tel:{{church?.phoneNumber}}">{{church?.phoneNumber}}</a></p>
-      </div>
-      <div class="section-row">
-        <p class="light-font">Email</p>
-        <a class="nav-link p-0" target="_blank" href="mailto:{{church?.email}}">{{church?.email}}
-        </a>
-      </div>
-      <div class="section-row">
-        <p class="light-font">Site web</p>
-        <a class="nav-link p-0" target="_blank" href="{{church?.website}}">{{church?.website}}
-        </a>
-      </div>
-      <div class="section-row">
-        <p class="light-font">Adresse</p>
-        <div>
-          <p>{{adress?.adress1}}</p>
-          <p>{{adress?.adress2}}</p>
-          <p>{{adress?.postalCode}} {{adress?.city}}</p>
-          <p>{{adress?.region}}, {{adress?.country.name}}</p>
+    <div class="row-card">
+      <mat-card class="mat-card-info-wrapper">
+        <div class="section-header">
+          <h2>Information</h2>
+          <a *ngIf="isAdministrateur()" class="btn btn-outline-secondary edit" [routerLink]="['eglise-update']">
+            <ion-icon name="pencil-outline"></ion-icon>
+            <ion-label>Edit</ion-label>
+          </a>
         </div>
-      </div>
-    </mat-card>
+        <div class="section-row">
+          <p class="light-font">Pasteur</p>
+          <p>{{church?.pastorName}}</p>
+        </div>
+        <div class="section-row">
+          <p class="light-font">Téléphone</p>
+          <p><a href="tel:{{church?.phoneNumber}}">{{church?.phoneNumber}}</a></p>
+        </div>
+        <div class="section-row">
+          <p class="light-font">Email</p>
+          <a class="nav-link p-0" target="_blank" href="mailto:{{church?.email}}">{{church?.email}}
+          </a>
+        </div>
+        <div class="section-row">
+          <p class="light-font">Site web</p>
+          <a class="nav-link p-0" target="_blank" href="{{church?.website}}">{{church?.website}}
+          </a>
+        </div>
+        <div class="section-row">
+          <p class="light-font">Adresse</p>
+          <div>
+            <p>{{adress?.adress1}}</p>
+            <p>{{adress?.adress2}}</p>
+            <p>{{adress?.postalCode}} {{adress?.city}}</p>
+            <p>{{adress?.region}}, {{adress?.country.name}}</p>
+          </div>
+        </div>
+      </mat-card>
+    </div>
   </div>
 
   <app-church-responsables></app-church-responsables>

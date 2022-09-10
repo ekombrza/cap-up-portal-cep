@@ -6,13 +6,13 @@
             <div class="flex flex-col sm:flex-row sm:items-center py-6">
                 <div class="flex items-center">
                     <div class="flex flex-0 items-center justify-center w-10 h-10 rounded-full overflow-hidden">
-                        <ng-container *ngIf="member.avatar">
+                        <ng-container *ngIf="member.imageBlob">
                             <img
                                 class="object-cover w-full h-full"
-                                [src]="member.avatar"
-                                alt="Contact avatar"/>
+                                [src]="'data:' + member.imageBlobContentType + ';base64,' + member.imageBlob" 
+                                alt="Contact imageBlob"/>
                         </ng-container>
-                        <ng-container *ngIf="!member.avatar">
+                        <ng-container *ngIf="!member.imageBlob">
                             <div class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
                                 {{member.internalUser.firstName.charAt(0)}}
                             </div>
