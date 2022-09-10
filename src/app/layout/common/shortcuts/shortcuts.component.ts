@@ -120,6 +120,7 @@ export class ShortcutsComponent implements OnInit, OnDestroy
      */
     closePanel(): void
     {
+        console.log("close panel call");
         this._overlayRef.detach();
     }
 
