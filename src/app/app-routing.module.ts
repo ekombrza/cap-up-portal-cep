@@ -92,6 +92,7 @@ const routes: Route[] = [
                 { path: 'categorie', loadChildren: () => import('./modules/admin/apps/admin/categorie/categorie.module').then( m => m.CategoriePageModule)},
                 { path: 'roles', loadChildren: () => import('./modules/admin/apps/admin/roles/roles.module').then( m => m.RolesPageModule)},
                 { path: 'type-files', loadChildren: () => import('./modules/admin/apps/admin/type-files/type-files.module').then( m => m.TypeFilesPageModule)},
+                { path: 'demande-autorisation', loadChildren: () => import('./modules/admin/apps/admin/demande-autorisation/demande-autorisation.module').then( m => m.DemandeAutorisationPageModule)},
             ]
         }
     ]
@@ -117,6 +118,7 @@ const routes: Route[] = [
 
     ]
 },
+  
   
 
 ];

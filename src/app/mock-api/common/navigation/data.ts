@@ -64,6 +64,14 @@ export const defaultNavigation: NavigationItem[] = [
                 icon : 'heroicons_outline:adjustments',
                 roles: ['Administrateur'],
                 link : '/apps/admin/roles'
+            },
+            {
+                id   : 'administration.ValidateAccess',
+                title: 'Validation demandes Accès',
+                type : 'basic',
+                icon : 'heroicons_outline:check',
+                roles: ['Administrateur'],
+                link : '/apps/admin/demande-autorisation'
             }
        ]
     },

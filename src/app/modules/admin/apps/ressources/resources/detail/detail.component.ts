@@ -28,6 +28,9 @@ import { SectionStats } from 'src/app/models-services/statistiquesLectureVideo/S
 import { Icon, Player } from '@vime/angular';
 import { SwiperComponent } from 'swiper/angular';
 import { AuthService } from 'src/app/models-services/auth/auth.service';
+import { DemandeAccesFormationPriveeService } from 'src/app/models-services/demande-acces-formation-privee/demande-acces-formation-privee.service';
+import { DemandeAccesFormationPrivee, IDemandeAccesFormationPrivee } from 'src/app/models-services/demande-acces-formation-privee/demande-acces-formation-privee.model';
+import { result } from 'lodash';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
@@ -77,7 +80,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     protected applicationDataService: ApplicationDataService,
     protected ressourceStatsLectureVideoService: RessourceStatsLectureVideoService,
     private _authService : AuthService,
-    public toastController: ToastController) { }
+    public toastController: ToastController,
+    private demandeAccesFormationPriveeService: DemandeAccesFormationPriveeService) { }
 
   ngOnDestroy() {
     this.unsubscribe$.next(null);
@@ -573,6 +577,44 @@ export class DetailComponent implements OnInit, OnDestroy {
   onStart(event: CustomEvent<any>){
     console.log('On start ', event);
     this.notTriggerPlaybackEnded = false;
+  }
+
+  demandeAutorisation(ressource: IResource){
+    this.demandeAccesFormationPriveeService.query({'idRessourceToActive.equals':ressource.id, 'idDemandeur.equals':this.connectedMembre.id})
+    .subscribe(async(result)=> {
+      var demandes = result.body;
+      if(demandes.length > 0){
+        const toast = await this.toastController.create({
+          message: 'Une demande est déjà en cours pour cette ressource.', 
+          duration: 4000
+        });
+        toast.present();
+      } else {
+        var demandeAccesFormationPrivee: DemandeAccesFormationPrivee = new DemandeAccesFormationPrivee();
+        demandeAccesFormationPrivee.idDemandeur = this.connectedMembre.id;
+        demandeAccesFormationPrivee.nomDemandeur = this.connectedMembre.internalUser.firstName;
+        demandeAccesFormationPrivee.prenomDemandeur = this.connectedMembre.internalUser.lastName;
+        demandeAccesFormationPrivee.idRessourceToActive = ressource.id;
+        demandeAccesFormationPrivee.nomRessourceToActive = ressource.title;
+        demandeAccesFormationPrivee.creationDate = dayjs();
+        demandeAccesFormationPrivee.updatedDate = dayjs();
+        this.demandeAccesFormationPriveeService.create(demandeAccesFormationPrivee)
+        .subscribe(async()=> {
+          const toast = await this.toastController.create({
+            message: 'Une demande a été effectuées auprès des admministrateurs. Si elle est acceptée, vous revcevrez un mail d\'information', 
+            duration: 4000
+          });
+          toast.present();
+        },
+        async (error) => {
+          const toast = await this.toastController.create({
+            message: 'Une erreur s\'est produite', 
+            duration: 4000
+          });
+          toast.present();
+        });
+      }
+    })
   }
 }
 
