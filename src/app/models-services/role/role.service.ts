@@ -107,11 +107,11 @@ export class RoleService {
   /**
      * Create role
      */
-   createRole(): Observable<Role>
+   createRole(idApplication: number): Observable<Role>
    {
       let role = new Role();
-      role.application = {id:1};
-      role.name = 'nouvelle catégorie';
+      role.application = {id:idApplication};
+      role.name = 'nouveau rôle';
       role.typeRole = TypeRoleEnum.PRIVATE;
       role.creationDate = dayjs();
       role.updatedDate = dayjs();

@@ -45,14 +45,17 @@
                                         'autre' : 'autres'}})
                                       </span>
                                 </mat-select-trigger>
-                                <ng-container *ngFor="let role of roles">
-                                    <mat-option
+                               
+                                    <mat-optgroup *ngFor="let group of groupRoles | keyvalue" [label]="group.key">
+                                        <mat-option *ngFor="let role of group.value"
                                         class="h-auto py-4 leading-none"
                                         [value]="role">
                                         <div class="font-medium">{{role.name}}</div>
                                         <div class="mt-1.5 text-sm whitespace-normal leading-normal text-secondary">{{role.description}}</div>
                                     </mat-option>
-                                </ng-container>
+                                    </mat-optgroup>
+                                    
+                            
                             </mat-select>
                         </mat-form-field>
                     </div>

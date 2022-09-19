@@ -37,44 +37,44 @@ export const defaultNavigation: ListNavigationItem[] = [
                 ]
                 },
                 {
-                    id      : 'administration',
+                    id      : 'ressources.administration',
                     title   : 'Administration',
                     subtitle: 'Administration des ressources',
                     type    : 'group',
                     icon    : 'heroicons_outline:home',
-                    roles: ['Administrateur'],
+                    roles: ['1::Administrateur'],
                     children: [
                         {
-                            id   : 'administration.Categories',
+                            id   : 'administration.ressources.Categories',
                             title: 'Gestion des Catégories',
                             type : 'basic',
                             icon : 'heroicons_outline:adjustments',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/categorie'
+                            roles: ['1::Administrateur'],
+                            link : '/apps/ressources/admin/categorie'
                         },
                         {
-                            id   : 'administration.TypeFile',
+                            id   : 'administration.ressources.TypeFile',
                             title: 'Gestion des types de fichiers',
                             type : 'basic',
                             icon : 'heroicons_outline:adjustments',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/type-files'
+                            roles: ['1::Administrateur'],
+                            link : '/apps/ressources/admin/type-files'
                         },
                         {
-                            id   : 'administration.Roles',
+                            id   : 'administration.ressources.Roles',
                             title: 'Gestion des rôles',
                             type : 'basic',
                             icon : 'heroicons_outline:adjustments',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/roles'
+                            roles: ['1::Administrateur'],
+                            link : '/apps/ressources/admin/roles'
                         },
                         {
-                            id   : 'administration.ValidateAccess',
+                            id   : 'administration.ressources.ValidateAccess',
                             title: 'Validation demandes Accès',
                             type : 'basic',
                             icon : 'heroicons_outline:check',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/demande-autorisation'
+                            roles: ['1::Administrateur'],
+                            link : '/apps/ressources/admin/demande-autorisation'
                         }
                 ]
                 }
@@ -84,74 +84,45 @@ export const defaultNavigation: ListNavigationItem[] = [
         id: 'contacts',
         nav: [
                 {
-                    id      : 'ressources',
-                    title   : 'Ressources',
-                    subtitle: 'Les ressources du CEP Evry2',
+                    id      : 'contacts',
+                    title   : 'Contacts',
+                    subtitle: 'gestion des contacts',
                     type    : 'group',
                     icon    : 'heroicons_outline:home',
+                    roles: ['3::acces-contact'],
                     children: [
                         {
-                            id   : 'ressources.formations',
-                            title: 'Les Formations2',
+                            id   : 'contacts.contacts',
+                            title: 'Les Contacts',
                             type : 'basic',
-                            icon : 'heroicons_outline:academic-cap',
-                            link : '/apps/ressources/formations'
-                        },
-                        {
-                            id   : 'ressources.ressources',
-                            title: 'Les Ressources2',
-                            type : 'basic',
-                            icon : 'heroicons_solid:archive',
-                            link : '/apps/ressources/ressources'
-                        },
-                        {
-                            id   : 'ressources.dashboard',
-                            title: 'Tableau de bord2',
-                            type : 'basic',
-                            icon : 'heroicons_solid:identification',
-                            link : '/apps/ressources/dashboard'
-                        },
+                            icon : 'heroicons_outline:users',
+                            link : '/apps/contacts/contacts'
+                        }
                 ]
                 },
                 {
-                    id      : 'administration',
+                    id      : 'contacts.administration',
                     title   : 'Administration',
-                    subtitle: 'Administration des ressources2',
+                    subtitle: 'Administration des contacts',
                     type    : 'group',
                     icon    : 'heroicons_outline:home',
-                    roles: ['Administrateur'],
+                    roles: ['3::administrateur'],
                     children: [
                         {
-                            id   : 'administration.Categories',
-                            title: 'Gestion des Catégories2',
+                            id   : 'administration.contacts.Equipes',
+                            title: 'Gestion des Equipes',
                             type : 'basic',
                             icon : 'heroicons_outline:adjustments',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/categorie'
+                            roles: ['3::administrateur'],
+                            link : '/apps/contacts/admin/equipes'
                         },
                         {
-                            id   : 'administration.TypeFile',
-                            title: 'Gestion des types de fichiers2',
+                            id   : 'administration.contacts.Roles',
+                            title: 'Gestion des rôles',
                             type : 'basic',
                             icon : 'heroicons_outline:adjustments',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/type-files'
-                        },
-                        {
-                            id   : 'administration.Roles',
-                            title: 'Gestion des rôles2',
-                            type : 'basic',
-                            icon : 'heroicons_outline:adjustments',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/roles'
-                        },
-                        {
-                            id   : 'administration.ValidateAccess',
-                            title: 'Validation demandes Accès2',
-                            type : 'basic',
-                            icon : 'heroicons_outline:check',
-                            roles: ['Administrateur'],
-                            link : '/apps/admin/demande-autorisation'
+                            roles: ['3::administrateur'],
+                            link : '/apps/contacts/admin/roles'
                         }
                 ]
                 }

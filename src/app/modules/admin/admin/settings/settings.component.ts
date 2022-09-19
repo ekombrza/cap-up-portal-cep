@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit, OnDestroy
                 icon       : 'heroicons_outline:user-group',
                 title      : 'Membres',
                 description: 'Gérez léquipe existante et modifiez les rôles/autorisations',
-                roles: ['Administrateur']
+                roles: ['2::Super Administrateur']
             }
         ];
 

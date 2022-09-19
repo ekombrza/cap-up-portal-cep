@@ -202,7 +202,7 @@ export class RolePage implements OnInit, AfterViewInit, OnDestroy
     createRole(): void
     {
         // Create the role
-        this._roleService.createRole().subscribe((newRole) => {
+        this._roleService.createRole(1).subscribe((newRole) => {
 
             // Go to new role
             this.selectedRole = newRole;

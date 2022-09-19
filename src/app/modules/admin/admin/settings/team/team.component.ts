@@ -6,7 +6,7 @@ import { forkJoin, map } from 'rxjs';
 
 import { Membre } from 'src/app/models-services/membre/membre.model';
 import { MembreService } from 'src/app/models-services/membre/membre.service';
-import { IRole } from 'src/app/models-services/role/role.model';
+import { IRole, Role } from 'src/app/models-services/role/role.model';
 import { RoleService } from 'src/app/models-services/role/role.service';
 
 @Component({
@@ -17,7 +17,7 @@ import { RoleService } from 'src/app/models-services/role/role.service';
 })
 export class SettingsTeamComponent implements OnInit
 {
-    roles: any[];
+    groupRoles: Map<string, Role[]>;
 
     @ViewChild('searchBar') searchBar ;
     public members : Membre[] = [];
@@ -46,13 +46,15 @@ export class SettingsTeamComponent implements OnInit
     {
         forkJoin([
             this.membreService.query().pipe(map((res) => res.body)),
-            this._roleService.query({'typeRole.equals':'PRIVATE', 'applicationId.equals':'1'}).pipe(map(result => result.body))
+            this._roleService.query({'typeRole.equals':'PRIVATE'/*, 'applicationId.equals':'1'*/}).pipe(map(result => result.body))
           ]).subscribe(data => {
          
             this.members = data[0];
             console.log('membres : ', this.members);
-            this.roles = data[1];
-            console.log('roles : ', this.roles);
+            
+            const roles  = data[1];
+            this.groupRoles = this.groupRolesByApplicationName(roles);
+
             this.filtredMembers = this.members;
              // Mark for check
              this._changeDetectorRef.markForCheck();
@@ -60,6 +62,22 @@ export class SettingsTeamComponent implements OnInit
 
           });
 
+    }
+
+    private groupRolesByApplicationName(roles: IRole[]) {
+        const map = new Map();
+        roles.forEach(role => {
+            if (map.get(role.application.name)) {
+                const roles: Role[] = map.get(role.application.name);
+                roles.push(role);
+                map.set(role.application.name, roles);
+            } else {
+                map.set(role.application.name, [role]);
+            }
+
+            console.log('map : ', map);
+        });
+        return map
     }
 
     filterItems(ev: any) {

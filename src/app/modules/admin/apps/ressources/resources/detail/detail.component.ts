@@ -249,7 +249,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         console.log('userConnectedRoles : ', listUserConnectedRoles);
         console.log('ressources.roles : ', ressource.roles.map(role => role.name));
         
-        if(listUserConnectedRoles.some(roles => ressource.roles.map(role => role.name).indexOf(roles) >= 0)){
+        if(listUserConnectedRoles.some(roles => ressource.roles.map(role => role.name).indexOf(roles.substring(roles.indexOf('::')+2, roles.length)) >= 0)){
           authorize = true;
         }
     }

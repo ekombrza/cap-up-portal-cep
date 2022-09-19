@@ -19,6 +19,7 @@
     "@angular/core": "^14.0.0",
     "@angular/forms": "^14.0.0",
     "@angular/material": "^14.0.6",
+    "@angular/material-moment-adapter": "^14.2.2",
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
@@ -35,6 +36,7 @@
     "crypto-js": "3.3.0",
     "dayjs": "1.10.7",
     "highlight.js": "11.6.0",
+    "jwt-decode": "^3.1.2",
     "lodash-es": "4.17.21",
     "moment": "2.29.4",
     "ngx-image-cropper": "^6.2.2",
@@ -44,8 +46,7 @@
     "rxjs": "7.5.6",
     "swiper": "^8.3.1",
     "tslib": "^2.2.0",
-    "zone.js": "~0.11.4",
-    "jwt-decode": "^3.1.2"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.0",

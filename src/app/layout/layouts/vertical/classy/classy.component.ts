@@ -153,5 +153,15 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
         console.log('onSelectChange event : ',event);
         this.spaceSelected = event.value;
         this.selectedSpaceNavigation = this.getSpaceNavigation();
+        switch (this.spaceSelected) {
+            case 'contacts':
+                this._router.navigate(['/apps/contacts/contacts']);
+                break;
+            case 'ressources':
+                this._router.navigate(['/apps/ressources/formations']);
+                break;
+            default:
+                break;
+        }
     }
 }

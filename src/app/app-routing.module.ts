@@ -87,12 +87,27 @@ const routes: Route[] = [
             {path: 'dashboard', loadChildren: () => import('src/app/modules/admin/apps/ressources/dashboard/dashboard.module').then(m => m.DashboardPageModule)},
         ]},
         {
-            path: 'admin',
+            path: 'ressources/admin',
+            data: {
+                roles: ['1::Administrateur']
+            },
             children   : [
-                { path: 'categorie', loadChildren: () => import('./modules/admin/apps/admin/categorie/categorie.module').then( m => m.CategoriePageModule)},
-                { path: 'roles', loadChildren: () => import('./modules/admin/apps/admin/roles/roles.module').then( m => m.RolesPageModule)},
-                { path: 'type-files', loadChildren: () => import('./modules/admin/apps/admin/type-files/type-files.module').then( m => m.TypeFilesPageModule)},
-                { path: 'demande-autorisation', loadChildren: () => import('./modules/admin/apps/admin/demande-autorisation/demande-autorisation.module').then( m => m.DemandeAutorisationPageModule)},
+                { path: 'categorie', loadChildren: () => import('./modules/admin/apps/ressources/admin/categorie/categorie.module').then( m => m.CategoriePageModule)},
+                { path: 'roles', loadChildren: () => import('./modules/admin/apps/ressources/admin/roles/roles.module').then( m => m.RolesPageModule)},
+                { path: 'type-files', loadChildren: () => import('./modules/admin/apps/ressources/admin/type-files/type-files.module').then( m => m.TypeFilesPageModule)},
+                { path: 'demande-autorisation', loadChildren: () => import('./modules/admin/apps/ressources/admin/demande-autorisation/demande-autorisation.module').then( m => m.DemandeAutorisationPageModule)},
+            ]
+        },
+        {path: 'contacts', children: [
+            {path: 'contacts', loadChildren: () => import('src/app/modules/admin/apps/contacts/contacts/contacts.module').then(m => m.ContactsModule)},
+        ]},
+        {
+            path: 'contacts/admin',
+            data: {
+                roles: ['3::administrateur']
+            },
+            children   : [
+                { path: 'roles', loadChildren: () => import('./modules/admin/apps/contacts/admin/roles/roles.module').then( m => m.RolesPageModule)},
             ]
         }
     ]
