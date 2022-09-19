@@ -60,3 +60,10 @@ export type VerticalNavigationMode =
 export type VerticalNavigationPosition =
     | 'left'
     | 'right';
+
+
+export interface ListNavigationItem 
+{
+    id: string,
+    nav: NavigationItem[]
+}

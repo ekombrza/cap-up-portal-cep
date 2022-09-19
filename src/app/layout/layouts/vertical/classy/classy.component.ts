@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { MediaWatcherService } from 'src/@ekbz/services/media-watcher';
-import { NavigationService, VerticalNavigationComponent } from 'src/@ekbz/components/navigation';
+import { NavigationItem, NavigationService, VerticalNavigationComponent } from 'src/@ekbz/components/navigation';
 import { User } from 'src/app/models-services/user/user.model';
 import { UserService } from 'src/app/models-services/user/user.service';
 import { CoreNavigationService } from 'src/app/models-services/navigation/navigation.service';
@@ -19,7 +19,8 @@ import { ChurchService } from 'src/app/models-services/church/church.service';
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy
 {
-    spaceSelected = 'resource';
+    spaceSelected = 'ressources';
+    selectedSpaceNavigation: NavigationItem[];
     isScreenSmall: boolean;
     navigation: Navigation;
     user: User;
@@ -70,6 +71,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((navigation: Navigation) => {
                 this.navigation = navigation;
+                this.selectedSpaceNavigation = this.getSpaceNavigation();
             });
 
         // Subscribe to the user service
@@ -138,5 +140,18 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             // Toggle the opened status
             navigation.toggle();
         }
+    }
+
+    getSpaceNavigation(){
+        console.log('this.spaceSelected = ',this.spaceSelected);
+        console.log('this.navigation.default = ',this.navigation.default);
+        console.log('this.navigation.default.filter((res)=> res.id === this.spaceSelected )[0].nav = ', this.navigation.default.filter((res)=> res.id === this.spaceSelected )[0].nav);
+        return this.navigation.default.filter((res)=> res.id === this.spaceSelected )[0].nav;
+    }
+
+    onSelectChange(event){
+        console.log('onSelectChange event : ',event);
+        this.spaceSelected = event.value;
+        this.selectedSpaceNavigation = this.getSpaceNavigation();
     }
 }

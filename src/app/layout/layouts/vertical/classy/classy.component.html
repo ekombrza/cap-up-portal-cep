@@ -5,7 +5,7 @@
 <fuse-vertical-navigation
     [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'"
-    [navigation]="navigation.default"
+    [navigation]="selectedSpaceNavigation"
     [opened]="!isScreenSmall"
     class="dark bg-gray-900 print:hidden">
 
@@ -13,8 +13,10 @@
     <ng-container fuseVerticalNavigationApplicationHeader>
         <div class="flex justify-center bg-[#000] pb-2">
             <mat-form-field appearance="legacy" class="w-5/6 rounded-none">
-                <mat-select [(value)]="spaceSelected">
-                    <mat-option selected value="resource">Formation/ressources</mat-option>
+                <mat-select [(value)]="spaceSelected"
+                    (selectionChange)="onSelectChange($event)">
+                    <mat-option selected value="ressources">Formation/ressources</mat-option>
+                    <!-- <mat-option selected value="contacts">Contacts</mat-option> -->
                 </mat-select>
                 <mat-hint align="end">Choisissez l'espace applicatif</mat-hint>
             </mat-form-field>
