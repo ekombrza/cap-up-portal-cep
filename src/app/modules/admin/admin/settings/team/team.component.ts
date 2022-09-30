@@ -45,7 +45,7 @@ export class SettingsTeamComponent implements OnInit
     ngOnInit(): void
     {
         forkJoin([
-            this.membreService.query().pipe(map((res) => res.body)),
+            this.membreService.query({'jobStatus.in':'ACTIVE'}).pipe(map((res) => res.body)),
             this._roleService.query({'typeRole.equals':'PRIVATE'/*, 'applicationId.equals':'1'*/}).pipe(map(result => result.body))
           ]).subscribe(data => {
          
@@ -114,7 +114,7 @@ export class SettingsTeamComponent implements OnInit
             membre.roles = allRoles.concat(rolesPublicSelected, rolesPrivateSelected);
             console.log('eventOpen : ',eventOpen)
             console.log('close : ', membre, membre.roles)
-            this.membreService.partialUpdate(membre).subscribe(
+            this.membreService.partialUpdate(membre, false).subscribe(
                 (membre)=>{
                     console.log('success Updated Role', membre);
             },

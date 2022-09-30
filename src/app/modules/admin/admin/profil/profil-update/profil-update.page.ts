@@ -92,7 +92,7 @@ export class ProfilUpdatePage implements OnInit {
     if (this.adminUser.id !== undefined) {
       this.adminUserService.update(this.adminUser).subscribe(
         () => {
-          this.membreService.update(this.connectedMembre).subscribe(
+          this.membreService.update(this.connectedMembre, true).subscribe(
             () => {
               this.onSaveSuccess()
             },

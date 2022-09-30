@@ -66,6 +66,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        //Subscribe to space data
+        this._coreNavigationService.space$
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((space: string) => {
+            this.spaceSelected = space;
+        });
+
         // Subscribe to navigation data
         this._coreNavigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -87,8 +94,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             .subscribe((membre: Membre) => {
                 this.membre = membre;
                 console.log('membre',this.membre);
-                if(membre.imageBlob){
-                    this.avatar = 'data:'+this.membre.imageBlobContentType + ';base64,' + this.membre.imageBlob;
+                if(membre.avatarImageLink){
+                    this.avatar = membre.avatarImageLink;
                 }
                 
             });
@@ -152,6 +159,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     onSelectChange(event){
         console.log('onSelectChange event : ',event);
         this.spaceSelected = event.value;
+        this._coreNavigationService.changeSpace(event.value);
         this.selectedSpaceNavigation = this.getSpaceNavigation();
         switch (this.spaceSelected) {
             case 'contacts':
@@ -163,5 +171,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
             default:
                 break;
         }
+    }
+
+    containRoleInApplicationId(applicationName) {
+        return this.membre?.roles.filter(role => role.application.name == applicationName).length > 0;
     }
 }

@@ -360,7 +360,7 @@ export class ResourcesPage implements OnInit {
   }
 
   isAdministrateur(){
-   return this.connectedMembre?.roles.filter(role => role.name == 'Administrateur').length == 1;
+   return this.connectedMembre?.roles.filter(role => role.name == 'Administrateur' && role.application.name == 'Resource Management').length == 1;
   }
 
   goToAddResource(){

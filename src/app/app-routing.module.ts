@@ -99,12 +99,12 @@ const routes: Route[] = [
             ]
         },
         {path: 'contacts', children: [
-            {path: 'contacts', loadChildren: () => import('src/app/modules/admin/apps/contacts/contacts/contacts.module').then(m => m.ContactsModule)},
+            {path: 'contacts', loadChildren: () => import('src/app/modules/admin/apps/contacts/contacts/membres.module').then(m => m.MembresModule)},
         ]},
         {
             path: 'contacts/admin',
             data: {
-                roles: ['3::administrateur']
+                roles: ['3::Administrateur']
             },
             children   : [
                 { path: 'roles', loadChildren: () => import('./modules/admin/apps/contacts/admin/roles/roles.module').then( m => m.RolesPageModule)},

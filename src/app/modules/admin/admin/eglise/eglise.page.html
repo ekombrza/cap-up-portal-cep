@@ -23,7 +23,7 @@
       <mat-card class="mat-card-info-wrapper">
         <div class="section-header">
           <h2>Information</h2>
-          <a *ngIf="isAdministrateur()" class="btn btn-outline-secondary edit" [routerLink]="['eglise-update']">
+          <a *ngIf="isSuperAdministrateur()" class="btn btn-outline-secondary edit" [routerLink]="['eglise-update']">
             <ion-icon name="pencil-outline"></ion-icon>
             <ion-label>Edit</ion-label>
           </a>

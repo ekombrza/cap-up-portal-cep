@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, ReplaySubject, tap } from 'rxjs';
+import { Observable, of, ReplaySubject, tap } from 'rxjs';
 import { Navigation } from 'src/app/models-services/navigation/navigation.types';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Navigation } from 'src/app/models-services/navigation/navigation.types'
 export class CoreNavigationService
 {
     private _navigation: ReplaySubject<Navigation> = new ReplaySubject<Navigation>(1);
+    private _space: ReplaySubject<String> = new ReplaySubject<String>(1);
 
     /**
      * Constructor
@@ -29,6 +30,14 @@ export class CoreNavigationService
         return this._navigation.asObservable();
     }
 
+     /**
+     * Getter for space
+     */
+      get space$(): Observable<String>
+      {
+          return this._space.asObservable();
+      }
+
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
@@ -44,4 +53,13 @@ export class CoreNavigationService
             })
         );
     }
+
+    /**
+     * Get all space data
+     */
+     changeSpace(space: string): Observable<String>
+     { 
+        this._space.next(space);
+        return of(space);
+     }
 }

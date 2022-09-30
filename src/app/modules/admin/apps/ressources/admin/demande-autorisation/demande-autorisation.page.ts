@@ -106,7 +106,7 @@ export class DemandeAutorisationPage implements OnInit {
           membre.roles = allRoles.concat(rolesPublicSelected, rolesPrivateSelected);
           console.log('eventOpen : ',eventOpen)
           console.log('close : ', membre, membre.roles)
-          this._membreService.partialUpdate(membre).subscribe(
+          this._membreService.partialUpdate(membre, false).subscribe(
               (membre)=>{
                   console.log('success Updated Role', membre);
           },

@@ -69,8 +69,8 @@ export class UserComponent implements OnInit, OnDestroy
                 this.membre = membre;
                 console.log('membre',this.membre);
                 this.avatar = null;
-                if(membre.imageBlob) {
-                    this.avatar = 'data:'+this.membre.imageBlobContentType + ';base64,' + this.membre.imageBlob;
+                if(membre.avatarImageLink) {
+                    this.avatar = membre.avatarImageLink;
                 }
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
@@ -122,7 +122,7 @@ export class UserComponent implements OnInit, OnDestroy
             instantStatus,
             creationDate: dayjs(this.membre.creationDate, DATE_TIME_FORMAT),
             updatedDate: dayjs()
-        }).subscribe();
+        }, true).subscribe();
     }
 
     /**

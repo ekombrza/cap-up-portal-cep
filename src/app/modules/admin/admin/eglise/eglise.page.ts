@@ -53,8 +53,8 @@ export class EglisePage implements OnInit {
     }); 
   }
 
-  isAdministrateur(){
-    return this.connectedMembre?.roles.filter(role => role.name == 'Administrateur').length == 1;
+  isSuperAdministrateur(){
+    return this.connectedMembre?.roles.filter(role => role.name == 'Super Administrateur' && role.application.name == 'CEP Evry App').length == 1;
    }
 
    dataLoadedChange(){

@@ -89,7 +89,7 @@ export const defaultNavigation: ListNavigationItem[] = [
                     subtitle: 'gestion des contacts',
                     type    : 'group',
                     icon    : 'heroicons_outline:home',
-                    roles: ['3::acces-contact'],
+                    roles: ['3::Acces-contact'],
                     children: [
                         {
                             id   : 'contacts.contacts',
@@ -106,22 +106,22 @@ export const defaultNavigation: ListNavigationItem[] = [
                     subtitle: 'Administration des contacts',
                     type    : 'group',
                     icon    : 'heroicons_outline:home',
-                    roles: ['3::administrateur'],
+                    roles: ['3::Administrateur'],
                     children: [
-                        {
-                            id   : 'administration.contacts.Equipes',
-                            title: 'Gestion des Equipes',
-                            type : 'basic',
-                            icon : 'heroicons_outline:adjustments',
-                            roles: ['3::administrateur'],
-                            link : '/apps/contacts/admin/equipes'
-                        },
+                        //{
+                        //    id   : 'administration.contacts.Equipes',
+                        //    title: 'Gestion des Equipes',
+                        //    type : 'basic',
+                        //    icon : 'heroicons_outline:adjustments',
+                        //    roles: ['3::Administrateur'],
+                        //    link : '/apps/contacts/admin/equipes'
+                        //},
                         {
                             id   : 'administration.contacts.Roles',
                             title: 'Gestion des rôles',
                             type : 'basic',
                             icon : 'heroicons_outline:adjustments',
-                            roles: ['3::administrateur'],
+                            roles: ['3::Administrateur'],
                             link : '/apps/contacts/admin/roles'
                         }
                 ]

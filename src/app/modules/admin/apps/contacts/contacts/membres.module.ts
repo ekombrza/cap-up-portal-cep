@@ -16,10 +16,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import * as moment from 'moment';
-import { ContactsComponent } from './contacts.component';
-import { ContactsListComponent } from './list/list.component';
-import { ContactsDetailsComponent } from './details/details.component';
-import { contactsRoutes } from './contacts.routing';
+import { MembresComponent } from './membres.component';
+import { MembresListComponent } from './list/list.component';
+import { MembresDetailsComponent } from './details/details.component';
+import { membresRoutes } from './membres.routing';
 import { FindByKeyPipeModule } from 'src/@ekbz/pipes/find-by-key';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -27,12 +27,12 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
     declarations: [
-        ContactsComponent,
-        ContactsListComponent,
-        ContactsDetailsComponent
+        MembresComponent,
+        MembresListComponent,
+        MembresDetailsComponent
     ],
     imports     : [
-        RouterModule.forChild(contactsRoutes),
+        RouterModule.forChild(membresRoutes),
         MatButtonModule,
         MatCheckboxModule,
         MatDatepickerModule,
@@ -69,6 +69,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
         }
     ]
 })
-export class ContactsModule
+export class MembresModule
 {
 }

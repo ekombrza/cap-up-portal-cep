@@ -233,7 +233,9 @@ export class AuthSignUpComponent implements OnInit
 
             church = { ...church, churchName, pastorName, phoneNumber, email, website, denomination, adress };
         }
-        membreDTO = { ...membreDTO, phoneNumber, inAppNotification, emailNotification, jobStatus, church, roles };
+        const instantStatus = 'online';
+        const avatarImageLink = 'https://statique.cepevry.fr/contacts.cepevry.fr/DATA/AVATAR/no-avatar.png';
+        membreDTO = { ...membreDTO, lastName, firstName, email, phoneNumber, inAppNotification, emailNotification, jobStatus, church, roles, instantStatus };
         
         let account = {};
         account = { ...account, adminUserDTO, membreDTO, password};

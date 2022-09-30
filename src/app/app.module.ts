@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ExtraOptions, PreloadAllModules, RouteReuseStrategy, RouterModule } from '@angular/router';
 
@@ -14,6 +14,11 @@ import { mockApiServices } from './mock-api';
 import { appConfig } from './models-services/config/app.config';
 import { LayoutModule } from './layout/layout.module';
 import { CoreModule } from './models-services/core.module';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+// the second parameter 'fr' is optional
+registerLocaleData(localeFr, 'fr');
 
 const routerConfig: ExtraOptions = {
   preloadingStrategy       : PreloadAllModules,
@@ -36,7 +41,8 @@ const routerConfig: ExtraOptions = {
     // Layout module of your application
     LayoutModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: LOCALE_ID, useValue: 'fr' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

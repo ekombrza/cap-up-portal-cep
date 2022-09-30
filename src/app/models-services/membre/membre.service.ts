@@ -74,19 +74,19 @@ export class MembreService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  update(membre: Membre): Observable<EntityResponseType> {
+  update(membre: Membre, isConnectedMembre:boolean): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(membre);
     return this.http
       .put<Membre>(`${this.resourceUrl}/${this.getMembreIdentifier(membre) as number}`, membre, { observe: 'response' })
-      .pipe(tap((res) => this._membre.next(res.body)))
+      .pipe(tap((res) => { if(isConnectedMembre) this._membre.next(res.body)} ))
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  partialUpdate(membre: Membre): Observable<EntityResponseType> {
+  partialUpdate(membre: Membre, isConnectedMembre:boolean): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(membre);
     return this.http
       .patch<Membre>(`${this.resourceUrl}/${this.getMembreIdentifier(membre) as number}`, copy, { observe: 'response' })
-      .pipe(tap((res) => this._membre.next(res.body)))
+      .pipe(tap((res) => { if(isConnectedMembre) this._membre.next(res.body)} ))
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -170,4 +170,23 @@ export class MembreService {
   isPresent<T>(t: T | undefined | null | void): t is T {
     return t !== undefined && t !== null;
   }
+
+  /**
+     * Update the avatar of the given membre (the connected membre only)
+     *
+     * @param id
+     * @param avatar
+     */
+   uploadAvatar(id: number, avatar: FormData): Observable<Membre>
+   {
+       return this.http.post<Membre>(this.baseUrlExtended + '/upload/' + id, 
+               avatar
+           ).pipe(
+               map((updatedMembre: Membre) => {``
+                  this._membre.next(updatedMembre);
+                   // Return the updated membre
+                   return updatedMembre;
+               })
+           )
+   }
 }
