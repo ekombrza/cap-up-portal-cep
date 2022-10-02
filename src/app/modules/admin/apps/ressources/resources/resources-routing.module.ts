@@ -5,10 +5,12 @@ import { AuthGuard } from 'src/app/models-services/auth/guards/auth.guard';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AddComponent } from './add/add.component';
 import { DetailComponent } from './detail/detail.component';
+import { FileRoutingResolveService } from './detail/file-update/file-routing-resolve.service';
+import { FileUpdateComponent } from './detail/file-update/file-update.component';
 import { ResourcesRoutingResolveService } from './resources-routing-resolve.service';
 
 import { ResourcesPage } from './resources.page';
-import { FileRoutingResolveService } from './section-resource/file-section/file-section-update/file-routing-resolve.service';
+import { FileSectionRoutingResolveService } from './section-resource/file-section/file-section-update/file-section-routing-resolve.service';
 import { FileSectionUpdateComponent } from './section-resource/file-section/file-section-update/file-section-update.component';
 import { LecteurSeriesRoutingResolveService } from './section-resource/lecteur-series/lecteur-series-update/lecteur-series-routing-resolve.service';
 import { LecteurSeriesUpdateComponent } from './section-resource/lecteur-series/lecteur-series-update/lecteur-series-update.component';
@@ -68,6 +70,30 @@ const routes: Routes = [
     }
   },
   {
+    path: ':id/file/new',
+    component: FileUpdateComponent,
+    resolve: {
+      resource: ResourcesRoutingResolveService,
+      file: FileRoutingResolveService
+    },
+    canActivate: [AuthGuard],
+    data: { 
+      authorities: ['Administrateur']
+    }
+  },
+  {
+    path: ':id/file/:idFile/edit',
+    component: FileUpdateComponent,
+    resolve: {
+      resource: ResourcesRoutingResolveService,
+      file: FileRoutingResolveService
+    },
+    canActivate: [AuthGuard],
+    data: { 
+      authorities: ['Administrateur']
+    }
+  },
+  {
     path: ':id/section/new',
     component: UpdateComponent,
     resolve: {
@@ -96,7 +122,7 @@ const routes: Routes = [
     component: FileSectionUpdateComponent,
     resolve: {
       sectionResource: SectionsResourceRoutingResolveService,
-      file: FileRoutingResolveService
+      file: FileSectionRoutingResolveService
     },
     canActivate: [AuthGuard],
     data: { 
@@ -109,7 +135,7 @@ const routes: Routes = [
     resolve: {
       //resource: ResourcesRoutingResolveService,
       sectionResource: SectionsResourceRoutingResolveService,
-      file: FileRoutingResolveService
+      file: FileSectionRoutingResolveService
     },
     canActivate: [AuthGuard],
     data: { 

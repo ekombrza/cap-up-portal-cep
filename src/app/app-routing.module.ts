@@ -5,6 +5,8 @@ import { InitialDataResolver } from './app.resolvers';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './models-services/auth/guards/auth.guard';
 import { NoAuthGuard } from './models-services/auth/guards/noAuth.guard';
+import { ResourcesRoutingResolveService } from './modules/admin/apps/ressources/resources/resources-routing-resolve.service';
+import { SectionsResourceRoutingResolveService } from './modules/admin/apps/ressources/resources/section-resource/sections-resource-routing-resolve.service';
 
 const routes: Route[] = [
   // Redirect empty path to '/apps/ressources'
@@ -133,6 +135,15 @@ const routes: Route[] = [
 
     ]
 },
+  {
+    path: ':id/pdf-view-page',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    resolve: {
+        resource: ResourcesRoutingResolveService,
+      },
+    loadChildren: () => import('./modules/admin/apps/ressources/pdf-view-page/pdf-view-page.module').then( m => m.PdfViewPagePageModule)
+  },
   
   
 

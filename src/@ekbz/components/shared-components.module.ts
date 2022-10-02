@@ -23,11 +23,12 @@ import { UpdateComponent } from 'src/app/modules/admin/apps/ressources/resources
 import { FileSectionUpdateComponent } from 'src/app/modules/admin/apps/ressources/resources/section-resource/file-section/file-section-update/file-section-update.component';
 import { LecteurSeriesUpdateComponent } from 'src/app/modules/admin/apps/ressources/resources/section-resource/lecteur-series/lecteur-series-update/lecteur-series-update.component';
 import { AccessDeniedComponent } from 'src/app/modules/admin/apps/ressources/resources/access-denied/access-denied.component';
+import { FileUpdateComponent } from 'src/app/modules/admin/apps/ressources/resources/detail/file-update/file-update.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, DetailComponent, AddComponent, UpdateComponent, FileSectionUpdateComponent, LecteurSeriesUpdateComponent, FileExplorerComponent, AccessDeniedComponent],
+  declarations: [HeaderComponent, DetailComponent, AddComponent, UpdateComponent, FileUpdateComponent, FileSectionUpdateComponent, LecteurSeriesUpdateComponent, FileExplorerComponent, AccessDeniedComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -45,6 +46,6 @@ import { AccessDeniedComponent } from 'src/app/modules/admin/apps/ressources/res
     SwiperModule,
     QuillModule.forRoot(),
   ],
-  exports: [HeaderComponent,DetailComponent, AddComponent, UpdateComponent, FileSectionUpdateComponent, LecteurSeriesUpdateComponent, FileExplorerComponent, AccessDeniedComponent]
+  exports: [HeaderComponent,DetailComponent, AddComponent, UpdateComponent,FileUpdateComponent, FileSectionUpdateComponent, LecteurSeriesUpdateComponent, FileExplorerComponent, AccessDeniedComponent]
 })
 export class SharedComponentsModule { }

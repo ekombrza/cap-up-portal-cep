@@ -50,6 +50,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   numberPanelSelected: number;
   sectionsResource: ISectionResource[] | null = null;
   ressourceStatsLectureVideo: IRessourceStatsLectureVideo | null = null;
+  statsLectureVideoJsonOnDB: any;
   statsLectureVideo: IStatsLectureVideo | null = null;
   files: IFile[] | null = null;
   lecteurVideoSeries: ILecteurSeries[] | null = null;
@@ -105,7 +106,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       if(this.editMode == false) {
         this.resource.nbReadForPopularity =  this.resource.nbReadForPopularity + 1;
         
-        this.resourceService.partialUpdate(this.resource).subscribe(() => {
+        this.resourceService.update(this.resource).subscribe(() => {
           console.log('update nbReadForPopularity to ', this.resource.nbReadForPopularity);
         });
       }
@@ -113,12 +114,23 @@ export class DetailComponent implements OnInit, OnDestroy {
       forkJoin([
         this.membreService.queryCurrentUser().pipe(map(result => result.body)),
         this.applicationService.query({'name.equals':'Resource Management'}).pipe(map(result => result.body[0])),
+        this.ressourceStatsLectureVideoService.query({'idResource.equals': this.resource.id}).pipe(map(result => result.body)),
       ]).subscribe(data => {
         console.log('data', data)
         this.connectedMembre = data[0];
         console.log('Connectedmembre :',this.connectedMembre);
         this.applicationRessource  = data[1];
         console.log('applicationRessource :',this.applicationRessource);
+        this.statsLectureVideoJsonOnDB  = data[2];
+        console.log('statsLectureVideoJsonOnDB :',this.statsLectureVideoJsonOnDB);
+
+        if(this.statsLectureVideoJsonOnDB.length == 1){
+          this.ressourceStatsLectureVideo = this.statsLectureVideoJsonOnDB[0];
+          if(this.ressourceStatsLectureVideo)
+          this.statsLectureVideo = JSON.parse(this.ressourceStatsLectureVideo.statsLectureVideo);
+        }
+        console.log('statsLectureVideo : ', this.statsLectureVideo);
+        
         this.applicationDataService.getApplicatioNDataObs(this.applicationRessource.id,  this.connectedMembre.id, true)
         .pipe(
           takeUntil(this.unsubscribe$)
@@ -189,7 +201,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   onLoadDetailSection(ressource: IResource, sectionResourceId:number, index: number, scrollToSection: boolean) {
     
     forkJoin([
-      this.ressourceStatsLectureVideoService.query({'idResource.equals': this.resource.id}).pipe(map(result => result.body)),
       this.fileService.query({ 'sectionResourceId.equals': sectionResourceId, 'applicationDataId.equals': this.applicationData.id}).pipe(map(result => result.body)),
       this.lecteurSeriesService.query({ 'sectionResourceId.equals': sectionResourceId, 'typeLecteurEnum.equals': 'VIDEO', 'sort': ['order,asc'] }).pipe(map(result => result.body)),
       this.lecteurSeriesService.query({ 'sectionResourceId.equals': sectionResourceId, 'typeLecteurEnum.equals': 'AUDIO', 'sort': ['order,asc'] }).pipe(map(result => result.body)),
@@ -200,18 +211,17 @@ export class DetailComponent implements OnInit, OnDestroy {
         this.currentTimePlayerVideo = 0;
         this.currentTimePlayerAudio = 0;
 
-        const statsLectureVideoOnDB = data[0];
-        if(statsLectureVideoOnDB.length == 1){
-          this.ressourceStatsLectureVideo = statsLectureVideoOnDB[0];
+        if(this.statsLectureVideoJsonOnDB.length == 1){
+          this.ressourceStatsLectureVideo = this.statsLectureVideoJsonOnDB[0];
           if(this.ressourceStatsLectureVideo)
           this.statsLectureVideo = JSON.parse(this.ressourceStatsLectureVideo.statsLectureVideo);
         }
         console.log('statsLectureVideo : ', this.statsLectureVideo);
         
-        this.files = data[1];
+        this.files = data[0];
         console.log('Sections Files : ', this.files);
 
-        this.lecteurVideoSeries = this.applyStatsLecture(data[2],  this.statsLectureVideo, sectionResourceId);
+        this.lecteurVideoSeries = this.applyStatsLecture(data[1],  this.statsLectureVideo, sectionResourceId);
         console.log('Sections Lecteur Video : ', this.lecteurVideoSeries);
         if (this.lecteurVideoSeries && this.lecteurVideoSeries.length > 0) {
           if(!this.currentVideo){
@@ -219,7 +229,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           }
         }
 
-        this.lecteurAudioSeries= this.applyStatsLecture(data[3],  this.statsLectureVideo,sectionResourceId);
+        this.lecteurAudioSeries= this.applyStatsLecture(data[2],  this.statsLectureVideo,sectionResourceId);
         console.log('Sections Lecteur Audio : ', this.lecteurAudioSeries);
         if (this.lecteurAudioSeries && this.lecteurAudioSeries.length > 0) {
           if(!this.currentAudio){
@@ -396,7 +406,10 @@ export class DetailComponent implements OnInit, OnDestroy {
           handler: () => { 
             this.fileService.delete(idFile).subscribe(async() => {
               console.log('Fichier supprimé');
-              this.onLoadDetailSection(this.resource, idSection, this.numberPanelSelected, false);
+              if(idSection){
+                this.onLoadDetailSection(this.resource, idSection, this.numberPanelSelected, false);
+              }
+              
               const toast = await this.toastController.create({
                 message: 'Le fichier a été supprimée.',
                 duration: 2000

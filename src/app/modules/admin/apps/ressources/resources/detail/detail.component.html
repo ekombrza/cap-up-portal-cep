@@ -1,21 +1,24 @@
-<ion-content  [scrollEvents]="true">
-  <div class="header">Les Ressources</div>
+<ion-content [scrollEvents]="true">
+  <!-- <div class="header">Les Ressources</div>-->
   <div class="content-wrapper">
     <ion-breadcrumbs>
       <ion-breadcrumb [routerLink]="['/apps']">Accueil</ion-breadcrumb>
-      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='COURS'" [routerLink]="['/apps/ressources/formations']">Formations</ion-breadcrumb>
-      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='RESSOURCE'" [routerLink]="['/apps/ressources/ressources']">Ressource</ion-breadcrumb>
-      <ion-breadcrumb>{{resource.title}}</ion-breadcrumb>
+      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='COURS'" [routerLink]="['/apps/ressources/formations']">
+        Formations</ion-breadcrumb>
+      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='RESSOURCE'" [routerLink]="['/apps/ressources/ressources']">
+        Ressource</ion-breadcrumb>
+      <ion-breadcrumb class="breadcrumbNoneMobile">{{resource.title}}</ion-breadcrumb>
     </ion-breadcrumbs>
-    
+
     <div class="content">
       <ion-item class="itemAdministration" *ngIf="editMode">
-        <ion-button slot="end" [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'edit'] : ['/apps/ressources/formations', resource.id, 'edit']">
-            <ion-icon slot="icon-only"  name="create-outline"></ion-icon>
-            
+        <ion-button slot="end"
+          [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'edit'] : ['/apps/ressources/formations', resource.id, 'edit']">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+
         </ion-button>
         <ion-button icon-only slot="end" (click)="presentAlertDeleteResource(resource.id)">
-            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-item>
       <div class="infoResource">
@@ -23,7 +26,9 @@
         <div class="descriptionResource">
           <h1 class="header-title">{{resource?.title}}</h1>
           <ion-chip outline *ngFor="let categorie of resource?.categories; let i=index">
-            <a [routerLink]="['/apps/ressources/resources']" [queryParams]="{ searchCategorie: categorie.name}"><ion-label>{{categorie?.name}}</ion-label></a>
+            <a [routerLink]="['/apps/ressources/resources']" [queryParams]="{ searchCategorie: categorie.name}">
+              <ion-label>{{categorie?.name}}</ion-label>
+            </a>
           </ion-chip>
           <div class="description">
             {{resource?.description}}
@@ -31,121 +36,169 @@
           <div class="iconItem">
             <ion-buttons>
               <ion-button size="large" id="popover-button">
-                  <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+                <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
               </ion-button>
               <ion-button size="large" (click)="addRessourceToBookmark(resource)">
-                  <ion-icon slot="icon-only"[ngClass]="isIncludedBookmark(resource) ? 'blue' : 'black'" name="bookmarks-outline"></ion-icon>
+                <ion-icon slot="icon-only" [ngClass]="isIncludedBookmark(resource) ? 'blue' : 'black'"
+                  name="bookmarks-outline"></ion-icon>
               </ion-button>
-          </ion-buttons>
-          <ion-popover size="auto" side="top" trigger="popover-button" [dismissOnSelect]="true" (willPresent)="loadUsersShared()">
-            <ng-template>
+            </ion-buttons>
+            <ion-popover size="auto" side="top" trigger="popover-button" [dismissOnSelect]="true"
+              (willPresent)="loadUsersShared()">
+              <ng-template>
                 <ion-content>
-                    <ion-list-header lines="inset">
-                      <ion-label>Partager avec...</ion-label>
-                    </ion-list-header>
-                    <ng-container *ngIf="!isLoadedMembreForShared">
-                      <ion-list>
-                        <ion-item>
-                          <ion-avatar slot="start">
-                            <ion-skeleton-text animated></ion-skeleton-text>
-                          </ion-avatar>
-                          <ion-label>
-                            <h3>
-                              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                            </h3>
-                            <p>
-                              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-                            </p>
-                            <p>
-                              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                            </p>
-                          </ion-label>
-                        </ion-item>
-                      </ion-list>
-                    </ng-container>
-                    <ion-list *ngIf="isLoadedMembreForShared" class="popoverList">
-                      <ion-item button="true" detail="false" (click)="shareRessource(resource, membre)" *ngFor="let membre of allMembresChurch">
+                  <ion-list-header lines="inset">
+                    <ion-label>Partager avec...</ion-label>
+                  </ion-list-header>
+                  <ng-container *ngIf="!isLoadedMembreForShared">
+                    <ion-list>
+                      <ion-item>
                         <ion-avatar slot="start">
-                          <img src="{{membre.internalUser.imageUrl}}" />
+                          <ion-skeleton-text animated></ion-skeleton-text>
                         </ion-avatar>
-                        <ion-label>{{membre.internalUser.firstName }} {{membre.internalUser.lastName }}</ion-label>
+                        <ion-label>
+                          <h3>
+                            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                          </h3>
+                          <p>
+                            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                          </p>
+                          <p>
+                            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                          </p>
+                        </ion-label>
                       </ion-item>
                     </ion-list>
-                    <ion-list-header lines="inset">
-                      <ion-button href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
-                      {{resource.title}} %0D {{getHref()}}" target="_blank"><ion-icon slot="icon-only" name="mail-open-outline"></ion-icon></ion-button>
-                      <a class="linkSharedMail" href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
-                      {{resource.title}} %0D {{getHref()}}" target="_blank"><ion-label>Partager par mail</ion-label></a>
-                    </ion-list-header>
-              </ion-content>
-            </ng-template>
+                  </ng-container>
+                  <ion-list *ngIf="isLoadedMembreForShared" class="popoverList">
+                    <ion-item button="true" detail="false" (click)="shareRessource(resource, membre)"
+                      *ngFor="let membre of allMembresChurch">
+                      <ion-avatar slot="start">
+                        <img src="{{membre.internalUser.imageUrl}}" />
+                      </ion-avatar>
+                      <ion-label>{{membre.internalUser.firstName }} {{membre.internalUser.lastName }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                  <ion-list-header lines="inset">
+                    <ion-button href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
+                      {{resource.title}} %0D {{getHref()}}" target="_blank">
+                      <ion-icon slot="icon-only" name="mail-open-outline"></ion-icon>
+                    </ion-button>
+                    <a class="linkSharedMail" href="mailto:?Subject={{connectedMembre.internalUser.firstName}} {{connectedMembre.internalUser.lastName}} te partage un lien sur le site de Ressources du CEP Evry!&body=Regarde ce que j'ai trouvé sur le site de ressources du CEP Evry : %0D 
+                      {{resource.title}} %0D {{getHref()}}" target="_blank">
+                      <ion-label>Partager par mail</ion-label>
+                    </a>
+                  </ion-list-header>
+                </ion-content>
+              </ng-template>
             </ion-popover>
+          </div>
         </div>
-        </div>
-
       </div>
-        <ion-list *ngIf="!sectionsResource">
-          <ion-item *ngFor="let fake of [1,2,3]">
-            <ion-label>
-              <h3>
-                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-              </h3>
-              <p>
-                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-              </p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-        <mat-accordion *ngIf="sectionsResource">
-          <ng-container *ngFor="let sectionResource of sectionsResource; let i=index">
-            <div *ngIf="isAuthorizeToShowSection" id="accordionId-{{i}}">
-              <mat-expansion-panel [expanded]="numberPanelSelected === i" (opened)="onLoadDetailSection(resource, sectionResource.id, i, true)" >
-                <mat-expansion-panel-header>
-                  <mat-panel-title id="mat-expansion-panel-header-{{i}}">
-                    {{ sectionResource.title }} 
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ion-item class="itemAdministration" *ngIf="editMode">
-                  <ion-button slot="end" [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'edit'] : ['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'edit']">
-                      <ion-icon slot="icon-only"  name="create-outline"></ion-icon>
-                  </ion-button>
-                  <ion-button icon-only slot="end" (click)="presentAlertDeleteSection(sectionResource)">
-                      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                  </ion-button>
-                </ion-item>
-                <quill-view [content]="sectionResource.contentSection"></quill-view>
-                <div class="subSectionContent" *ngIf="editMode || files?.length > 0">
-                  <div class="separator"></div>
-                  <h3 class="title">Fichiers</h3>
-                  <div class="resource-files">
-                    <div class="resource-file" *ngFor="let file of files; let i=index">
-                      <a target="_blank" class="download-link" href="{{file.filePathName}}"><ion-icon name="document-outline"></ion-icon>{{file.filename}}</a>
-                      <a *ngIf="file.filename=='mp4'" target="_blank" class="play-video-link" [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'playVideo', file.id]:['/apps/ressources/formations', resource.id, 'playVideo', file.id]"><ion-icon name="play-circle-outline"></ion-icon></a>
-                      <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
-                        <ion-button [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'file', file.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'file', file.id, 'edit']">
-                          <ion-icon slot="icon-only"  name="create-outline"></ion-icon>  
-                        </ion-button>
-                        <ion-button icon-only (click)="presentAlertDeleteFile(file.id, sectionResource.id)">
-                            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                        </ion-button>
-                      </ion-item>
-                    </div>
+      <div>
+        <ion-item class="itemAdministration" *ngIf="editMode">
+          <ion-button slot="end" *ngIf="resource.filePdf"
+            [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ? ['/apps/ressources/resources', resource.id, 'file', resource.filePdf.id,  'edit'] : ['/apps/ressources/formations', resource.id, 'file', resource.filePdf.id, 'edit']">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="resource.filePdf" icon-only slot="end" (click)="presentAlertDeleteFile(resource.filePdf.id, null)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <div class="flex justify-center my-5" *ngIf="editMode && !resource.filePdf">
+          <button mat-raised-button color="primary"
+          [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'file', 'new'] : ['/apps/ressources/formations', resource.id, 'file', 'new']"
+          class="btnEditAdd">
+          <ion-icon name="add-outline"></ion-icon>
+          <ion-label>Ajouter un PDF directement à la ressource</ion-label>
+        </button>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <ng-container *ngIf="resource.filePdf && !statsLectureVideo?.pdfLecture">
+          <button [routerLink]="['/', resource.id, 'pdf-view-page']"
+            class="w-full max-w-md mb-10 flex items-center justify-center rounded-md border border-transparent bg-blue-500 px-6 py-3 mx-3 text-base font-medium text-white shadow-sm hover:bg-blue-600">Lire le PDF</button>
+        </ng-container>
+        <ng-container *ngIf="statsLectureVideo?.pdfLecture?.currentPage > 0">
+          <button [routerLink]="['/', resource.id, 'pdf-view-page']"
+            class="w-full max-w-md mb-10 flex items-center justify-center rounded-md border border-transparent bg-blue-500 px-6 py-3 mx-3 text-base font-medium text-white shadow-sm hover:bg-blue-600">Continuer
+            lecture PDF ( {{statsLectureVideo?.pdfLecture?.currentPage}} / {{statsLectureVideo?.pdfLecture?.totalPage}}
+            )</button>
+        </ng-container>
+      </div>
+      <ion-list *ngIf="!sectionsResource">
+        <ion-item *ngFor="let fake of [1,2,3]">
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <mat-accordion *ngIf="sectionsResource">
+        <ng-container *ngFor="let sectionResource of sectionsResource; let i=index">
+          <div *ngIf="isAuthorizeToShowSection" id="accordionId-{{i}}">
+            <mat-expansion-panel [expanded]="numberPanelSelected === i"
+              (opened)="onLoadDetailSection(resource, sectionResource.id, i, true)">
+              <mat-expansion-panel-header>
+                <mat-panel-title id="mat-expansion-panel-header-{{i}}">
+                  {{ sectionResource.title }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ion-item class="itemAdministration" *ngIf="editMode">
+                <ion-button slot="end"
+                  [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'edit'] : ['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'edit']">
+                  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button icon-only slot="end" (click)="presentAlertDeleteSection(sectionResource)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <quill-view [content]="sectionResource.contentSection"></quill-view>
+              <div class="subSectionContent" *ngIf="editMode || files?.length > 0">
+                <div class="separator"></div>
+                <h3 class="title">Fichiers</h3>
+                <div class="resource-files">
+                  <div class="resource-file" *ngFor="let file of files; let i=index">
+                    <a target="_blank" class="download-link" href="{{file.filePathName}}">
+                      <ion-icon name="document-outline"></ion-icon>{{file.filename}}
+                    </a>
+                    <a *ngIf="file.filename=='mp4'" target="_blank" class="play-video-link"
+                      [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'playVideo', file.id]:['/apps/ressources/formations', resource.id, 'playVideo', file.id]">
+                      <ion-icon name="play-circle-outline"></ion-icon>
+                    </a>
+
+                    <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
+                      <ion-button
+                        [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'file', file.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'file', file.id, 'edit']">
+                        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button icon-only (click)="presentAlertDeleteFile(file.id, sectionResource.id)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </ion-item>
                   </div>
-                  <button mat-raised-button color="primary"
-                      *ngIf="editMode"
-                      [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'file', 'new'] : ['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'file', 'new']"
-                      class="btnEditAdd">
-                    <ion-icon name="add-outline"></ion-icon>
-                    <ion-label>Ajouter un fichier</ion-label>
-                  </button>
                 </div>
-                <div class="subSectionContent" *ngIf="editMode || lecteurVideoSeries?.length > 0">
-                  <div class="separator"></div>
-                  <h3 class="title">Vidéos</h3>
-                  <vm-player #player playsinline [currentTime]="currentTimePlayerVideo" (vPlaybackReady)="onPlaybackReady()" (vmPlaybackEnded)="onPlaybackEnded($event, sectionResource, currentVideo.id)" (vmPlay)="onStart($event)">
-                    <vm-video cross-origin="true" poster="{{currentVideo?.imageLink}}">
-                      <source [attr.data-src]="currentVideo?.supportLink" type="video/mp4" />
-                      <!--<track
+                <button mat-raised-button color="primary" *ngIf="editMode"
+                  [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'file', 'new'] : ['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'file', 'new']"
+                  class="btnEditAdd">
+                  <ion-icon name="add-outline"></ion-icon>
+                  <ion-label>Ajouter un fichier</ion-label>
+                </button>
+              </div>
+              <div class="subSectionContent" *ngIf="editMode || lecteurVideoSeries?.length > 0">
+                <div class="separator"></div>
+                <h3 class="title">Vidéos</h3>
+                <vm-player #player playsinline [currentTime]="currentTimePlayerVideo"
+                  (vPlaybackReady)="onPlaybackReady()"
+                  (vmPlaybackEnded)="onPlaybackEnded($event, sectionResource, currentVideo.id)"
+                  (vmPlay)="onStart($event)">
+                  <vm-video cross-origin="true" poster="{{currentVideo?.imageLink}}">
+                    <source [attr.data-src]="currentVideo?.supportLink" type="video/mp4" />
+                    <!--<track
                         default
                         kind="subtitles"
                         src="https://media.vimejs.com/subs/english.vtt"
@@ -158,26 +211,19 @@
                         srclang="es"
                         label="Spanish"
                       /> -->
-                    </vm-video>
-                
-                    <vm-default-ui>
-                      <!-- Custom UI component. -->
-                      <!-- <tap-sides-to-seek></tap-sides-to-seek> -->
-                    </vm-default-ui>
-                  </vm-player>
-                  <div class="mt-8">
-                    <swiper
-                      [slidesPerView]="2.5"
-                      [centeredSlides]="false"
-                      [spaceBetween]="10"
-                      [autoHeight]="true"
-                      [centerInsufficientSlides]="true"
-                      [pagination]="{
+                  </vm-video>
+
+                  <vm-default-ui>
+                    <!-- Custom UI component. -->
+                    <!-- <tap-sides-to-seek></tap-sides-to-seek> -->
+                  </vm-default-ui>
+                </vm-player>
+                <div class="mt-8">
+                  <swiper [slidesPerView]="2.5" [centeredSlides]="false" [spaceBetween]="10" [autoHeight]="true"
+                    [centerInsufficientSlides]="true" [pagination]="{
                         clickable: true,
                         enabled:true
-                      }"
-                      [navigation]="true"
-                      [breakpoints]="{
+                      }" [navigation]="true" [breakpoints]="{
                         '640': {
                           slidesPerView: 2.5,
                           spaceBetween: 20,
@@ -193,63 +239,57 @@
                           spaceBetween: 50,
                           pagination: {enabled: false}
                         }
-                      }"
-                      class="mySwiper"
-                    >
-                      <ng-template swiperSlide *ngFor="let video of lecteurVideoSeries; let i=index">
-                        <a (click)="onSwiperSlideClick(video)">
-                          <div class="imageVideoContainer">
-                            <img src="{{video.imageLink}}">
-                            <ion-icon *ngIf="video.endReaded" name="checkmark-outline"></ion-icon>
-                            <div *ngIf="video.endReaded" class="screen"></div>
-                          </div>
-                          <span class="titleVideo" [ngClass]="video.id == currentVideo.id?'bold':''">{{i+1}}. {{video.titre}}</span>
-                        </a>
-                        <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
-                          <ion-button [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']">
-                            <ion-icon slot="icon-only"  name="create-outline"></ion-icon>  
-                          </ion-button>
-                          <ion-button icon-only (click)="presentAlertDeleteMedia(video.id, sectionResource.id)">
-                              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                          </ion-button>
-                        </ion-item>
-                      </ng-template>
-                      
-                      
-                    </swiper>
-                  </div>
-                  <button mat-raised-button color="primary"
-                      *ngIf="editMode"
-                      [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']"
-                      class="btnEditAdd">
-                    <ion-icon name="add-outline"></ion-icon>
-                    <ion-label>Ajouter une Vidéo</ion-label>
-                  </button>
-                </div>
+                      }" class="mySwiper">
+                    <ng-template swiperSlide *ngFor="let video of lecteurVideoSeries; let i=index">
+                      <a (click)="onSwiperSlideClick(video)">
+                        <div class="imageVideoContainer">
+                          <img src="{{video.imageLink}}">
+                          <ion-icon *ngIf="video.endReaded" name="checkmark-outline"></ion-icon>
+                          <div *ngIf="video.endReaded" class="screen"></div>
+                        </div>
+                        <span class="titleVideo" [ngClass]="video.id == currentVideo.id?'bold':''">{{i+1}}.
+                          {{video.titre}}</span>
+                      </a>
+                      <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
+                        <ion-button
+                          [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', video.id, 'edit']">
+                          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button icon-only (click)="presentAlertDeleteMedia(video.id, sectionResource.id)">
+                          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                        </ion-button>
+                      </ion-item>
+                    </ng-template>
 
-                <div class="subSectionContent" *ngIf="editMode || lecteurAudioSeries?.length > 0">
-                  <div class="separator"></div>
-                  <h3 class="title">Audio</h3>
-                  <vm-player controls [currentTime]="currentTimePlayerAudio"  (vmPlaybackEnded)="onPlaybackEnded($event, sectionResource, currentAudio.id)"  (vmPlay)="onStart($event)">
-                    <vm-audio>
-                      <source [attr.data-src]="currentAudio?.supportLink" type="audio/mp3" />
-                      <!-- <source> and <track> elements are placed here. -->
-                    </vm-audio>
-            
-                  </vm-player>
-                  <div style="height:20px"></div>
-                  <swiper
-                    [slidesPerView]="2.5"
-                    [centeredSlides]="false"
-                    [spaceBetween]="10"
-                    [autoHeight]="true"
-                    [centerInsufficientSlides]="true"
-                    [pagination]="{
+
+                  </swiper>
+                </div>
+                <button mat-raised-button color="primary" *ngIf="editMode"
+                  [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']"
+                  class="btnEditAdd">
+                  <ion-icon name="add-outline"></ion-icon>
+                  <ion-label>Ajouter une Vidéo</ion-label>
+                </button>
+              </div>
+
+              <div class="subSectionContent" *ngIf="editMode || lecteurAudioSeries?.length > 0">
+                <div class="separator"></div>
+                <h3 class="title">Audio</h3>
+                <vm-player controls [currentTime]="currentTimePlayerAudio"
+                  (vmPlaybackEnded)="onPlaybackEnded($event, sectionResource, currentAudio.id)"
+                  (vmPlay)="onStart($event)">
+                  <vm-audio>
+                    <source [attr.data-src]="currentAudio?.supportLink" type="audio/mp3" />
+                    <!-- <source> and <track> elements are placed here. -->
+                  </vm-audio>
+
+                </vm-player>
+                <div style="height:20px"></div>
+                <swiper [slidesPerView]="2.5" [centeredSlides]="false" [spaceBetween]="10" [autoHeight]="true"
+                  [centerInsufficientSlides]="true" [pagination]="{
                       clickable: true,
                       enabled:true
-                    }"
-                    [navigation]="true"
-                    [breakpoints]="{
+                    }" [navigation]="true" [breakpoints]="{
                       '640': {
                         slidesPerView: 2.5,
                         spaceBetween: 20,
@@ -265,62 +305,61 @@
                         spaceBetween: 50,
                         pagination: {enabled: false}
                       }
-                    }"
-                    class="mySwiper"
-                  >
-                    <ng-template swiperSlide *ngFor="let audio of lecteurAudioSeries; let i=index">
-                      <a (click)="onSwiperSlideClick(audio)">
-                        <div class="imageVideoContainer">
-                          <img src="{{audio.imageLink}}">
-                          <ion-icon *ngIf="audio.endReaded" name="checkmark-outline"></ion-icon>
-                          <div *ngIf="audio.endReaded" class="screen"></div>
-                        </div>
-                        <span [ngClass]="audio.id == currentAudio.id?'bold':''">{{i+1}}. {{audio.titre}}</span>
-                      </a>
-                      <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
-                        <ion-button [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', audio.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', audio.id, 'edit']">
-                          <ion-icon slot="icon-only"  name="create-outline"></ion-icon>  
-                        </ion-button>
-                        <ion-button icon-only (click)="presentAlertDeleteMedia(audio.id, sectionResource.id)">
-                            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                        </ion-button>
-                      </ion-item>
-                    </ng-template>
-                  </swiper>
-                  <button mat-raised-button color="primary"
-                      *ngIf="editMode"
-                      [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']"
-                      class="btnEditAdd">
-                    <ion-icon name="add-outline"></ion-icon>
-                    <ion-label>Ajouter un Audio</ion-label>
-                  </button>
-                </div>
-              </mat-expansion-panel>
-            </div>
-            <div *ngIf="!isAuthorizeToShowSection" id="accordionId-{{i}}">
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title id="mat-expansion-panel-header-{{i}}">
-                    {{ sectionResource.title }} 
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="subSectionContent">
-                  Vous n'avez pas les autorisation necessaires pour visualiser cette formation. <a (click)="demandeAutorisation(resource)">Je fais une demande d'accès</a>
-                </div>
-                  
-                
-              </mat-expansion-panel>
-            </div>
-          </ng-container>
-        </mat-accordion>
-        <button mat-raised-button color="primary"
-            *ngIf="editMode"
-            [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', 'new']:['/apps/ressources/formations', resource.id, 'section', 'new']"
-            class="btnEditAdd">
+                    }" class="mySwiper">
+                  <ng-template swiperSlide *ngFor="let audio of lecteurAudioSeries; let i=index">
+                    <a (click)="onSwiperSlideClick(audio)">
+                      <div class="imageVideoContainer">
+                        <img src="{{audio.imageLink}}">
+                        <ion-icon *ngIf="audio.endReaded" name="checkmark-outline"></ion-icon>
+                        <div *ngIf="audio.endReaded" class="screen"></div>
+                      </div>
+                      <span [ngClass]="audio.id == currentAudio.id?'bold':''">{{i+1}}. {{audio.titre}}</span>
+                    </a>
+                    <ion-item class="itemAdministration item-content-center" *ngIf="editMode">
+                      <ion-button
+                        [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', audio.id, 'edit']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', audio.id, 'edit']">
+                        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button icon-only (click)="presentAlertDeleteMedia(audio.id, sectionResource.id)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </ion-item>
+                  </ng-template>
+                </swiper>
+                <button mat-raised-button color="primary" *ngIf="editMode"
+                  [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']:['/apps/ressources/formations', resource.id, 'section', sectionResource.id, 'lecteur-serie', 'new']"
+                  class="btnEditAdd">
+                  <ion-icon name="add-outline"></ion-icon>
+                  <ion-label>Ajouter un Audio</ion-label>
+                </button>
+              </div>
+            </mat-expansion-panel>
+          </div>
+          <div *ngIf="!isAuthorizeToShowSection" id="accordionId-{{i}}">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title id="mat-expansion-panel-header-{{i}}">
+                  {{ sectionResource.title }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="subSectionContent">
+                Vous n'avez pas les autorisation necessaires pour visualiser cette formation. <a
+                  (click)="demandeAutorisation(resource)">Je fais une demande d'accès</a>
+              </div>
+
+
+            </mat-expansion-panel>
+          </div>
+        </ng-container>
+      </mat-accordion>
+      <div class="flex justify-center my-5">
+        <button mat-raised-button color="primary" *ngIf="editMode"
+          [routerLink]="resource.typeResourceEnum == 'RESSOURCE' ?['/apps/ressources/resources', resource.id, 'section', 'new']:['/apps/ressources/formations', resource.id, 'section', 'new']"
+          class="btnEditAdd">
           <ion-icon name="add-outline"></ion-icon>
           <ion-label>Ajouter une section</ion-label>
         </button>
-      
+      </div>
     </div>
   </div>
 </ion-content>

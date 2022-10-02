@@ -5,6 +5,7 @@ import { ICategorie } from '../categorie/categorie.model';
 import { IRole } from '../role/role.model';
 import { IApplicationData } from '../application-data/application-data.model';
 import { TypeResourceEnum } from './type-resource-enum.model';
+import { IFile } from '../file/file.model';
 
 export interface IResource {
   id?: number;
@@ -16,6 +17,7 @@ export interface IResource {
   publish?: boolean;
   creationDate?: dayjs.Dayjs;
   updatedDate?: dayjs.Dayjs | null;
+  filePdf?: IFile | null;
   feedbacks?: IFeedback[] | null;
   sectionResources?: ISectionResource[] | null;
   relatedContent?: IResource | null;
@@ -37,6 +39,7 @@ export class Resource implements IResource {
     public publish?: boolean,
     public creationDate?: dayjs.Dayjs,
     public updatedDate?: dayjs.Dayjs | null,
+    public filePdf?: IFile | null,
     public feedbacks?: IFeedback[] | null,
     public sectionResources?: ISectionResource[] | null,
     public relatedContent?: IResource | null,
