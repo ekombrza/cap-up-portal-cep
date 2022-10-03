@@ -92,6 +92,7 @@ ion-chip {
                     margin-top: 20px;
                     font-size: 1.4em;
                     font-weight: 500;
+                    padding-left: 10px;
                     padding-right: 10px;
                     margin-bottom: 10px;
                 }
@@ -154,6 +155,8 @@ ion-chip {
         display: none;
     }
     .content-wrapper {
+        padding-right: 0px;
+        padding-left: 0px;
         .content {
             .infoResource {
                 display: flex;
