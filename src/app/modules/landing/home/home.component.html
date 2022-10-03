@@ -82,52 +82,120 @@
                 </div>
             </div>
         </div>
+      </div>
+
+      <div class="pb-6 px-6 sm:pb-10 sm:px-10">
         <!-- FAQs -->
-        <div class="mt-24 text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight text-center">Les formations et ressources les plus demandées</div>
+        <div class="mt-14 text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight text-center">Les formations et ressources les plus demandées</div>
         <div class="mt-2 text-xl text-center text-secondary">Voici ci dessous les ressources les plus demandés par catégories</div>
-        <div class="content mt-12" [ngClass]="i%2==0?'pair':'impair'" *ngFor="let categorie of categories; let i=index">
-            <div class="content-wrapper">
-              <div class="categorie-title">
-                <ion-text><h3>{{categorie?.name}} <ion-badge color="primary">{{categorie?.resources?.length}}</ion-badge></h3></ion-text>
-                <a class="browse-all" [routerLink]="['/apps/ressources/ressources']" [queryParams]="{ searchCategorie: categorie?.name}">Voir tout</a>
-              </div>
-              <div class="resource-content-wrapper">
-                <div class="left-resource">
-                  <div class="card">
-                    <a [routerLink]="['/apps/ressources/formations', categorie?.resources[0].id, 'view']"><img class="card-img-top" src="{{categorie?.resources[0].imageLink}}"></a>
-                    
-                    <div class="card-body">
-                      <a [routerLink]="['/apps/ressources/formations', categorie?.resources[0].id, 'view']">
-                        <div class="card-type">
-                          {{categorie?.resources[0].typeResourceEnum}}
-                        <span class="subtitle-divider text-secondary">//</span>
-                        {{categorie?.resources[0].sectionResources?.length}} SECTIONS
-                        </div>
-                        <div class="card-title">{{categorie?.resources[0].title}}</div>
-                        <div class="card-description">{{categorie?.resources[0].description}}</div>
-                      </a>
-                    </div>
-                  
-                  </div>
-                </div>
-                <div class="right-resources">
-                  <ng-container *ngFor="let resource of categorie?.resources; let i=index">
-                    <div class="right-resource" *ngIf="i !==0">
-                      <div class="card">
-                        <a [routerLink]="['/apps/ressources/formations',resource.id, 'view']"><img class="card-img-top" src="{{resource.imageLink}}">
-                        </a><div class="card-body">
-                        <a [routerLink]="['/apps/ressources/formations', resource.id, 'view']">
-                        <div class="card-title">{{resource.title}}</div>
-                        <div class="card-description">{{resource.description}}</div>
-                        </a>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
-              </div>
-        
-            </div>
+       
+        <div class="mt-12" *ngFor="let categorie of categories; let i=index">
+          <div class="flex flex-row items-center justify-between pb-2">
+            <h3 class="text-2xl font-semibold leading-tight">{{categorie?.name}} <ion-badge color="primary">{{categorie?.resources?.length}}</ion-badge></h3>
+            <a class="browse-all" [routerLink]="['/apps/ressources/ressources']" [queryParams]="{ searchCategorie: categorie?.name}">Voir tout</a>
           </div>
+
+          
+       
+            <div class="flex flex-row flex-wrap justify-center items-start w-full max-w-400">
+              <ng-container >
+
+                <swiper
+                  [slidesPerView]="1"
+                  [spaceBetween]="10"
+                  [freeMode]="true"
+                  [pagination]="{
+                    type: 'progressbar'
+                  }"
+                  [navigation]="true"
+                  [breakpoints]="{
+                    '640': {
+                      slidesPerView: 2,
+                      spaceBetween: 20
+                    },
+                    '768': {
+                      slidesPerView: 2,
+                      spaceBetween: 40
+                    },
+                    '1024': {
+                      slidesPerView: 3,
+                      spaceBetween: 50
+                    }
+                    ,
+                    '1600': {
+                      slidesPerView: 4,
+                      spaceBetween: 50
+                    }
+                  }"
+                  class="mySwiper">
+                  <ng-template swiperSlide *ngFor="let resource of categorie?.resources; let i=index">
+                    <!-- Card #3 - Flippable card -->
+                    <fuse-card
+                    class="flex flex-col max-w-80 w-full filter-article filter-interactive m-2"
+                    [flippable]="true"
+                    [face]="'front'"
+                    #flippableCard01="fuseCard">
+                    <ng-container fuseCardFront>
+                        <img
+                            class="object-cover"
+                            src="{{resource.imageLink}}"
+                            alt="Card cover image">
+                        <div class="m-8 mb-4">
+                            <div class="text-sm font-light leading-tight">
+                                {{categorie?.resources[0].typeResourceEnum}}
+                             <!-- <span class="subtitle-divider text-secondary">//</span>
+                              {{resource.sectionResources?.length}} SECTIONS-->
+                            </div>
+                            <div class="text-2xl font-semibold leading-tight">{{resource.title}}</div>
+                            <div class="mt-4 text-justify  min-h-20">{{ (resource.description.length > 120) ? (resource.description | slice:0:120) + '...' : resource.description }}</div>
+                            <div class="flex flex-row items-center justify-between mt-3 -mx-3">
+                                <button
+                                    class="px-3"
+                                    mat-button
+                                    [color]="'primary'"
+                                    (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">
+                                    Lire plus...
+                                </button>
+                                <button
+                                    class="px-3"
+                                    mat-button
+                                    [color]="'primary'"
+                                    (click)="goToFormation(resource.id)">
+                                    Ouvrir
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container fuseCardBack>
+                        <div class="flex flex-col flex-auto m-4">
+                            <button
+                                class="ml-1.5"
+                                mat-icon-button
+                                (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">
+                                <mat-icon [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
+                            </button>
+                            <div class="m-4 mt-3">
+                                <div class="text-2xl font-semibold leading-tight">
+                                  {{resource.title}}
+                                </div>
+                                <div class="mt-4 text-justify">
+                                  {{resource.description}}
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    </fuse-card>
+
+                  </ng-template>
+                </swiper>
+
+
+
+                
+              </ng-container>
+            </div>
+  
+        </div>
+        
     </div>
 </div>
