@@ -31,6 +31,7 @@ export class PdfViewPagePage implements OnInit {
   initPageDone = false;
   ressourceStatsLectureVideo: any;
   statsLectureVideo: StatsLectureVideo;
+  zoom_to = 1;
 
   constructor(
     protected sectionResourceService: SectionResourceService,
@@ -129,6 +130,16 @@ export class PdfViewPagePage implements OnInit {
     }
     this.router.navigate(['/apps/ressources/formations', this.currentResource.id, 'view']);
     //[routerLink]="['/apps/ressources/formations', currentResource.id, 'view']"
+  }
+
+  zoom_in() {
+    this.zoom_to = this.zoom_to + 0.1;
+  }
+
+  zoom_out() {
+    if (this.zoom_to > 0.8) {
+       this.zoom_to = this.zoom_to - 0.1;
+    }
   }
 
   ngOnDestroy() {
