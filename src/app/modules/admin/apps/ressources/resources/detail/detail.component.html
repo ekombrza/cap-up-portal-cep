@@ -2,7 +2,9 @@
   <!-- <div class="header">Les Ressources</div>-->
   <div class="content-wrapper">
     <ion-breadcrumbs>
-      <ion-breadcrumb [routerLink]="['/apps']">Accueil</ion-breadcrumb>
+      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='COURS'" [routerLink]="['/apps/ressources/formations']"><mat-icon>keyboard_arrow_left</mat-icon></ion-breadcrumb>
+      <ion-breadcrumb *ngIf="resource.typeResourceEnum=='RESSOURCE'" [routerLink]=[routerLink]="['/apps/ressources/ressources']"><mat-icon>keyboard_arrow_left</mat-icon></ion-breadcrumb>
+      <ion-breadcrumb [routerLink]="['/public/home']">Accueil</ion-breadcrumb>
       <ion-breadcrumb *ngIf="resource.typeResourceEnum=='COURS'" [routerLink]="['/apps/ressources/formations']">
         Formations</ion-breadcrumb>
       <ion-breadcrumb *ngIf="resource.typeResourceEnum=='RESSOURCE'" [routerLink]="['/apps/ressources/ressources']">
