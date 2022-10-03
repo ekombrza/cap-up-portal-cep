@@ -74,8 +74,14 @@ export class AddComponent implements OnInit {
     window.history.back();
   }
 
-  updateResourceState(id: number): void {
-    this.router.navigate(['/apps/ressources/resources', id, 'view','edit']);
+  updateResourceState(ressource: Resource): void {
+    if(ressource.typeResourceEnum === TypeResourceEnum.RESSOURCE){
+      this.router.navigate(['/apps/ressources/ressources', ressource.id, 'view','edit']);
+    }
+
+    if(ressource.typeResourceEnum === TypeResourceEnum.COURS){
+      this.router.navigate(['/apps/ressources/formations', ressource.id, 'view','edit']);
+    }
   }
 
   save(): void {
@@ -130,7 +136,7 @@ export class AddComponent implements OnInit {
   }
 
   protected onSaveSuccess(resource : HttpResponse<IResource>): void {
-    this.updateResourceState(resource.body.id);
+    this.updateResourceState(resource.body);
   }
 
   protected onSaveError(): void {
